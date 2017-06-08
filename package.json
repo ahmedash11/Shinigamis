@@ -1,0 +1,31 @@
+{
+  "name": "shinigamis",
+  "version": "1.0.0",
+  "description": "MEAN Stack application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cookie-parser": "^1.4.3",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/El-Etreby/Shinigamis.git"
+  },
+  "author": "El-Etreby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/El-Etreby/Shinigamis/issues"
+  },
+  "homepage": "https://github.com/El-Etreby/Shinigamis#readme"
+}
