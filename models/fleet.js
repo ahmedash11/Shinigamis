@@ -32,7 +32,6 @@ var Schema = mongoose.Schema;
 
 // define the schema for our user model
 var fleetSchema = mongoose.Schema({
-  // Vessel main Particulars
   name:  {
     type: String,
     unique: true,
@@ -40,27 +39,15 @@ var fleetSchema = mongoose.Schema({
   type: String,
   design: String,
   class: String,
-
-  // Prinicipal dimensions
   built: String,
   tonnage: String,
   draft: String,
-
-  // Power
   horsepower: String,
-
-  // Cargo Deck
   deckSpace: String,
   deckStrength: String,
   deckDimensions: String,
-
-  // Deck Crane
   crane: String,
-
-  // Accomandation
   accomandation: String,
-
-  //Extra Features
   flag: String,
   bollardPull: String,
   fireFighting: String,
