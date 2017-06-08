@@ -31,7 +31,7 @@ var Schema = mongoose.Schema;
 
 
 // define the schema for our user model
-var fleetSchema = mongoose.Schema({
+var fleetSchema = new Schema({
   name:  {
     type: String,
     unique: true,
@@ -51,6 +51,7 @@ var fleetSchema = mongoose.Schema({
   flag: String,
   bollardPull: String,
   fireFighting: String,
+  images: [String]
 });
 
 

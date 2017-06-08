@@ -62,7 +62,7 @@ app.set('view engine', 'ejs')
 
 
 // Routes
-var visitorRoutes = require("./routes/visitorRoutes")
+//var visitorRoutes = require("./routes/visitorRoutes")
 
 //app.use('/', visitorRoutes)
 

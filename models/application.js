@@ -1,0 +1,37 @@
+/**
+* @mixin Application
+* @property {String} firstName  Applicant first name
+* @property {String} lastName  Applicant last name
+* @property {String} position Position applied for
+* @property {Number} phone  Applicant phone number
+* @property {String} email  Applicant email
+* @property {String} address  Applicant address
+* @property {String} country  Applicant country
+* @property {Date} birthdate  Applicant birthdate
+* @property {String} experience  Applicant experience
+* @property {String} cv  Applicant CV
+* @property {String} location  Location
+*/
+
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+
+var applicationSchema = new Schema({
+  firstName: String,
+  lastName: String,
+  position: String,
+  phone: Number,
+  email: String,
+  address: String,
+  country: String,
+  birthdate: Date,
+  experience: String,
+  cv: String,
+  location: String
+})
+
+
+// create the model for users and expose it to our app
+module.exports = mongoose.model('Application', applicationSchema);
