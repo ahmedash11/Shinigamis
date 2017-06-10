@@ -6,6 +6,16 @@ var passport = require('passport')
 var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser')
 var config = require('./config/database')
+var fs = require('fs')
+var https = require('https')
+
+
+
+
+//--------------------------
+
+
+
 
 var app = express()
 
@@ -66,7 +76,9 @@ app.set('view engine', 'ejs')
 
 //app.use('/', visitorRoutes)
 
+
 // 404 for any other route
+
 app.use(function(req, res, next) {
     if(!res.headersSent){
         res.status(404).json({
@@ -80,6 +92,23 @@ app.use(function(req, res, next) {
 
 
 // Starting the server
+/*
 app.listen(port, () => {
   console.log('Server started on port ' + port)
 })
+*/
+
+const httpsOptions = {
+	cert: fs.readFileSync(path.join(__dirname, 'config/ssl', 'server.crt')),
+	key: fs.readFileSync(path.join(__dirname, 'config/ssl', 'server.key'))
+} 
+
+https.createServer(httpsOptions, app).listen(port, function(){
+	console.log('Server started on port ' + port)
+})
+
+
+//--------------------------
+
+
+
