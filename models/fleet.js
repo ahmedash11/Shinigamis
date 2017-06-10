@@ -23,6 +23,9 @@
 * @property {String} flag Flag
 * @property {String} bollardPull Bollard pull
 * @property {String} fireFighting Fire fighting
+* @property {String} mooringSystem Mooring system
+* @property {String} helideck Helideck
+* @property {[String]} images Images
 */
 
 
@@ -51,7 +54,10 @@ var fleetSchema = new Schema({
   flag: String,
   bollardPull: String,
   fireFighting: String,
+  mooringSystem: String,
+  helideck: String,
   images: [String]
+
 });
 
 

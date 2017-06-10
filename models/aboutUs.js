@@ -1,9 +1,13 @@
 /**
 * @mixin AboutUs
 * @property {String} companyName Company name
-* @property {String} phone Company phone numbers
-* @property {String} mobile Company mobile numbers
-* @property {String} fax Company fax numbers
+* @property {[String]} phone Company phone numbers
+* @property {[String]} mobile Company mobile numbers
+* @property {[String]} fax Company fax numbers
+* @property {String} email Company email
+* @property {String} website Company website
+* @property {String} ourPersonnel Personnel
+* @property {String} chairmanMessage Chariman Message
 */
 
 
@@ -20,9 +24,9 @@ var aboutUsSchema = mongoose.Schema({
   phone: [String],
   mobile: [String],
   fax: [String],
-  services: [String],
-  riskAssessment: [String],
-  policies: [String],
+  //services: String,
+  //riskAssessment: String,
+  //policies: String,
   email: String,
   website: String,
   ourPersonnel: String,

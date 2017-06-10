@@ -10,7 +10,6 @@
 * @property {Date} birthdate  Applicant birthdate
 * @property {String} experience  Applicant experience
 * @property {String} cv  Applicant CV
-* @property {String} location  Location
 */
 
 
@@ -29,7 +28,7 @@ var applicationSchema = new Schema({
   birthdate: Date,
   experience: String,
   cv: String,
-  location: String
+
 })
 
 
