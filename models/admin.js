@@ -30,19 +30,35 @@ var adminchema = new Schema({
   isSuper: Boolean,
 });
 
-// methods ======================
-
-// generating a hash
-userSchema.methods.generateHash = function (password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-
-
-// checking if password is valid
-userSchema.methods.validPassword = function (password) {
-  return bcrypt.compareSync(password, this.local.password);
-};
-
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('Admin', adminSchema);
+var Admin = module.exports = mongoose.model('Admin', adminSchema);
+
+
+module.exports.getAdminByEmail = function (email, callback) {
+  var query = {
+    email: email
+  }
+  Admin.findOne(query, callback)
+}
+
+module.exports.getAdminById = function (id, callback) {
+  Admin.findById(id, callback)
+}
+
+module.exports.addAdmin = function (newAdmin, callback) {
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newAdmin.password, salt, (err, hash) => {
+      if (err) throw err
+      newAdmin.password = hash
+      newAdmin.save(callback)
+    })
+  })
+}
+
+module.exports.comparePassword = function (candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+    if (err) throw err
+    callback(null, isMatch)
+  })
+}
