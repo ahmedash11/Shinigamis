@@ -182,4 +182,3 @@ var fleetController = {
 
 };
 module.exports = fleetController;
-xports = fleetController;;
