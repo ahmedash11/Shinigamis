@@ -1,92 +1,185 @@
-const Fleet = require('../models/fleet');
-const jwt = require('../auth/jwt');
+var Fleet = require('../models/fleet');
+var jwt = require('../auth/jwt');
 
 
-const fleetController = {
+var fleetController = {
 
-    // adding to fleet options of the system
-    addFleet(req, res) {
+  /**
+   * Adding a new fleet
+   * @param {Request} req
+   * @param {Response} res
+   */
 
+  addFleet(req, res) {
 
-        const token = req.headers['jwt-token'];
+    /*
+        var token = req.headers['jwt-token'];
         jwt.verify(token, (decoded) => {
-            if (decoded.type === 1) {
-               
+          if (decoded.type === 1) {
 
-                // creating a new historyProjects instance and saving it
-                const newFleet = new Fleet({
-                    name: req.body.name
-                    type: req.body.type,
-                    design: req.body.design,
-                    class: req.body.class,
-                    built: req.body.built,
-                    tonnage: req.body.tonnage,
-                    draft: req.body.draft,
-                    horsepower: req.body.horsepower,
-                    deckSpace: req.body.deckSpace,
-                    deckStrength: req.body.deckStrength,
-                    deckDimensions: req.body.deckDimensions,
-                    crane: req.body.crane,
-                    accomadation: req.body.accomadation,
-                    flag: req.body.flag,
-                    bollardPull: req.body.bollardPull,
-                    fireFighting: req.body.fireFighting,
-                    mooringSystem: req.body.mooringSystem,
-                    helideck: req.body.helideck,
-                    images: req.body.images
-                });
-                newFleet.save();
-                res.status(200).json({
-                    status: 'success',
-                    data: {
-                        newFleet
-                    },
-                });
-            } else {
-                res.status(500).json({
-                    err: 'unauthorized access',
-                });
-            }
+
+          } else {
+            res.status(500).json({
+              success: false,
+              message: 'Unauthorized access',
+            })
+          }
         });
+        */
 
-    },
+    req.checkBody('name', 'Name is required').notEmpty()
+    req.checkBody('name', 'Name is already taken').isNameAvailable()
 
-    //Delete fleet
+    req.asyncValidationErrors().then(() => {
+      var newFleet = new Fleet({
+        name: req.body.name,
+        type: req.body.type,
+        design: req.body.design,
+        class: req.body.class,
+        built: req.body.built,
+        tonnage: req.body.tonnage,
+        draft: req.body.draft,
+        horsepower: req.body.horsepower,
+        deckSpace: req.body.deckSpace,
+        deckStrength: req.body.deckStrength,
+        deckDimensions: req.body.deckDimensions,
+        crane: req.body.crane,
+        accomadation: req.body.accomadation,
+        flag: req.body.flag,
+        bollardPull: req.body.bollardPull,
+        fireFighting: req.body.fireFighting,
+        mooringSystem: req.body.mooringSystem,
+        helideck: req.body.helideck,
+        images: req.body.images
+      });
 
-    deleteFleet(req, res) {
+      newFleet.save((err, fleet) => {
+        if (err) {
+          res.status(500).json({
+            success: false,
+            msg: err.message
+          });
+        }
 
-        Fleet.remove({ _id: req.body.id }
+        if (!fleet) {
+          res.status(500).json({
+            success: false,
+            msg: 'Failed to add fleet'
+          });
+        } else {
+          res.status(200).json({
+            success: true,
+            data: {
+              fleet,
+            },
+          });
+        }
+      });
+    }).catch((errors) => {
+      res.status(500).json({
+        success: false,
+        msg: errors
+      })
+    })
 
-            function(err) {
-                if (!err) {
-                    message.type = 'notification!';
-                } else {
-                    message.type = 'error';
-                }
-            });
+  },
 
-    },
+  /**
+   * Delete fleet
+   * @param {Request} req
+   * @param {Response} res
+   */
 
-    findAllFleets(req, res) { // viewing all fleets
+  deleteFleet(req, res) {
 
-        Fleet.find((err, fleets) => {
-            if (err) { // if error occurred
-                res.status(500).json({
-                    status: 'error',
-                    message: err.message,
-                });
-            } else {
-                ////console.log(historyProjects);
-                res.status(200).json({
-                    status: 'success',
-                    data: {
-                        fleets,
-                    },
-                });
-            }
+    Fleet.deleteFleet(req.body.id, (err) => {
+      if (err) {
+        res.status(500).json({
+          success: false,
+          msg: err.message
         });
+      } else {
+        res.status(200).json({
+          success: true,
+          msg: 'Fleet successfully deleted'
+        });
+      }
+    })
+
+  },
+
+  /**
+   * View all fleets
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  viewAllFleets(req, res) {
+
+    Fleet.find((err, fleets) => {
+      if (err) { // if error occurred
+        res.status(500).json({
+          success: false,
+          msg: err.message,
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          data: {
+            fleets,
+          },
+        });
+      }
+    });
+  },
+
+  /**
+   * Update fleet
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  updateFleet(req, res) {
+
+    let updatedFleet = {
+      name: req.body.name,
+      type: req.body.type,
+      design: req.body.design,
+      class: req.body.class,
+      built: req.body.built,
+      tonnage: req.body.tonnage,
+      draft: req.body.draft,
+      horsepower: req.body.horsepower,
+      deckSpace: req.body.deckSpace,
+      deckStrength: req.body.deckStrength,
+      deckDimensions: req.body.deckDimensions,
+      crane: req.body.crane,
+      accomadation: req.body.accomadation,
+      flag: req.body.flag,
+      bollardPull: req.body.bollardPull,
+      fireFighting: req.body.fireFighting,
+      mooringSystem: req.body.mooringSystem,
+      helideck: req.body.helideck,
+      images: req.body.images
     }
 
+    Fleet.updateFleet(req.body.id, updatedFleet, (err, newFleet) => {
+      if (err) {
+        res.status(500).json({
+          success: false,
+          msg: err.message,
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          data: {
+            newFleet,
+          },
+        });
+      }
+    })
+  }
 
 };
 module.exports = fleetController;
+xports = fleetController;;

@@ -8,11 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "*",
     "body-parser": "*",
     "cookie-parser": "^1.4.3",
     "cors": "*",
     "express": "*",
+    "express-validator": "^3.2.0",
     "jsonwebtoken": "*",
     "mongoose": "*",
     "passport": "*",

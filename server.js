@@ -5,9 +5,15 @@ var cors = require('cors')
 var passport = require('passport')
 var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser')
+var expressValidator = require('express-validator')
 var config = require('./config/database')
 
 var app = express()
+
+
+// Models
+var Fleet = require('./models/fleet')
+
 
 // Port number
 var port = (process.env.PORT || 3000)
@@ -46,14 +52,33 @@ app.use(passport.initialize())
 //app.use(passport.session())
 //require('./config/passport')(passport)
 
+// Express Validator Middleware
+app.use(expressValidator({
+  customValidators: {
+    isNameAvailable(name) {
+      return new Promise((resolve, reject) => {
+        Fleet.findOne({
+          name: name
+        }, (err, fleet) => {
+          if (err) throw err;
+          if (fleet == null) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      });
+    }
+  }
+}));
 
 // ALLOWING FRONT END TO COMMUNICATE
 app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Headers", "Authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-    next();
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  next();
 });
 
 
@@ -62,20 +87,20 @@ app.set('view engine', 'ejs')
 
 
 // Routes
-//var visitorRoutes = require("./routes/visitorRoutes")
+var adminRoutes = require('./routes/adminRoutes')
 
-//app.use('/', visitorRoutes)
+app.use('/admin', adminRoutes)
 
 // 404 for any other route
 app.use(function(req, res, next) {
-    if(!res.headersSent){
-        res.status(404).json({
-            status:'failed',
-            message: 'The requested route was not found.'
-        });
-    }
+  if (!res.headersSent) {
+    res.status(404).json({
+      status: 'failed',
+      message: 'The requested route was not found.'
+    });
+  }
 
-    next();
+  next();
 });
 
 
