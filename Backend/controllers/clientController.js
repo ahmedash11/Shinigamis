@@ -11,7 +11,7 @@ const clientController = {
                 // creating a new historyProjects instance and saving it
                 const newClient = new Client({
                     name: req.body.name,
-                    description:req.body.description,
+                    description: req.body.description,
                     image: req.body.image
                 });
                 newClient.save();
@@ -61,6 +61,40 @@ const clientController = {
                 });
             }
         });
+    },
+    findProjects(req, res) { //viewing Projects related to this client
+        const query = {
+            _id: req.params.id, // Recently Changed to Params
+        };
+        var array = [];
+
+        client.findOne(query, (err, client) => {
+            historyProject.find((err, historyProject) => {
+                for (var i = 0, i < historyProject.length; i++) {
+                    if (historyProject[i].clientName === client.name) {
+                        array.push(historyProject[i]);
+                    }
+                }
+
+                if (err) {
+                    res.status(500).json({
+                        status: 'error',
+                        message: err.message,
+                    });
+                } else {
+                    res.status(200).json({
+                        status: 'success',
+                        data: {
+                            array,
+                            client
+                        },
+                    });
+                }
+
+            });
+
+        });
+
     }
 };
 module.exports = clientController;
