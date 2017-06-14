@@ -32,16 +32,16 @@
 <div id="myNav" class="overlay">
 
   <!-- Button to close the overlay navigation -->
-  <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+  <a href="javascript:void(0)" class="closebtn" @click="closeNav()" >&times;</a>
 
   <!-- Overlay content -->
   <div class="overlay-content">
   <div class="container">
     <form class="form-group">
-    <label>Email</label>
-      <input class="test" type="email" name="email" v-model="email">
-      <label>Password</label>
-       <input type="password" name="password" v-model="password">
+    <label class="test">Email</label>
+      <input  type="email" name="email" placeholder="Enter Your Email.." v-model="email">
+      <label class="test">Password</label>
+       <input type="password" name="password" placeholder="Enter Your Password.." v-model="password">
 
     </form>
     <div>
@@ -93,7 +93,9 @@
           this.$http.post('http://localhost:3000/user/login',{email:this.email,password:this.password}).then(data=>{
             localStorage.setItem('id_token', data.body.data.token);
             this.authenticated=true;
-            this.closeNav()
+            this.email='';
+            this.password='';
+            this.closeNav();
           })
       },
         // To log out, we just need to remove the token
@@ -107,6 +109,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.closebtn:hover {
+  color: white;
+}
+.test{
+font-family: Helvetica, sans-serif;
+}
 
 /* The Overlay (background) */
 .overlay {
@@ -130,7 +138,7 @@
     width: 65%; /* 100% width */
     text-align: center; /* Centered text/links */
     margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
-    padding-left: 100px;
+    padding-left: 120px;
 }
 
 /* The navigation links inside the overlay */
@@ -156,8 +164,6 @@
     font-size: 60px;
 
 }
-
-
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
