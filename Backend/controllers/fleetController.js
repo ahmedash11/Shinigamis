@@ -141,7 +141,7 @@ var fleetController = {
 
     updateFleet(req, res) {
 
-        let updatedFleet = {
+        const updatedFleet = {
             name: req.body.name,
             type: req.body.type,
             design: req.body.design,

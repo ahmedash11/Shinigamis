@@ -17,8 +17,10 @@
     "express-validator": "^3.2.0",
     "jsonwebtoken": "*",
     "mongoose": "*",
+    "nodemailer": "^4.0.1",
     "passport": "*",
-    "passport-jwt": "*"
+    "passport-jwt": "*",
+    "password-generator": "^2.1.0"
   },
   "repository": {
     "type": "git",

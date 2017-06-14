@@ -87,9 +87,11 @@ app.set('view engine', 'ejs')
 
 
 // Routes
-var adminRoutes = require('./routes/adminRoutes')
+var adminRoutes = require('./routes/adminRoutes');
+var userRoutes = require('./routes/userRoutes');
+app.use('/admin', adminRoutes);
+app.use('/user',userRoutes);
 
-app.use('/admin', adminRoutes)
 
 // 404 for any other route
 app.use(function(req, res, next) {
