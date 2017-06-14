@@ -33,7 +33,10 @@
               });
             } else {
               res.json({
+                status:'success',
+                data:{
                 token
+              }
               });
             }
           });
