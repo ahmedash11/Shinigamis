@@ -14,7 +14,7 @@ var aboutUsController = {
 
     viewInfo(req, res) {
 
-        AboutUs.find((err, info) => {
+        AboutUs.findOne((err, info) => {
             if (err) { // if error occurred
                 res.status(500).json({
                     success: false,
@@ -43,12 +43,12 @@ var aboutUsController = {
             phone: req.body.phone,
             mobile: req.body.mobile,
             fax: req.body.fax,
-
+            address:req.body.address
             email: req.body.email,
             website: req.body.website
         }
 
-        AboutUs.updateInfo(req.body.id, updatedInfo, (err, newFleet) => {
+        AboutUs.updateInfo(req.body.id, updatedInfo, (err, newInfo) => {
             if (err) {
                 res.status(500).json({
                     success: false,
@@ -58,7 +58,7 @@ var aboutUsController = {
                 res.status(200).json({
                     success: true,
                     data: {
-                        newFleet,
+                        newInfo,
                     },
                 });
             }
@@ -69,7 +69,7 @@ var aboutUsController = {
 
         let updatedInfo = req.body.personnel
 
-        AboutUs.updatePersonnel(req.body.id, updatedInfo, (err, newFleet) => {
+        AboutUs.updatePersonnel(req.body.id, updatedInfo, (err, newPersonnel) => {
             if (err) {
                 res.status(500).json({
                     success: false,
@@ -79,7 +79,7 @@ var aboutUsController = {
                 res.status(200).json({
                     success: true,
                     data: {
-                        newFleet,
+                        newPersonnel,
                     },
                 });
             }

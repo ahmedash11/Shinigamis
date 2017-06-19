@@ -27,6 +27,7 @@ var aboutUsSchema = mongoose.Schema({
     //services: String,
     //riskAssessment: String,
     //policies: String,
+    address:String,
     email: String,
     website: String,
     ourPersonnel: String,
@@ -37,7 +38,7 @@ module.exports.updateInfo = function(id, info, callback) {
         AboutUs.findOneAndUpdate({
             _id: id
         }, {
-            $set: { phone: info.phone, mobile: info.mobile, fax: info.fax, email: info.email, website: info.website }
+            $set: { phone: info.phone, mobile: info.mobile, fax: info.fax, email: info.email,address:info.address website: info.website }
         }, {
             new: true,
             upsert: false

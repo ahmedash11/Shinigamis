@@ -7,6 +7,31 @@ var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser')
 var expressValidator = require('express-validator')
 var config = require('./config/database')
+var multer = require('multer');
+var app = express();
+var mime = require('mime');
+var crypto = require('crypto');
+//var current;
+var image;
+
+var storage = multer.diskStorage({
+
+  destination : function(req,file,cb){
+    cb(null,'./public/uploads/')
+  },
+  filename: function(req,file,cb){
+    crypto.pseudoRandomBytes(16,function(err,raw){
+      cb(null,raw.toString('hex') + Date.now() +'.'+mime.extension(file.mimetype));
+    })
+  }
+
+
+}) 
+// var upload = multer({dest:'./public/uploads' , rename:function(fieldname ,filename){
+//  return filename.replace(/\w+/g,'-').toLowerCase() +Date.now()
+// }});
+var upload = multer({storage:storage});
+
 
 var app = express()
 
@@ -72,7 +97,7 @@ app.use(expressValidator({
   }
 }));
 
-// ALLOWING FRONT END TO COMMUNICATE
+// ALLOWING FRONT END TO COMMUNICATEs
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -87,11 +112,9 @@ app.set('view engine', 'ejs')
 
 
 // Routes
-var adminRoutes = require('./routes/adminRoutes');
-var userRoutes = require('./routes/userRoutes');
-app.use('/admin', adminRoutes);
-app.use('/user',userRoutes);
+var adminRoutes = require('./routes/adminRoutes')
 
+app.use('/admin', adminRoutes)
 
 // 404 for any other route
 app.use(function(req, res, next) {

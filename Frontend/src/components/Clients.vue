@@ -18,7 +18,7 @@
     methods:{
       //open overlay
       
-      // Send a request to the login URL and save the returned JWT
+      
       getClients:function(){
           this.$http.get('http://localhost:3000/getClients').then(data=>{
          this.Clients = response.data.data.clients

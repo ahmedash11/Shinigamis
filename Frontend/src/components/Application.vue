@@ -6,42 +6,42 @@
               
               <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                  <form class="form-horizontal">
+                  <form role="form" class="form-horizontal" v-on:submit.prevent="sendApplication()">
                     <div class="form-group">
                       <label for="exampleInputName2">First Name</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="First Name">
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="First Name" v-model="firstName">
                     </div>
                      <div class="form-group">
                       <label for="exampleInputName2">Last Name</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Last Name">
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Last Name" v-model="lastName">
                     </div>
                      <div class="form-group">
                       <label for="exampleInputName2">Position</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Position">
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Position" v-model="position">
                     </div>
                      <div class="form-group">
-                      <label for="exampleInputName2">Email</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Email">
+                      <label for="exampleInputName2">Email</label> 
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Email" v-model="email">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail2">Address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address">
+                      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address" v-model="address">
                     </div>
                      <div class="form-group">
                       <label for="exampleInputName2">Country</label>
-                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Country">
+                      <input type="text" class="form-control" id="exampleInputName2" placeholder="Country" v-model="country">
                     </div>
                      <div class="form-group">
                       <label for="exampleInputName2">Birthdate</label>
-                      <input type="date" class="form-control" id="exampleInputName2">
+                      <input type="date" class="form-control" id="exampleInputName2" v-model="birthdate">
                     </div>
                     <div class="form-group ">
                       <label for="exampleInputText">Experience</label>
-                     <textarea  class="form-control" placeholder="Description"></textarea> 
+                     <textarea  class="form-control" placeholder="Experience" v-model="experience"></textarea> 
                     </div>
                     <div class="form-group ">
                       <label for="exampleInputText">CV</label>
-                     <input type="file" accept="application/pdf"  class="form-control" placeholder="CV">
+                     <input type="file" accept="application/pdf"  class="form-control" placeholder="CV" v-model="cv">
                     </div>
                     <button type="submit" class="btn btn-default">Send Message</button>
                   </form>
@@ -74,8 +74,7 @@
       
       // Send a request to the login URL and save the returned JWT
       sendApplication:function(){
-          this.$http.post('http://localhost:3000/sendApplication').then(data=>{
-         this.Fleet = response.data.data.fleet
+          this.$http.post('http://localhost:3000/sendApplication'{"firstName":this.firstName,"lastName":this.lastName, "position":this.position, "phone":this.phone, "email":this.email, "address":this.address, "country":this.country, "birthdate":this.birthdate, "experience":this.experience, "cv":this.cv},{headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(data => {
           })
       }
     }
