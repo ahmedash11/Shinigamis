@@ -7,10 +7,14 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  router,
+  el: '#app',
+  router: router,
   template: `
   <div id="app">
   <router-view></router-view>
   </div>
-  `
+  `,
+  data: {
+    showModal: false
+  }
 }).$mount('#app')

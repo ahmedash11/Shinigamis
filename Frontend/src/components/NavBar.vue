@@ -1,43 +1,71 @@
 <template>
-  <div class="navBar">
-    <!-- Header -->
-      <header id="header">
-        <h1 id="logo"><a href="#">Rashied Maritime</a></h1>
-        <nav id="nav">
+<div class="navBar">
+  <!-- Header -->
+  <header id="header">
+    <h1 id="logo"><a href="#">Rashied Maritime</a></h1>
+    <nav id="nav">
+      <ul>
+        <li>
+          <router-link to="/">Home</router-link>
+        </li>
+        <li>
+          <router-link to="/">About Us</router-link>
+        </li>
+        <li>
+          <a href="#">Services & Fleets</a>
           <ul>
-            <li><a href="index.html">Home</a></li>
             <li>
-              <a href="#">Layouts</a>
-              <ul>
-                <li><a href="left-sidebar.html">Left Sidebar</a></li>
-                <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                <li><a href="no-sidebar.html">No Sidebar</a></li>
-                <li>
-                  <a href="#">Submenu</a>
-                  <ul>
-                    <li><a href="#">Option 1</a></li>
-                    <li><a href="#">Option 2</a></li>
-                    <li><a href="#">Option 3</a></li>
-                    <li><a href="#">Option 4</a></li>
-                  </ul>
-                </li>
-              </ul>
+              <router-link to="/">Services</router-link>
             </li>
-            <li><a href="elements.html">Elements</a></li>
-            <li><a href="#" class="button special">Sign Up</a></li>
+            <li>
+              <router-link to="/">Fleets</router-link>
+            </li>
           </ul>
-        </nav>
-      </header>
-    </div>
+        </li>
+        <li>
+          <router-link to="/clients">Clients</router-link>
+        </li>
+        <li>
+          <router-link to="/awards">Media & Awards</router-link>
+        </li>
+        <li v-if="user.authenticated">
+          <a href="#" class="button special" @click="logout">Logout</a>
+
+        </li>
+        <li v-else>
+          <LoginModal :show.sync="showLoginModal">
+          </LoginModal>
+          <a href="#" id="show-login-modal" class="button special" @click="showLoginModal = true">Login</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</div>
 </template>
 
 <script>
-  export default {
-    name: 'navBar',
-    data() {
-      return {}
+import auth from '../auth'
+import LoginModal from './loginModal'
+export default {
+  name: 'navBar',
+  data() {
+    return {
+      showLoginModal: false,
+      user: auth.user
     }
+  },
+  methods: {
+    logout: function() {
+      auth.logout()
+    }
+  },
+  components: {
+    LoginModal,
+  },
+  created: function() {
+    auth.checkAuth()
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,32 +1,32 @@
 <template>
-  <div class="homePage">
-    <NavBar></NavBar>
-    <Banner></Banner>
-    <AboutUs></AboutUs>
-    <ContactUs></ContactUs>
-    <Footer></Footer>
-    </div>
+<div class="homePage">
+  <NavBar></NavBar>
+  <Banner></Banner>
+  <AboutUs></AboutUs>
+  <ContactUs></ContactUs>
+  <Footer></Footer>
+</div>
 </template>
 
 <script>
-  import NavBar from './NavBar'
-  import Banner from './Banner'
-  import Footer from './Footer'
-  import AboutUs from './AboutUs'
-  import ContactUs from './ContactUs'
-  export default {
-    name: 'homePage',
-    data() {
-      return {}
-    },
-    components: {
-      NavBar,
-      Banner,
-      Footer,
-      AboutUs,
-      ContactUs
-    }
+import NavBar from './navBar'
+import Banner from './banner'
+import Footer from './footer'
+import AboutUs from './aboutUs'
+import ContactUs from './contactUs'
+export default {
+  name: 'homePage',
+  data() {
+    return {}
+  },
+  components: {
+    NavBar,
+    Banner,
+    Footer,
+    AboutUs,
+    ContactUs
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
