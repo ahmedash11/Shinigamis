@@ -28,7 +28,7 @@ var fleetController = {
         */
 
     req.checkBody('name', 'Name is required').notEmpty()
-    req.checkBody('name', 'Name is already taken').isNameAvailable()
+    req.checkBody('name', 'Name is already taken').isFleetNameAvailable()
 
     req.asyncValidationErrors().then(() => {
       var newFleet = new Fleet({
@@ -114,7 +114,7 @@ var fleetController = {
    * @param {Response} res
    */
 
-  viewAllFleets(req, res) {
+  getAllFleets(req, res) {
 
     Fleet.find((err, fleets) => {
       if (err) { // if error occurred

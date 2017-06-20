@@ -13,6 +13,7 @@ var app = express()
 
 // Models
 var Fleet = require('./models/fleet')
+var Client = require('./models/client')
 
 
 // Port number
@@ -55,13 +56,27 @@ app.use(passport.initialize())
 // Express Validator Middleware
 app.use(expressValidator({
   customValidators: {
-    isNameAvailable(name) {
+    isFleetNameAvailable(name) {
       return new Promise((resolve, reject) => {
         Fleet.findOne({
           name: name
         }, (err, fleet) => {
           if (err) throw err;
           if (fleet == null) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      });
+    },
+    isClientNameAvailable(name) {
+      return new Promise((resolve, reject) => {
+        Client.findOne({
+          name: name
+        }, (err, client) => {
+          if (err) throw err;
+          if (client == null) {
             resolve();
           } else {
             reject();
@@ -88,8 +103,10 @@ app.set('view engine', 'ejs')
 
 // Routes
 var adminRoutes = require('./routes/adminRoutes')
+var clientRoutes = require('./routes/clientRoutes')
 
 app.use('/admin', adminRoutes)
+app.use('/client', clientRoutes)
 
 // 404 for any other route
 app.use(function(req, res, next) {

@@ -50,7 +50,7 @@ module.exports.getAdminById = function(id, callback) {
 
 module.exports.addAdmin = function(newAdmin, callback) {
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newAdmin.password, salt, (err, hash) => {
+    bcrypt.hash(newAdmin.password, salt, null, (err, hash) => {
       if (err) throw err
       newAdmin.password = hash
       newAdmin.save(callback)

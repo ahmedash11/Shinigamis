@@ -5,21 +5,54 @@ const secret = 'ilovescotchscotchyscotchscotch';
 
 module.exports = {
   generate(credentials, cb) {
-    Admin.findOne({
-      email: credentials.email,
-      password: credentials.password,
-    }, (err, user) => {
-      if (!user) {
-        return cb(null);
+    Admin.getAdminByEmail(credentials.email, (err, admin) => {
+      if (err) {
+        let msg = {
+          success: false,
+          msg: err.message
+        }
+        return cb(msg)
       }
-      cb(jwt.sign({
-        id: user.id,
-        name: user.name,
-        type: user.type,
-        image: user.profileimg,
-        is_deleted: user.is_deleted,
-        is_blocked: user.is_blocked
-      }, secret));
+
+      if (!admin) {
+        let msg = {
+          success: false,
+          msg: 'Admin not found'
+        }
+        return cb(msg);
+      }
+
+      Admin.comparePassword(credentials.password, admin.password, (err, isMatch) => {
+        if (err) {
+          let msg = {
+            success: false,
+            msg: err.message
+          }
+          return cb(msg)
+        }
+
+        if (isMatch) {
+          var token = jwt.sign(admin, secret)
+          let msg = {
+            success: true,
+            data: {
+              token: 'JWT ' + token,
+              admin: {
+                id: admin._id,
+                email: admin.email,
+                isSuper: admin.isSuper
+              }
+            }
+          }
+          return cb(msg)
+        } else {
+          let msg = {
+            success: false,
+            msg: 'Wrong password'
+          }
+          return cb(msg)
+        }
+      })
     });
   },
   verify(token, cb) {
