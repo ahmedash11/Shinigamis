@@ -1,28 +1,124 @@
 <template>
-<div class="row">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+
+    <div class="tab_container">
+      <input id="tab1" type="radio" name="tabs" checked>
+      <label for="tab1"><span>About</span></label>
+
+      <input id="tab2" type="radio" name="tabs" >
+      <label for="tab2"><span>Images</span></label>
+
+      <section id="content1" class="tab-content">
+          <h3>{{Fleet.name}}</h3>
+<br></br>
+            <p><table class="table table-user-information">
+              <tbody>
+         <tr>
   
-  
-  <div class="col-md-3">
-      <div>
+                <tr>
+                  <td>Type</td>
+                  <td>{{Fleet.type}}</td>
+                </tr>
+                <tr>
+                  <td>Design</td>
+                  <td>{{service.design}}</td>
+                </tr>
+                <tr>
+                  <td>Built</td>
+                  <td>{{user.built}}</td>
+                </tr>
+                  <td>Tonnage</td>
+                  <td>{{service.tonnage}}
+                  </td>
+                </tr>                <tr>
+                  <td>Draft</td>
+                  <td>{{service.draft}}</td>
+                </tr>
+                <tr>
+                  <td>Horsepower</td>
+                  <td>{{service.horsepower}}</td>
+                </tr>
+                <tr>
+                  <td>Deck Space</td>
+                  <td>{{user.deckSpace}}</td>
+                </tr>
+                  <td>Deck Strength</td>
+                  <td>{{service.deckStrength}}
+                  </td>
+                </tr>                <tr>
+                  <td>Deck Dimensions</td>
+                  <td>{{service.deckDimensions}}</td>
+                </tr>
+                <tr>
+                  <td>Crane</td>
+                  <td>{{service.Crane}}</td>
+                </tr>
+          
+                <tr>
+                  <td>Accomodation</td>
+                  <td>{{user.accomodation}}</td>
+                </tr>
+                  <td>Flag</td>
+                  <td>{{service.flag}}
+                  </td>
+                </tr>
+                                <tr>
+                  <td>Bollard Pull</td>
+                  <td>{{service.bollardPull}}</td>
+                </tr>
+                <tr>
+                  <td>Fire Fighting</td>
+                  <td>{{service.fireFighting}}</td>
+                </tr>
+                <tr>
+                  <td>Mooring System</td>
+                  <td>{{user.mooringSystem}}</td>
+                </tr>
+                  <td>Helideck</td>
+                  <td>{{service.helideck}}
+                  </td>
+                </tr>                
+
+              </tbody>
+            </table>
+</p>
+      </section>
+
+      <section id="content2" class="tab-content">
+
         <div>
-          <h3>fleet.name <span>
-          fleet.type</span>
-          </h3>
-          <h4>
-          </h4>
+        <br>
+
+
+              <p>
+                 <div class="container" id="features">
+
+      <div class="row">
+                <div v-for =" image in Fleet.images" >
+
+
+
+      </div></div>
         </div>
-        <ul >
-        
-        </ul>
-        <div>
-         
-          <a>
-          View More
-          </a>
-        </div>
+      </p>
+
       </div>
-    </div>
-</div>
+      </section>
+       
+
 </template>
 
 <script>

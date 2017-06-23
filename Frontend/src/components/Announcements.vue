@@ -1,5 +1,34 @@
 <template>
-   
+   <div class="container">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <h4>News</h4>
+        </div>
+    </div>
+    <hr>
+    <!-- Begin of rows -->
+    <div v-for="Ann in Announcement">
+        <div class="col-xs-8 col-xs-offset-2 slide-row">
+            <div>
+             
+            
+              <!-- Wrapper for slides -->
+              <div>
+                <div>
+                    <img src="{{Ann.image}}" alt="Image">
+                </div>
+              </div>
+            
+            <div class="slide-content">
+                <h4>{{Ann.title}}</h4>
+                <p>
+                    {{Ann.content}}
+                </p>
+            </div>
+            </div>
+        </div>
+    </div>
+ </div>
 </template>
 
 <script>

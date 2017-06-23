@@ -51,7 +51,7 @@ var fleetSchema = new Schema({
   deckStrength: String,
   deckDimensions: String,
   crane: String,
-  accomandation: String,
+  accomodation: String,
   flag: String,
   bollardPull: String,
   fireFighting: String,
