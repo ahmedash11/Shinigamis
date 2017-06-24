@@ -15,10 +15,6 @@
             <img src="static/images/pic07.jpg"></img>
             <h3>{{client.name}}</h3>
             <p>{{client.description}}</p>
-            <a href="#" class="button special fit">Delete</a>
-          </section>
-          <section class=" 4u 6u(medium) 12u$(xsmall) ">
-            <a href="#" class="button special big">Fit</a>
           </section>
         </div>
       </div>
