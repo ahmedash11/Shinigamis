@@ -2,23 +2,29 @@
 <div class="clientsPage">
   <NavBar>
   </Navbar>
-  <!-- Main -->
-  <div id="main" class="wrapper style1">
+
+  <!-- Four -->
+  <section id="four" class="wrapper style1 special fade-up">
     <div class="container">
       <header class="major">
         <h2>Clients</h2>
       </header>
-
-      <!-- Content -->
-      <section id="content">
-        <a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-        <h3>Big names and clients all over the world.</h3>
-        <h4>{{clients[0].name}}</h4>
-        <p><span class="image left"><img src="static/images/pic08.jpg" alt="" /></span>{{clients[0].description}}</p>
-      </section>
-
+      <div class="box alt">
+        <div class="row uniform">
+          <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
+            <img src="static/images/pic07.jpg"></img>
+            <h3>{{client.name}}</h3>
+            <p>{{client.description}}</p>
+            <a href="#" class="button special fit">Delete</a>
+          </section>
+          <section class=" 4u 6u(medium) 12u$(xsmall) ">
+            <a href="#" class="button special big">Fit</a>
+          </section>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
   <Footer></Footer>
 </div>
 </template>
@@ -35,23 +41,31 @@ export default {
       error: ''
     }
   },
+  methods: {
+    fetchClients: function() {
+      this.$http.get(env.URL + '/client/getAllClients').then((response) => {
+        if (response.body.success) {
+          this.clients = response.body.data.clients
+        } else {
+          this.error = response.body.msg
+        }
+      })
+    }
+  },
   components: {
     NavBar,
     Footer
   },
   created: function() {
-    this.$http.get(env.URL + '/client/getAllClients').then((response) => {
-      if (response.body.success) {
-        this.clients = response.body.data.clients
-      } else {
-        this.error = response.body.msg
-      }
-    })
+    this.fetchClients();
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.\34 u img {
+  max-height: 100%;
+  max-width: 100%;
+}
 </style>
