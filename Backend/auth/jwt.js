@@ -36,7 +36,7 @@ module.exports = {
           let msg = {
             success: true,
             data: {
-              token: 'JWT ' + token,
+              token: token,
               admin: {
                 id: admin._id,
                 email: admin.email,
@@ -57,6 +57,7 @@ module.exports = {
   },
   verify(token, cb) {
     jwt.verify(token, secret, (err, decoded) => {
+      if (err) console.log(err)
       cb(decoded);
     });
   },

@@ -1,28 +1,65 @@
 <template>
-<div class="contactUs">
-  <!-- Five -->
-  <section id="five" class="wrapper style2 special fade">
-    <div class="container">
-      <header>
-        <h2>Contact Us</h2>
-        <p>Ante metus praesent faucibus ante integer id accumsan eleifend</p>
-      </header>
-      <form method="post" action="#" class="container 50%">
-        <div class="row uniform 50%">
-          <div class="8u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
-          <div class="4u$ 12u$(xsmall)"><input type="submit" value="Get Started" class="fit special" /></div>
-        </div>
-      </form>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div>
+        <h3><span class="glyphicons glyphicons-home"></span>Headquarter Address</h3>
+        <p>{{Info.address}}</p>
+        <br />
+        <br />
+        <h3><span class="glyphicons glyphicons-envelope"></span>Email</h3>
+        <p>{{Info.email}}</p>
+        <br />
+        <br />
+
+
+        <h3><span class="glyphicons glyphicons-phone-alt"></span>Phone</h3>
+        <p v-for="phone in Info.phone">{{phone}}</p>
+
+        <br />
+        <br />
+        <h3><span class="glyphicons glyphicons-iphone"></span>Mobile</h3>
+        <p v-for="mob in Info.mobile">{{mob}}</p>
+
+        <br />
+        <br />
+        <h3><span class="glyphicons glyphicons-fax"></span>Fax</h3>
+        <p v-for="fax in Info.fax">{{fax}}</p>
+
+        <br />
+        <br />
+        <h3><span class="glyphicons glyphicons-user"></span>Contact Persons</h3>
+        <p> Eng. Mahmoud Rashied -Chairman Eng. Ahmed Rashied - Vice Chairman
+        </p>
+
+        <br />
+        <br />
+      </div>
     </div>
-  </section>
+
+  </div>
 </div>
 </template>
 
 <script>
+import env from '../env'
 export default {
   name: 'contactUs',
   data() {
-    return {}
+    return {
+      Info: {}
+    }
+  },
+  created() {
+    //getInfo()
+
+  },
+  methods: {
+    getInfo: function() {
+      this.$http.get(env.URL + '/getInfo').then(data => {
+        this.Info = response.data.data.info
+      })
+    }
   }
 }
 </script>

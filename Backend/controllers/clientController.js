@@ -1,8 +1,8 @@
-const Client = require('../models/client');
-const jwt = require('../auth/jwt');
+var Client = require('../models/client');
+var jwt = require('../auth/jwt');
 
 
-const clientController = {
+var clientController = {
 
 
   /**
@@ -13,7 +13,7 @@ const clientController = {
    */
 
   addClient(req, res) {
-    const token = req.headers['jwt-token'];
+    var token = req.headers['jwt-token'];
     jwt.verify(token, (decoded) => {
 
       if (decoded) {
@@ -24,7 +24,7 @@ const clientController = {
 
         req.asyncValidationErrors().then(() => {
           // Creating a new historyProjects instance and saving it
-          const newClient = new Client({
+          var newClient = new Client({
             name: req.body.name,
             description: req.body.description,
             image: req.body.image
@@ -73,16 +73,69 @@ const clientController = {
    */
 
   deleteClient(req, res) {
-    Client.deleteClient(req.body.id, (err) => {
-      if (err) {
+    var token = req.headers['jwt-token'];
+
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        Client.deleteClient(req.body.id, (err) => {
+          if (err) {
+            res.status(500).json({
+              success: false,
+              msg: err.message
+            });
+          } else {
+            res.status(200).json({
+              success: true,
+              msg: 'Client successfully deleted'
+            });
+          }
+        })
+      } else {
         res.status(500).json({
           success: false,
-          msg: err.message
+          err: 'Unauthorized Access',
         });
+      }
+    })
+  },
+
+
+  /**
+   * Update client
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  updateClient(req, res) {
+    var token = req.headers['jwt-token'];
+
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        let updatedClient = {
+          name: req.body.name,
+          description: req.body.description,
+          image: req.body.image
+        }
+
+        Client.updateClient(req.body.id, updatedClient, (err, newClient) => {
+          if (err) {
+            res.status(500).json({
+              success: false,
+              msg: err.message,
+            });
+          } else {
+            res.status(200).json({
+              success: true,
+              data: {
+                newClient,
+              },
+            });
+          }
+        })
       } else {
-        res.status(200).json({
-          success: true,
-          msg: 'Client successfully deleted'
+        res.status(500).json({
+          success: false,
+          msg: 'Unauthorized Access',
         });
       }
     })
@@ -113,34 +166,43 @@ const clientController = {
   },
 
   /**
-   * Update client
+   * Viewing Projects related to this client
    * @param {Request} req
    * @param {Response} res
    */
 
-  updateClient(req, res) {
+  getProjects(req, res) {
+    var query = {
+      _id: req.params.id, // Recently Changed to Params
+    };
+    var array = [];
 
-    let updatedClient = {
-      name: req.body.name,
-      description: req.body.description,
-      image: req.body.image
-    }
+    Client.findOne(query, (err, client) => {
+      historyProject.find((err, historyProject) => {
+        for (var i = 0; i < historyProject.length; i++) {
+          if (historyProject[i].clientName === client.name) {
+            array.push(historyProject[i]);
+          }
+        }
 
-    Client.updateClient(req.body.id, updatedClient, (err, newClient) => {
-      if (err) {
-        res.status(500).json({
-          success: false,
-          msg: err.message,
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          data: {
-            newClient,
-          },
-        });
-      }
-    })
+        if (err) {
+          res.status(500).json({
+            status: 'error',
+            message: err.message,
+          });
+        } else {
+          res.status(200).json({
+            status: 'success',
+            data: {
+              array,
+              client
+            },
+          });
+        }
+
+      });
+
+    });
   }
 
 };

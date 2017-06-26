@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     fetchClients: function() {
-      this.$http.get(env.URL + '/client/getAllClients').then((response) => {
+      this.$http.get(env.URL + '/user/getAllClients').then((response) => {
         if (response.body.success) {
           this.clients = response.body.data.clients
         } else {

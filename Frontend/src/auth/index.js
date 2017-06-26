@@ -40,7 +40,7 @@ export default {
   // The object to be passed as a header for authenticated requests
   getAuthHeader() {
     return {
-      'Authorization': localStorage.getItem('token')
+      'jwt-token': localStorage.getItem('token')
     }
   },
   getAdmin() {
