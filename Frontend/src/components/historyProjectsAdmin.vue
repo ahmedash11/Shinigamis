@@ -121,10 +121,13 @@ export default {
             'error'
           );
         } else {
+
           for (var i = 0; i < error.body.msg.length; i++) {
             var msg = error.body.msg[i].msg
             alertify.notify(msg, 'error', 5);
+
           }
+
         }
       })
     },
