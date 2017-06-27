@@ -1,79 +1,130 @@
+var HistoryProject = require('../models/historyProject');
+var jwt = require('../auth/jwt');
 
-const historyProjects = require('../models/historyProject');
-const jwt = require('../auth/jwt');
 
+var historyProjectsController = {
 
-const historyProjectsController = {
+  /**
+   * Adding to historyProjects options of the system
+   * @param {String} req.body.name
+   * @param {String} req.body.unit
+   * @param {String} req.body.clientName
+   */
 
-  // adding to historyProjects options of the system
   addProject(req, res) {
 
 
-        const token = req.headers['jwt-token'];
-        jwt.verify(token, (decoded) => {
-          if (decoded.type === 1) {
-            const name = req.body.name;
-  const unit= req.body.unit;
-	const clientName = req.body.clientName;
+    var token = req.headers['jwt-token'];
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
 
-            // creating a new historyProjects instance and saving it
-            const newProject = new historyProject({
-              name,
-              unit,
-              clientName
-            });
-            newProject.save();
-            res.status(200).json({
-              status: 'success',
-              data: {
-                name,
-                unit,
-                clientName
-              },
+        req.checkBody('name', 'Name is required').notEmpty()
+        req.checkBody('name', 'Name is already taken').isClientNameAvailable()
+        req.checkBody('unit', 'Unit is required').notEmpty()
+        req.checkBody('clientName', 'Client name is required').notEmpty()
+
+        req.asyncValidationErrors().then(() => {
+          // creating a new historyProjects instance and saving it
+          var newProject = new HistoryProject({
+            name: req.body.name,
+            unit: req.body.unit,
+            clientName: req.body.clientName
+          });
+          newProject.save((err, newProject) => {
+            if (err) {
+              res.status(500).json({
+                success: false,
+                msg: err.message
+              });
+            }
+            if (!newProject) {
+              res.status(500).json({
+                success: false,
+                msg: 'Failed to add project'
+              });
+            } else {
+              res.status(200).json({
+                success: true,
+                data: {
+                  newProject,
+                },
+              });
+            }
+          });
+        }).catch((errors) => {
+          res.status(500).json({
+            success: false,
+            msg: errors
+          })
+        })
+
+      } else {
+        res.status(500).json({
+          success: false,
+          msg: 'Unauthorized Access',
+        });
+      }
+    })
+
+  },
+
+  /**
+   * Delete a project
+   * @param {String} req.body.id
+   */
+
+  deleteProject(req, res) {
+
+    var token = req.headers['jwt-token'];
+
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        HistoryProject.deleteProject(req.body.id, (err) => {
+          if (err) {
+            res.status(500).json({
+              success: false,
+              msg: err.message
             });
           } else {
-            res.status(500).json({
-              err: 'unauthorized access',
+            res.status(200).json({
+              success: true,
+              msg: 'Project successfully deleted'
             });
           }
+        })
+      } else {
+        res.status(500).json({
+          success: false,
+          msg: 'Unauthorized Access',
         });
-      
-    },
+      }
+    })
 
-    //Delete Project
+  },
+  /**
+   * View all projects
+   * @param {Request} req
+   * @param {Response} res
+   */
 
-    deleteProject(req,res){
+  getAllProjects(req, res) {
 
-    	historyProjects.remove({_id:req.body.id}function(err) {
-    if (!err) {
-            message.type = 'notification!';
-    }
-    else {
-            message.type = 'error';
-    }
-});
-
-    },
-    
-    findAllProjects(req, res) { // viewing all historyProjects
-
-      historyProject.find((err, historyProject) => {
-        if (err) { // if error occurred
-          res.status(500).json({
-            status: 'error',
-            message: err.message,
-          });
-        } else {
-          ////console.log(historyProjects);
-          res.status(200).json({
-            status: 'success',
-            data: {
-              historyProjects,
-            },
-          });
-        }
-      });
-    }
+    HistoryProject.find((err, historyProjects) => {
+      if (err) { // if error occurred
+        res.status(500).json({
+          success: false,
+          msg: err.message,
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          data: {
+            historyProjects,
+          },
+        });
+      }
+    });
+  }
 
 
 };

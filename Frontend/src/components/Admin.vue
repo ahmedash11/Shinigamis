@@ -2,6 +2,7 @@
   <div class="admin">
      <NavBar></NavBar>
      <Clients></Clients>
+     <Projects></Projects>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
   import env from '../env'
   import NavBar from './navBar'
   import Clients from './clientsAdmin'
+  import Projects from './historyProjectsAdmin'
   export default {
     name: 'admin',
     data() {
@@ -18,7 +20,8 @@
     created() {},
     components: {
       NavBar,
-      Clients
+      Clients,
+      Projects
     }
   }
 </script>

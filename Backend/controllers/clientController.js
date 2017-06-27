@@ -23,7 +23,6 @@ var clientController = {
         req.checkBody('description', 'Description is required').notEmpty()
 
         req.asyncValidationErrors().then(() => {
-          // Creating a new historyProjects instance and saving it
           var newClient = new Client({
             name: req.body.name,
             description: req.body.description,
@@ -60,7 +59,7 @@ var clientController = {
       } else {
         res.status(500).json({
           success: false,
-          err: 'Unauthorized Access',
+          msg: 'Unauthorized Access',
         });
       }
     });
@@ -93,7 +92,7 @@ var clientController = {
       } else {
         res.status(500).json({
           success: false,
-          err: 'Unauthorized Access',
+          msg: 'Unauthorized Access',
         });
       }
     })

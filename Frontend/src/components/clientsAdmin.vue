@@ -51,9 +51,9 @@
                 <form @submit.prevent="" role="form" style="display: block;">
                   <form class="form-group">
                     <label class="test">Name</label>
-                    <input type="email" name="name" v-model="name">
+                    <input type="text" name="name" v-model="name" required>
                     <label class="test">Description</label>
-                    <textarea type="text" name="description" v-model="description"></textarea>
+                    <textarea type="text" name="description" v-model="description" required></textarea>
                   </form>
 
                   <div>
@@ -130,6 +130,19 @@ export default {
     fetchClients: function() {
       this.$http.get(env.URL + '/user/getAllClients').then(response => {
         this.clients = response.data.data.clients
+      }).catch(error => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
       })
     },
     addClient: function() {
@@ -141,9 +154,21 @@ export default {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#addClient').modal('hide');
+        alertify.notify('Client added successfully', 'success', 5);
         this.fetchClients()
-      }).catch((err) => {
-        this.error = err.body
+      }).catch((error) => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
       })
     },
     editClient: function() {
@@ -155,26 +180,62 @@ export default {
       this.$http.post(env.URL + '/admin/updateClient', updatedClient, {
         headers: auth.getAuthHeader()
       }).then(response => {
-        if (response.body.success) {
-          $('#editClient').modal('hide');
-          this.fetchClients()
+        $('#editClient').modal('hide');
+        alertify.notify('Client edited successfully', 'success', 5);
+        this.fetchClients()
+
+      }).catch(error => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
         } else {
-          this.error = response.body.msg
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
         }
       })
     },
     deleteClient: function(clientId) {
-      this.$http.post(env.URL + '/admin/deleteClient', {
-        id: clientId
-      }, {
-        headers: auth.getAuthHeader()
-      }).then((response) => {
-        if (response.body.success) {
+      swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(() => {
+        this.$http.post(env.URL + '/admin/deleteClient', {
+          id: clientId
+        }, {
+          headers: auth.getAuthHeader()
+        }).then((response) => {
+          swal(
+            'Deleted!',
+            response.body.msg,
+            'success'
+          )
           this.fetchClients()
-        } else {
-          this.error = response.body.msg
-        }
-      })
+
+        }).catch((error) => {
+          if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+            swal(
+              'Oops...',
+              error.body.msg,
+              'error'
+            );
+          } else {
+            for (var i = 0; i < error.body.msg.length; i++) {
+              var msg = error.body.msg[i].msg
+              alertify.notify(msg, 'error', 5);
+            }
+          }
+        })
+      }, (dismiss) => {})
     },
     setSelectedClient: function(client) {
       this.selectedClient = client
@@ -222,6 +283,41 @@ export default {
 .test {
   font-family: Helvetica, sans-serif;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -641,6 +737,41 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* position the content inside the overlay */
 
 .overlay-content {
@@ -655,6 +786,41 @@ export default {
   /* 30px top margin to avoid conflict with the close button on smaller screens */
   padding-left: 120px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1065,12 +1231,82 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* When you mouse over the navigation links, change their color */
 
 .overlay a:hover,
 .overlay a:focus {
   color: #f1f1f1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1278,6 +1514,41 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

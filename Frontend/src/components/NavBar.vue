@@ -12,7 +12,7 @@
           <router-link to="/">About Us</router-link>
         </li>
         <li>
-          <a href="#">Services & Fleets</a>
+          <a>Services & Fleets</a>
           <ul>
             <li>
               <router-link to="/">Services</router-link>
@@ -23,7 +23,15 @@
           </ul>
         </li>
         <li>
-          <router-link to="/clients">Clients</router-link>
+          <a href="#">Clients & Projects</a>
+          <ul>
+            <li>
+              <router-link to="/clients">Clients</router-link>
+            </li>
+            <li>
+              <router-link to="/projects">Projects</router-link>
+            </li>
+          </ul>
         </li>
         <li>
           <router-link to="/awards">Media & Awards</router-link>
@@ -166,6 +174,14 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
 /* The Overlay (background) */
 
 .overlay {
@@ -187,6 +203,14 @@ export default {
   transition: 0.5s;
   /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -281,6 +305,14 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
 /* The navigation links inside the overlay */
 
 .overlay a {
@@ -293,6 +325,14 @@ export default {
   transition: 0.3s;
   /* Transition effects on hover (color) */
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -379,6 +419,14 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
 /* Position the close button (top right corner) */
 
 .overlay .closebtn {
@@ -387,6 +435,14 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
+
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,9 @@
 /**
-* @mixin HistoryProject
-* @property {String} name Contracts name
-* @property {String} unit Fleet name
-* @property {String} clientName Title of the client
-*/
+ * @mixin HistoryProject
+ * @property {String} name Contracts name
+ * @property {String} unit Fleet name
+ * @property {String} clientName Title of the client
+ */
 
 
 // load the things we need
@@ -20,4 +20,8 @@ var historyProjectSchema = new Schema({
 
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('HistoryProject', historyProjectSchema);
+var HistoryProject = module.exports = mongoose.model('HistoryProject', historyProjectSchema);
+
+module.exports.deleteProject = function(id, callback) {
+  HistoryProject.findByIdAndRemove(id, callback)
+}
