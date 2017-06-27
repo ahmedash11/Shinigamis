@@ -44,8 +44,7 @@ export default {
   name: 'historyProjectsPage',
   data() {
     return {
-      projects: [],
-      error: ''
+      projects: []
 
     }
   },
@@ -78,6 +77,7 @@ export default {
 .test {
   font-family: Helvetica, sans-serif;
 }
+
 
 
 
@@ -147,6 +147,7 @@ export default {
 
 
 
+
 /* Position the content inside the overlay */
 
 .overlay-content {
@@ -161,6 +162,7 @@ export default {
   /* 30px top margin to avoid conflict with the close button on smaller screens */
   padding-left: 120px;
 }
+
 
 
 
@@ -221,12 +223,14 @@ export default {
 
 
 
+
 /* When you mouse over the navigation links, change their color */
 
 .overlay a:hover,
 .overlay a:focus {
   color: #f1f1f1;
 }
+
 
 
 
@@ -259,6 +263,7 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
 
 
 

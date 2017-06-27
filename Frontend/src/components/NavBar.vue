@@ -36,6 +36,17 @@
         <li>
           <router-link to="/awards">Media & Awards</router-link>
         </li>
+        <li>
+          <a>Contact Us</a>
+          <ul>
+            <li>
+              <router-link to="/contactUs">Overview</router-link>
+            </li>
+            <li>
+              <router-link to="/locations">Locations</router-link>
+            </li>
+          </ul>
+        </li>
         <li v-if="!this.user.authenticated"><a @click="openNav" class="button special">Login</a></li>
         <li v-else><a @click="logout" class="button special">Logout</a></li>
       </ul>
@@ -182,6 +193,12 @@ export default {
 
 
 
+
+
+
+
+
+
 /* The Overlay (background) */
 
 .overlay {
@@ -203,6 +220,12 @@ export default {
   transition: 0.5s;
   /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
+
+
+
+
+
+
 
 
 
@@ -313,6 +336,12 @@ export default {
 
 
 
+
+
+
+
+
+
 /* The navigation links inside the overlay */
 
 .overlay a {
@@ -325,6 +354,12 @@ export default {
   transition: 0.3s;
   /* Transition effects on hover (color) */
 }
+
+
+
+
+
+
 
 
 
@@ -427,6 +462,12 @@ export default {
 
 
 
+
+
+
+
+
+
 /* Position the close button (top right corner) */
 
 .overlay .closebtn {
@@ -435,6 +476,12 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
+
+
+
+
+
 
 
 

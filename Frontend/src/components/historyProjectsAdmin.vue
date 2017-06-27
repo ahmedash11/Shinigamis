@@ -48,8 +48,6 @@
 <script>
 import env from '../env'
 import auth from '../auth'
-import NavBar from './navBar'
-import Footer from './footer'
 export default {
   name: 'historyProjectsAdmin',
   data() {
@@ -170,10 +168,7 @@ export default {
       }, (dismiss) => {})
     }
   },
-  components: {
-    NavBar,
-    Footer
-  },
+  components: {},
   created: function() {
     this.fetchProjects();
     this.fetchClients();

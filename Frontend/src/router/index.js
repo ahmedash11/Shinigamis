@@ -7,6 +7,7 @@ import AdminPage from '@/components/admin'
 import ClientsPage from '@/components/clientsPage'
 import AwardsPage from '@/components/awardsPage'
 import HistoryProjectsPage from '@/components/historyProjectsPage'
+import LocationPage from '@/components/locationsPage'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -32,6 +33,11 @@ export default new Router({
       path: '/projects',
       name: 'Project',
       component: HistoryProjectsPage
+    },
+    {
+      path: '/locations',
+      name: 'Location',
+      component: LocationPage
     }, {
       path: '/awards',
       name: 'Awards',

@@ -20,7 +20,9 @@ router.post('/authenticate', adminController.authenticate); // Admin  login
 
 router.post('/addlocation', locationController.addLocation); // Add a new location
 
-router.post('/editlocation/:id', locationController.editLocation); // edit a specific location
+router.post('/deletelocation', locationController.deleteLocation); // Add a new location
+
+router.post('/updatelocation', locationController.updateLocation); // edit a specific location
 
 router.post('/addFleet', fleetController.addFleet); // Add a new fleet
 

@@ -4,7 +4,6 @@ var jwt = require('../auth/jwt');
 
 var clientController = {
 
-
   /**
    * Adding to clients options of the system
    * @param {String} req.body.name
@@ -43,9 +42,7 @@ var clientController = {
             } else {
               res.status(200).json({
                 success: true,
-                data: {
-                  client,
-                },
+                msg: 'Client added successfully'
               });
             }
           });
@@ -101,8 +98,10 @@ var clientController = {
 
   /**
    * Update client
-   * @param {Request} req
-   * @param {Response} res
+   * @param {String} req.body.id
+   * @param {String} req.body.name
+   * @param {String} req.body.description
+   * @param {String} req.body.image
    */
 
   updateClient(req, res) {
@@ -125,9 +124,7 @@ var clientController = {
           } else {
             res.status(200).json({
               success: true,
-              data: {
-                newClient,
-              },
+              msg: "Client updated successfully"
             });
           }
         })

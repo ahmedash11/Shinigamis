@@ -16,6 +16,7 @@ var clientSchema = new Schema({
   name: {
     type: String,
     unique: true,
+    required: true
   },
   description: String,
   image: String

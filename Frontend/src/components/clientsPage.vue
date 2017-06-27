@@ -33,8 +33,7 @@ export default {
   name: 'clientsPage',
   data() {
     return {
-      clients: [],
-      error: ''
+      clients: []
     }
   },
   methods: {

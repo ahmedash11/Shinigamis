@@ -48,17 +48,15 @@
           <div class="modal-body">
             <div class="row" style="border:none;">
               <div class="col-md-12">
-                <form @submit.prevent="" role="form" style="display: block;">
-                  <form class="form-group">
-                    <label class="test">Name</label>
-                    <input type="text" name="name" v-model="name" required>
-                    <label class="test">Description</label>
-                    <textarea type="text" name="description" v-model="description" required></textarea>
-                  </form>
-
+                <form @submit.prevent="editClient()" role="form" style="display: block;">
+                  <label class="test">Name</label>
+                  <input type="text" name="name" v-model="name" required>
+                  <label class="test">Description</label>
+                  <textarea type="text" name="description" v-model="description" required></textarea>
+                  <br>
                   <div>
                     <CENTER>
-                      <button @click="editClient()" class="button special">Submit</button>
+                      <button class="button special">Submit</button>
                     </CENTER>
                   </div>
                 </form>
@@ -78,7 +76,7 @@
 
           <!-- Modal header-->
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="setSelectedClient('')"><span aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4><CENTER>Add Client</CENTER></h4>
           </div>
 
@@ -114,7 +112,6 @@
 <script>
 import env from '../env'
 import auth from '../auth'
-import NavBar from './navBar'
 export default {
   name: 'clientsAdmin',
   data() {
@@ -122,8 +119,7 @@ export default {
       clients: [],
       name: '',
       description: '',
-      selectedClient: '',
-      error: ''
+      selectedClient: ''
     }
   },
   methods: {
@@ -154,7 +150,7 @@ export default {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#addClient').modal('hide');
-        alertify.notify('Client added successfully', 'success', 5);
+        alertify.notify(response.body.msg, 'success', 5);
         this.fetchClients()
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -181,7 +177,7 @@ export default {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#editClient').modal('hide');
-        alertify.notify('Client edited successfully', 'success', 5);
+        alertify.notify(response.body.msg, 'success', 5);
         this.fetchClients()
 
       }).catch(error => {
@@ -251,9 +247,7 @@ export default {
   created() {
     this.fetchClients()
   },
-  components: {
-    NavBar
-  }
+  components: {}
 }
 </script>
 
@@ -283,6 +277,19 @@ export default {
 .test {
   font-family: Helvetica, sans-serif;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -772,6 +779,19 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* position the content inside the overlay */
 
 .overlay-content {
@@ -786,6 +806,19 @@ export default {
   /* 30px top margin to avoid conflict with the close button on smaller screens */
   padding-left: 120px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1266,12 +1299,38 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* When you mouse over the navigation links, change their color */
 
 .overlay a:hover,
 .overlay a:focus {
   color: #f1f1f1;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1514,6 +1573,19 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
