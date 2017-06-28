@@ -11,6 +11,7 @@ var multer = require('multer');
 var app = express();
 var mime = require('mime');
 var crypto = require('crypto');
+var zlib = require('zlib');
 //var current;
 var image;
 

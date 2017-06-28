@@ -1,8 +1,8 @@
 /**
-* @mixin Award
-* @property {String} title Award title
-* @property {String} picture Award picture
-*/
+ * @mixin Award
+ * @property {String}  Award title
+ * @property {String}  Award picture
+ */
 
 
 var mongoose = require('mongoose');
@@ -17,4 +17,8 @@ var awardSchema = new Schema({
 
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('Award', awardSchema);
+var Award = module.exports = mongoose.model('Award', awardSchema);
+
+module.exports.deleteAward = function(id, callback) {
+  Award.findByIdAndRemove(id, callback)
+}

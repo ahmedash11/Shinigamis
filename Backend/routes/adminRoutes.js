@@ -8,6 +8,7 @@ var fleetController = require('../controllers/fleetController');
 var clientController = require('../controllers/clientController');
 var locationController = require('../controllers/locationController');
 var historyProjectController = require('../controllers/historyProjectController');
+var awardController = require('../controllers/awardController');
 
 
 // Routes for admin user
@@ -39,5 +40,9 @@ router.post('/updateClient', clientController.updateClient); // Update an existi
 router.post('/addProject', historyProjectController.addProject); // Add a new project
 
 router.post('/deleteProject', historyProjectController.deleteProject); // Delete an existing project
+
+router.post('/addAward', awardController.addAward); // Add a new award
+
+router.post('/deleteAward', awardController.deleteAward); // Delete an existing award
 
 module.exports = router;
