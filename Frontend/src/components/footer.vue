@@ -11,7 +11,7 @@
       <li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
     </ul>
     <ul class="copyright">
-      <li>&copy; Rashied maritime services. All rights reserved.</li>
+      <li>© 2017 Rashied Maritime Services. All Rights Reserved</li>
     </ul>
   </footer>
 </div>

@@ -16,6 +16,8 @@ router.get('/getAllClients', clientController.getAllClients) // View all clients
 
 router.get('/getAllFleets', fleetController.getAllFleets) // View all fleets
 
+router.get('/getFleet/:fleetId', fleetController.getFleet) // View fleet by id
+
 router.get('/getAllProjects', historyProjectController.getAllProjects) // View all projects
 
 router.get('/getAllLocations', locationController.getAllLocations) // View all locations

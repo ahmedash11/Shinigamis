@@ -17,7 +17,7 @@ var fleetController = {
     jwt.verify(token, (decoded) => {
       if (decoded) {
         req.checkBody('name', 'Name is required').notEmpty()
-        req.checkBody('name', 'Name is already taken').isNameAvailable()
+        req.checkBody('name', 'Name is already taken').isFleetNameAvailable()
 
         req.asyncValidationErrors().then(() => {
           var newFleet = new Fleet({
@@ -147,7 +147,7 @@ var fleetController = {
           images: req.body.images
         }
 
-        Fleet.updateFleet(req.body.id, updatedFleet, (err, newFleet) => {
+        Fleet.updateFleet(req.body._id, updatedFleet, (err, newFleet) => {
           if (err) {
             res.status(500).json({
               success: false,
@@ -180,11 +180,10 @@ var fleetController = {
   getFleet(req, res) {
 
     var query = {
-      _id: req.params.id, // Recently Changed to Params
+      _id: req.params.fleetId, // Recently Changed to Params
     };
 
     Fleet.findOne(query, (err, fleet) => {
-
       if (err) {
         res.status(500).json({
           success: false,

@@ -4,6 +4,7 @@
   <Clients></Clients>
   <Projects></Projects>
   <Locations></Locations>
+  <Fleets></Fleets>
 </div>
 </template>
 
@@ -13,6 +14,7 @@ import NavBar from './navBar'
 import Clients from './clientsAdmin'
 import Projects from './historyProjectsAdmin'
 import Locations from './locationsAdmin'
+import Fleets from './fleetsAdmin'
 export default {
   name: 'admin',
   data() {
@@ -24,7 +26,8 @@ export default {
     NavBar,
     Clients,
     Projects,
-    Locations
+    Locations,
+    Fleets
   }
 }
 </script>

@@ -6,13 +6,14 @@
     <nav id="nav">
       <ul>
         <li>
-          <router-link to="/">Home</router-link>
+          <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
           <router-link to="/">About Us</router-link>
         </li>
         <li>
-          <a>Services & Fleets</a>
+          <!-- <a>Services & Fleets</a> -->
+          <i class="fa fa-ship fa-2x" aria-hidden="true"></i>
           <ul>
             <li>
               <router-link to="/">Services</router-link>
@@ -34,7 +35,7 @@
           </ul>
         </li>
         <li>
-          <router-link to="/awards">Media & Awards</router-link>
+          <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
           <a>Contact Us</a>

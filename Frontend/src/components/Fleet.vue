@@ -12,7 +12,7 @@
       <h3>{{Fleet.name}}</h3>
       <br></br>
       <p>
-        <table class="table table-user-information">
+        <table class="table table-Fleet-information">
           <tbody>
             <tr>
 
@@ -22,63 +22,63 @@
               </tr>
               <tr>
                 <td>Design</td>
-                <td>{{service.design}}</td>
+                <td>{{Fleet.design}}</td>
               </tr>
               <tr>
                 <td>Built</td>
-                <td>{{user.built}}</td>
+                <td>{{Fleet.built}}</td>
               </tr>
               <td>Tonnage</td>
-              <td>{{service.tonnage}}
+              <td>{{Fleet.tonnage}}
               </td>
             </tr>
             <tr>
               <td>Draft</td>
-              <td>{{service.draft}}</td>
+              <td>{{Fleet.draft}}</td>
             </tr>
             <tr>
               <td>Horsepower</td>
-              <td>{{service.horsepower}}</td>
+              <td>{{Fleet.horsepower}}</td>
             </tr>
             <tr>
               <td>Deck Space</td>
-              <td>{{user.deckSpace}}</td>
+              <td>{{Fleet.deckSpace}}</td>
             </tr>
             <td>Deck Strength</td>
-            <td>{{service.deckStrength}}
+            <td>{{Fleet.deckStrength}}
             </td>
             </tr>
             <tr>
               <td>Deck Dimensions</td>
-              <td>{{service.deckDimensions}}</td>
+              <td>{{Fleet.deckDimensions}}</td>
             </tr>
             <tr>
               <td>Crane</td>
-              <td>{{service.Crane}}</td>
+              <td>{{Fleet.Crane}}</td>
             </tr>
 
             <tr>
               <td>Accomodation</td>
-              <td>{{user.accomodation}}</td>
+              <td>{{Fleet.accomodation}}</td>
             </tr>
             <td>Flag</td>
-            <td>{{service.flag}}
+            <td>{{Fleet.flag}}
             </td>
             </tr>
             <tr>
               <td>Bollard Pull</td>
-              <td>{{service.bollardPull}}</td>
+              <td>{{Fleet.bollardPull}}</td>
             </tr>
             <tr>
               <td>Fire Fighting</td>
-              <td>{{service.fireFighting}}</td>
+              <td>{{Fleet.fireFighting}}</td>
             </tr>
             <tr>
               <td>Mooring System</td>
-              <td>{{user.mooringSystem}}</td>
+              <td>{{Fleet.mooringSystem}}</td>
             </tr>
             <td>Helideck</td>
-            <td>{{service.helideck}}
+            <td>{{Fleet.helideck}}
             </td>
             </tr>
 
@@ -108,6 +108,8 @@
 
       </div>
     </section>
+  </div>
+</div>
 </template>
 
 <script>
@@ -120,7 +122,7 @@ export default {
     }
   },
   created() {
-    getFleet()
+    this.getFleet()
   },
 
   methods: {
@@ -128,7 +130,7 @@ export default {
 
     // Send a request to the login URL and save the returned JWT
     getFleet: function() {
-      this.$http.get('http://localhost:3000/getFleet').then(data => {
+      this.$http.get('http://localhost:3000/user/getFleet/'.concat(this.$route.params.fleetId)).then(data => {
         this.Fleet = response.data.data.fleet
       })
     }
@@ -145,6 +147,15 @@ export default {
 .test {
   font-family: Helvetica, sans-serif;
 }
+
+
+
+
+
+
+
+
+
 
 
 /* The Overlay (background) */
@@ -170,6 +181,15 @@ export default {
 }
 
 
+
+
+
+
+
+
+
+
+
 /* Position the content inside the overlay */
 
 .overlay-content {
@@ -186,6 +206,15 @@ export default {
 }
 
 
+
+
+
+
+
+
+
+
+
 /* The navigation links inside the overlay */
 
 .overlay a {
@@ -200,12 +229,30 @@ export default {
 }
 
 
+
+
+
+
+
+
+
+
+
 /* When you mouse over the navigation links, change their color */
 
 .overlay a:hover,
 .overlay a:focus {
   color: #f1f1f1;
 }
+
+
+
+
+
+
+
+
+
 
 
 /* Position the close button (top right corner) */
@@ -216,6 +263,15 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
+
+
+
+
+
+
+
+
 
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
