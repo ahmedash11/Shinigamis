@@ -9,7 +9,7 @@
           <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
-          <router-link to="/">About Us</router-link>
+          <router-link to="/aboutUs">About Us</router-link>
         </li>
         <li>
           <!-- <a>Services & Fleets</a> -->
@@ -52,6 +52,7 @@
         <li v-else><a @click="logout" class="button special">Logout</a></li>
       </ul>
     </nav>
+    <router-view></router-view>
     <!-- The overlay -->
     <div id="myNav" class="overlay">
 

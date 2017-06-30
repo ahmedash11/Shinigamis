@@ -7,6 +7,7 @@ import AdminPage from '@/components/admin'
 import ClientsPage from '@/components/clientsPage'
 import AwardsPage from '@/components/awardsPage'
 import HistoryProjectsPage from '@/components/historyProjectsPage'
+import AboutUs from '@/components/aboutUs'
 import LocationPage from '@/components/locationsPage'
 import Fleet from '@/components/fleet'
 import FleetEdit from '@/components/editFleet.vue'
@@ -44,6 +45,16 @@ export default new Router({
       path: '/awards',
       name: 'Awards',
       component: AwardsPage
+    },
+    {
+      path: '/fleet',
+      name: 'FleetPro',
+      component: Fleet
+    },
+     {
+      path: '/aboutUs',
+      name: 'AboutUs',
+      component: AboutUs
     },
     {
       path: '/getFleet/:fleetId',

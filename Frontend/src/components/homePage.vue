@@ -2,7 +2,6 @@
 <div class="homePage">
   <NavBar></NavBar>
   <Banner></Banner>
-  <AboutUs></AboutUs>
   <ContactUs></ContactUs>
   <Footer></Footer>
 </div>

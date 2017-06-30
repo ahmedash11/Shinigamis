@@ -1,15 +1,18 @@
 <template>
 <div class="banner">
   <!-- Banner -->
-  <section id="banner">
+  <section id="banner" style="background-position: center 26.85px; background-image:url(../../static/images/rms.jpg) " >
     <div class="content">
       <header>
-        <h2>The future has landed</h2>
+      <div class="image-cropper">
+    <img src="../../static/images/rms.jpg" class="rounded" />
+    </div>  
+        <h2>Welcome to Rashied Maritime</h2>
         <p>And there are no hoverboards or flying cars.<br /> Just apps. Lots of mother flipping apps.</p>
       </header>
-      <span class="image"><img src="static/images/pic01.jpg" alt="" /></span>
+      <!-- <span><img class="img-circle" src="../../static/images/rms.jpg"></span> -->
     </div>
-    <a href="#one" class="goto-next scrolly">Next</a>
+   
   </section>
 </div>
 </template>
@@ -25,4 +28,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.image-cropper {
+    width: 130;
+    height: 130;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+img {
+    display: inline;
+    margin:  auto;
+    height: 100%;
+    width: auto;
+}
+
 </style>

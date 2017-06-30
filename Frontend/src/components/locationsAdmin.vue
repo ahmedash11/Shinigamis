@@ -21,11 +21,11 @@
             <tr v-for="location in locations">
               <td>
                 <h3>{{location.title}}</h3>
-                <p v-if="location.address">{{location.address}}</p>
-                <p v-if="location.phone">Tel: {{location.phone}}</p>
-                <p v-if="location.fax">Fax: {{location.fax}}</p>
-                <p v-if="location.mobile">Mobile: {{location.mobile}}</p>
-                <p v-if="location.email">Email: {{location.email}}</p>
+                <p v-if="location.address"><i class="glyphicon glyphicon-home"></i> {{location.address}}</p>
+                <p v-if="location.phone"><i class="glyphicon glyphicon-phone-alt"></i> Tel: {{location.phone}}</p>
+                <p v-if="location.fax"><i class="fa fa-fax " aria-hidden="true"></i> Fax: {{location.fax}}</p>
+                <p v-if="location.mobile"><i class="fa fa-mobile fa-2x" aria-hidden="true"></i> Mobile: {{location.mobile}}</p>
+                <p v-if="location.email"><i class="glyphicon glyphicon-envelope"></i> Email: {{location.email}}</p>
               </td>
               <td>
                 <td><button data-toggle="modal" data-target="#editLocation" class="button special" v-on:click="setSelectedLocation(location)">Edit</button>

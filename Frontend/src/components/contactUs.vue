@@ -18,13 +18,13 @@
 
         <br />
         <br />
-        <h3><i class="glyphicon glyphicon-iphone"></i> Mobile</h3>
+        <h3><i class="fa fa-mobile fa-2x" aria-hidden="true"></i> Mobile</h3>
         <p v-for="mob in Info.mobile">{{mob}}</p>
 
         <br />
         <br />
 
-        <h3><i class="glyphicon glyphicon-fax"></i> Fax</h3>
+        <h3><i class="fa fa-fax " aria-hidden="true"></i> Fax</h3>
         <p v-for="fax in Info.fax">{{fax}}</p>
 
         <br />
@@ -66,7 +66,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>
