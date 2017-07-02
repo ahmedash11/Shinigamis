@@ -1,5 +1,5 @@
 <template>
-<div class="footer">
+<div class="AppFooter">
   <!-- Footer -->
   <footer id="footer">
     <ul class="icons">
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'footer',
+  name: 'AppFooter',
   data() {
     return {}
   }

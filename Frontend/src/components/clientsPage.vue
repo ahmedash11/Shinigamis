@@ -1,7 +1,5 @@
 <template>
 <div class="clientsPage">
-  <NavBar>
-  </Navbar>
 
   <!-- Four -->
   <section id="four" class="wrapper style1 special fade-up">
@@ -21,14 +19,11 @@
     </div>
   </section>
 
-  <Footer></Footer>
 </div>
 </template>
 
 <script>
 import env from '../env'
-import NavBar from './navBar'
-import Footer from './footer'
 export default {
   name: 'clientsPage',
   data() {
@@ -47,10 +42,7 @@ export default {
       })
     }
   },
-  components: {
-    NavBar,
-    Footer
-  },
+  components: {},
   created: function() {
     this.fetchClients();
   }

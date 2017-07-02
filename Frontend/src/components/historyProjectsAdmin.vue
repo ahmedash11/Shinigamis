@@ -28,7 +28,10 @@
             </tr>
             <tr>
               <td><input type="text" name="name" placeholder="Contract Name" v-model="name"></td>
-              <td><input type="text" name="unit" placeholder="Marine Units" v-model="unit"></td>
+              <td><select name="unit" id="unit" v-model="unit">
+                <option disabled value="">Marine Units</option>
+                <option :value="fleet.name" v-for="fleet in fleets">{{fleet.name}}</option>
+              </select></td>
               <td><select name="clientName" id="clientName" v-model="clientName">
                 <option disabled value="">Client Name</option>
                 <option :value="client.name" v-for="client in clients">{{client.name}}</option>
@@ -54,6 +57,7 @@ export default {
     return {
       projects: [],
       clients: [],
+      fleets: [],
       name: '',
       unit: '',
       clientName: ''
@@ -81,6 +85,24 @@ export default {
     fetchClients: function() {
       this.$http.get(env.URL + '/user/getAllClients').then(response => {
         this.clients = response.body.data.clients
+      }).catch((error) => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
+      })
+    },
+    fetchFleets: function() {
+      this.$http.get(env.URL + '/user/getAllFleets').then(response => {
+        this.fleets = response.body.data.fleets
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -172,6 +194,7 @@ export default {
   created: function() {
     this.fetchProjects();
     this.fetchClients();
+    this.fetchFleets();
   }
 }
 </script>

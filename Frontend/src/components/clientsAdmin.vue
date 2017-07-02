@@ -12,11 +12,11 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
-            <img src="static/images/pic07.jpg"></img>
+            <img src="/static/images/pic07.jpg"></img>
             <h3>{{client.name}}</h3>
             <p>{{client.description}}</p>
             <ul class="actions">
-              <li><button data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</button></li>
+              <li><a data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</a></li>
               <li><a class="button special" v-on:click="deleteClient(client._id)">Delete</a></li>
             </ul>
           </section>

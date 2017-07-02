@@ -90,8 +90,10 @@ var fleetController = {
 
   deleteFleet(req, res) {
     var token = req.headers['jwt-token'];
+
     jwt.verify(token, (decoded) => {
       if (decoded) {
+
         Fleet.deleteFleet(req.body.id, (err) => {
           if (err) {
             res.status(500).json({
@@ -123,6 +125,7 @@ var fleetController = {
 
   updateFleet(req, res) {
     var token = req.headers['jwt-token'];
+
     jwt.verify(token, (decoded) => {
       if (decoded) {
         var updatedFleet = {

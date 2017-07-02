@@ -1,5 +1,5 @@
 <template>
-<div class="navBar">
+<div class="AppNav">
   <!-- Header -->
   <header id="header">
     <h1 id="logo"><a href="#">Rashied Maritime</a></h1>
@@ -9,22 +9,21 @@
           <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
-          <router-link to="/aboutUs">About Us</router-link>
+          <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
-          <!-- <a>Services & Fleets</a> -->
-          <i class="fa fa-ship fa-2x" aria-hidden="true"></i>
+          <a muted><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
           <ul>
             <li>
-              <router-link to="/">Services</router-link>
+              <router-link to="/services">Services</router-link>
             </li>
             <li>
-              <router-link to="/">Fleets</router-link>
+              <router-link to="/fleets">Fleets</router-link>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#">Clients & Projects</a>
+          <a><i class="fa fa-anchor fa-2x" aria-hidden="true"></i></a>
           <ul>
             <li>
               <router-link to="/clients">Clients</router-link>
@@ -34,11 +33,12 @@
             </li>
           </ul>
         </li>
+
         <li>
           <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
-          <a>Contact Us</a>
+          <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
           <ul>
             <li>
               <router-link to="/contactUs">Overview</router-link>
@@ -52,7 +52,6 @@
         <li v-else><a @click="logout" class="button special">Logout</a></li>
       </ul>
     </nav>
-    <router-view></router-view>
     <!-- The overlay -->
     <div id="myNav" class="overlay">
 
@@ -62,39 +61,37 @@
       <!-- Overlay content -->
       <div class="overlay-content">
         <div class="container">
-          <form class="form-group">
+          <form class="form-group" @submit.prevent="login">
             <label class="test">Email</label>
-            <input type="email" name="email" placeholder="Enter Your Email.." v-model="email">
+            <input type="email" name="email" placeholder="Enter Your Email.." v-model="email" required>
             <label class="test">Password</label>
-            <input type="password" name="password" placeholder="Enter Your Password.." v-model="password">
+            <input type="password" name="password" placeholder="Enter Your Password.." v-model="password" required>
+            <br>
+            <input type="submit" class="button special">
           </form>
-
-          <div>
-            <button @click="login" class="button special">Login</button>
-          </div>
         </div>
 
       </div>
 
     </div>
-
-
   </header>
+
+  <router-view></router-view>
 
 </div>
 </template>
 
 <script>
-import env from '../env'
-import auth from '../auth'
+import env from './env'
+import auth from './auth'
+import router from './router'
 export default {
-  name: 'navBar',
+  name: 'AppNav',
   data() {
     return {
       email: "",
       password: "",
-      user: auth.user,
-      error: ''
+      user: auth.user
     }
   },
   methods: {
@@ -112,24 +109,37 @@ export default {
         email: this.email,
         password: this.password
       }).then((response) => {
-        if (response.body.success) {
-          let data = {
-            token: response.body.data.token,
-            admin: JSON.stringify(response.body.data.admin)
-          }
-          auth.login(data)
-          this.closeNav();
-          this.$router.push({
-            path: 'admin'
-          })
+        console.log(response)
+        let data = {
+          token: response.body.data.token,
+          admin: JSON.stringify(response.body.data.admin)
+        }
+        auth.login(data)
+        this.closeNav();
+        this.$router.push({
+          path: '/admin' + this.$route.fullPath
+        })
+      }).catch((error) => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
         } else {
-          this.error = response.body.msg
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
         }
       })
     },
     // To log out, we just need to remove the token
     logout: function() {
       auth.logout();
+      this.$router.push({
+        path: this.$route.fullPath.replace('/admin', '')
+      })
     }
   },
   created() {
@@ -150,7 +160,7 @@ export default {
 
 .overlay {
   height: 100%;
-  width: 0;
+  width: 0%;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -164,10 +174,9 @@ export default {
 .overlay-content {
   position: relative;
   top: 25%;
-  width: 65%;
+  width: 100%;
   text-align: center;
   margin-top: 30px;
-  padding-left: 120px
 }
 
 .overlay a {

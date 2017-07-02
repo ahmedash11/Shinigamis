@@ -2,14 +2,6 @@
 <div>
 
   <div class="tab_container">
- 
-    <input id="tab1" type="radio" name="tabs" checked>
-    <label for="tab1"><span>About</span></label>
-
-    <input id="tab2" type="radio" name="tabs">
-    <label for="tab2"><span>Images</span></label>
-
-
     <section id="content1" class="tab-content">
       <h3>{{Fleet.name}}</h3>
       <br></br>
@@ -142,15 +134,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4,
-#tab5:checked ~ #content5 {
+#tab1:checked~#content1,
+#tab2:checked~#content2,
+#tab3:checked~#content3,
+#tab4:checked~#content4,
+#tab5:checked~#content5 {
   display: block;
-  
-  
 }
 
 .tab_container .tab-content p,
@@ -159,16 +148,17 @@ export default {
   -moz-animation: fadeInScale 0.7s ease-in-out;
   animation: fadeInScale 0.7s ease-in-out;
 }
-.tab_container .tab-content h3  {
+
+.tab_container .tab-content h3 {
   text-align: center;
 }
 
-.tab_container [id^="tab"]:checked + label {
+.tab_container [id^="tab"]:checked+label {
   background: #1c1d26;
   box-shadow: inset 0 3px #e44c65;
 }
 
-.tab_container [id^="tab"]:checked + label .fa {
+.tab_container [id^="tab"]:checked+label .fa {
   color: #1c1d26;
 }
 
@@ -187,11 +177,11 @@ label {
   cursor: pointer;
   text-decoration: none;
   text-align: center;
-  
 }
 
 
-input, section {
+input,
+section {
   clear: both;
   padding-top: 10px;
   display: none;
@@ -200,17 +190,18 @@ input, section {
 
 
 
-input[type=checkbox]+label:before, input[type=radio]+label:before {
-    border: 1px solid rgba(255, 255, 255, .3);
-    content: '';
-    display: none;
-    height: 1.8em;
-    left: 0;
-    line-height: 1.725em;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    width: 1.8em;
+input[type=checkbox]+label:before,
+input[type=radio]+label:before {
+  border: 1px solid rgba(255, 255, 255, .3);
+  content: '';
+  display: none;
+  height: 1.8em;
+  left: 0;
+  line-height: 1.725em;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 1.8em;
 }
 
 .closebtn:hover {
@@ -220,6 +211,9 @@ input[type=checkbox]+label:before, input[type=radio]+label:before {
 .test {
   font-family: Helvetica, sans-serif;
 }
+
+
+
 
 
 /* The Overlay (background) */
@@ -245,6 +239,9 @@ input[type=checkbox]+label:before, input[type=radio]+label:before {
 }
 
 
+
+
+
 /* Position the content inside the overlay */
 
 .overlay-content {
@@ -261,6 +258,9 @@ input[type=checkbox]+label:before, input[type=radio]+label:before {
 }
 
 
+
+
+
 /* The navigation links inside the overlay */
 
 .overlay a {
@@ -274,12 +274,18 @@ input[type=checkbox]+label:before, input[type=radio]+label:before {
   /* Transition effects on hover (color) */
 }
 
+
+
+
 /* When you mouse over the navigation links, change their color */
 
 .overlay a:hover,
 .overlay a:focus {
   color: #f1f1f1;
 }
+
+
+
 
 /* Position the close button (top right corner) */
 
@@ -289,6 +295,9 @@ input[type=checkbox]+label:before, input[type=radio]+label:before {
   right: 45px;
   font-size: 60px;
 }
+
+
+
 
 
 

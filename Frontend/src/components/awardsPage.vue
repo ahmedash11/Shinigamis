@@ -1,7 +1,5 @@
 <template>
 <div class="awardsPage">
-  <NavBar>
-  </Navbar>
 
   <!-- Four -->
   <section id="four" class="wrapper style1 special fade-up">
@@ -14,45 +12,39 @@
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="award in Awards">
             <img src="static/images/pic07.jpg"></img>
             <h3>{{award.title }}</h3>
-            
+
           </section>
         </div>
       </div>
     </div>
   </section>
 
-  <Footer></Footer>
 </div>
 </template>
 
 <script>
-import NavBar from './navBar'
-import Footer from './footer'
 export default {
   name: 'awardsPage',
   data() {
     return {
-      Award:[],
+      Award: [],
     }
   },
-  components: {
-    NavBar,
-    Footer
+  components: {},
+  created() {
+    getAwards()
+
   },
-  created(){
-      getAwards()
-      
-    },
-    methods:{
-      //open overlay
-      
-      // Send a request to the login URL and save the returned JWT
-      getAwards:function(){
-          this.$http.get('http://localhost:3000/getAwards').then(data=>{
-         this.Awards = response.data.data.awards
-          })
-      }
+  methods: {
+    //open overlay
+
+    // Send a request to the login URL and save the returned JWT
+    getAwards: function() {
+      this.$http.get('http://localhost:3000/getAwards').then(data => {
+        this.Awards = response.data.data.awards
+      })
     }
+  }
 }
 </script>
 

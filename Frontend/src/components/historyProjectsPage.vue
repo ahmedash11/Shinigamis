@@ -1,6 +1,5 @@
 <template>
 <div class="historyProjectsPage">
-  <NavBar></NavBar>
 
   <!-- Four -->
   <section id="four" class="wrapper style1 special fade-up">
@@ -32,14 +31,11 @@
     </div>
   </section>
 
-  <Footer></Footer>
 </div>
 </template>
 
 <script>
 import env from '../env'
-import NavBar from './navBar'
-import Footer from './footer'
 export default {
   name: 'historyProjectsPage',
   data() {
@@ -61,10 +57,7 @@ export default {
       })
     },
   },
-  components: {
-    NavBar,
-    Footer
-  }
+  components: {}
 }
 </script>
 
