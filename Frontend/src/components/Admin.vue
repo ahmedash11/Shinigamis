@@ -25,14 +25,12 @@
     <section id="content1" class="tab-content">
       <Clients></Clients>
     </section>
+
     <section id="content2" class="tab-content">
-
       <Projects></Projects>
-
     </section>
 
     <section id="content3" class="tab-content">
-
       <Locations></Locations>
     </section>
 
@@ -41,11 +39,11 @@
     </section>
 
     <section id="content5" class="tab-content">
-
       <Awards></Awards>
-
     </section>
+
   </div>
+
 </div>
 </template>
 

@@ -2,13 +2,14 @@
 <div class="homePage">
   <Banner></Banner>
   <ContactUs></ContactUs>
+  <AboutUs></AboutUs>
 </div>
 </template>
 
 <script>
 import Banner from './banner'
-import AboutUs from './aboutUs'
 import ContactUs from './contactUs'
+import AboutUs from './aboutUsPage'
 export default {
   name: 'homePage',
   data() {
@@ -16,8 +17,8 @@ export default {
   },
   components: {
     Banner,
-    AboutUs,
-    ContactUs
+    ContactUs,
+    AboutUs
   }
 }
 </script>

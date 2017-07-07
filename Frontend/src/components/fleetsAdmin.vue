@@ -11,15 +11,13 @@
 
       <div class="box alt">
         <div class="row uniform">
+
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="fleet in fleets">
-            <img src="static/images/pic07.jpg"></img>
-            <h3>{{fleet.name}}</h3>
-            <ul class="actions">
-              <li>
-                <router-link :to="{ name : 'EditFleet' , params: { fleetId : fleet._id }}"><button class="button special">Edit</button></router-link>
-              </li>
-              <li><a class="button special" v-on:click="deleteFleet(fleet._id)">Delete</a></li>
-            </ul>
+            <img src="/static/images/pic07.jpg"></img>
+            <router-link :to="{ name : 'FleetProfileAdmin' , params: { fleetId : fleet._id }}">
+              <h3>{{fleet.name}}</h3>
+            </router-link>
+            <a class="button special" v-on:click="deleteFleet(fleet._id)">Delete</a>
           </section>
 
           <section class=" 4u 6u(medium) 12u$(xsmall) ">
@@ -27,6 +25,7 @@
               <button data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new fleet</button>
             </CENTER>
           </section>
+
         </div>
       </div>
 
@@ -56,7 +55,7 @@ export default {
   methods: {
     // Send a request to the login URL and save the returned JWT
     fetchFleets: function() {
-      this.$http.get('http://localhost:3000/user/getAllFleets').then(response => {
+      this.$http.get(env.URL + '/user/getAllFleets').then(response => {
         this.fleets = response.data.data.fleets
       })
     },

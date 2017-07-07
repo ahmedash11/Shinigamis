@@ -1,5 +1,5 @@
 <template>
-<div class="aboutUs">
+<div class="aboutUsPage">
 
   <div class="tab_container" align="center">
 
@@ -98,7 +98,7 @@
 
 <script>
 export default {
-  name: 'aboutUs',
+  name: 'aboutUsPage',
   data() {
     return {}
   }

@@ -159,9 +159,7 @@ var fleetController = {
           } else {
             res.status(200).json({
               success: true,
-              data: {
-                newFleet,
-              },
+              msg: 'Fleet added successfully'
             });
           }
         })

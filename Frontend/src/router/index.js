@@ -11,11 +11,14 @@ import AwardsPage from '@/components/awardsPage'
 import AwardsAdmin from '@/components/awardsAdmin'
 import HistoryProjectsPage from '@/components/historyProjectsPage'
 import HistoryProjectsAdmin from '@/components/historyProjectsAdmin'
-import AboutUs from '@/components/aboutUs'
+import AboutUsPage from '@/components/aboutUsPage'
 import LocationsPage from '@/components/locationsPage'
 import LocationsAdmin from '@/components/locationsAdmin'
-import Fleet from '@/components/fleet'
-import FleetEdit from '@/components/editFleet.vue'
+import FleetsPage from '@/components/fleetsPage'
+import FleetsAdmin from '@/components/fleetsAdmin'
+import FleetProfileAdmin from '@/components/fleetProfileAdmin'
+import FleetProfilePage from '@/components/fleetProfilePage'
+
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -156,24 +159,71 @@ export default new Router({
       }
     },
     {
-      path: '/fleet',
-      name: 'FleetPro',
-      component: Fleet
+      path: '/fleets',
+      name: 'Fleets',
+      component: FleetsPage,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          next();
+        } else {
+          next('/admin/fleets')
+        }
+      }
+    },
+    {
+      path: '/admin/fleets',
+      name: 'FleetsAdmin',
+      component: FleetsAdmin,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          swal(
+            'Oops...',
+            'You shall not pass!!',
+            'error'
+          )
+          next('/fleets');
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/fleet/:fleetId',
+      name: 'FleetProfilePage',
+      component: FleetProfilePage,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          next();
+        } else {
+          next('/admin/fleet/:fleetId')
+        }
+      }
+    },
+    {
+      path: '/admin/fleet/:fleetId',
+      name: 'FleetProfileAdmin',
+      component: FleetProfileAdmin,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          swal(
+            'Oops...',
+            'You shall not pass!!',
+            'error'
+          )
+          next('/fleet/:fleetId');
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/aboutUs',
       name: 'AboutUs',
-      component: AboutUs
-    },
-    {
-      path: '/getFleet/:fleetId',
-      name: 'FleetProfile',
-      component: Fleet
-    },
-    {
-      path: '/editFleet/:fleetId',
-      name: 'EditFleet',
-      component: FleetEdit
+      component: AboutUsPage
     }
   ]
 })
