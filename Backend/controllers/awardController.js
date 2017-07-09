@@ -23,7 +23,7 @@ var awardController = {
         req.asyncValidationErrors().then(() => {
           var newAward = new Award({
             title: req.body.title,
-            image: req.body.image
+            picture: req.body.image
           });
           newAward.save((err, award) => {
             if (err) {

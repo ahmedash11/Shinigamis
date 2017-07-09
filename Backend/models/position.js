@@ -18,4 +18,8 @@ var positionSchema = new Schema({
 
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('Position', positionSchema);
+var Position=module.exports = mongoose.model('Position', positionSchema);
+
+module.exports.deletePosition= function(id, callback) {
+  Position.findByIdAndRemove(id, callback)
+}

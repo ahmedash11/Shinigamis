@@ -1,4 +1,22 @@
 <template>
+<div class="Positions">
+  <section id="four" class="wrapper style1 special fade-up">
+    <div class="container">
+      <header class="major">
+        <h2>Position</h2>
+      </header>
+     
+          <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="position in Positions">
+            
+            <h3>{{position.title }}</h3>
+            <p>{{position.description}}</p>
+            <p>{{position.isOffered}}</p>
+           <router-link v-if="position.isOffered" to="/application">Apply </router-link>
+          </section>
+     
+    </div>
+  </section>
+  </div>
    
 </template>
 
@@ -7,12 +25,16 @@
     name: 'Positions',
     data() {
       return {
-        Positions:[],
+        Positions:[{
+          title:"Ahmed",
+          description:"Ezayak 3amel Eh",
+          isOffered: true
+        }]
         
       }
     },
     created(){
-      getPositions()
+      // getPositions()
       
     },
     methods:{

@@ -8,6 +8,9 @@
         <li>
           <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
         </li>
+        <li v-if="this.type">
+          <router-link to="/admin">Admin</router-link>
+        </li>
         <li>
           <router-link to="/aboutUs">About Us</router-link>
         </li>
@@ -16,10 +19,10 @@
           <i class="fa fa-ship fa-2x" aria-hidden="true"></i>
           <ul>
             <li>
-              <router-link to="/">Services</router-link>
+              <router-link to="/services">Services</router-link>
             </li>
             <li>
-              <router-link to="/">Fleets</router-link>
+              <router-link to="/fleetsPage">Fleets</router-link>
             </li>
           </ul>
         </li>
@@ -36,6 +39,9 @@
         </li>
         <li>
           <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+         <li>
+          <router-link to="/positions">Positions</router-link>
         </li>
         <li>
           <a>Contact Us</a>
@@ -94,6 +100,7 @@ export default {
       email: "",
       password: "",
       user: auth.user,
+      type:'',
       error: ''
     }
   },
@@ -118,10 +125,13 @@ export default {
             admin: JSON.stringify(response.body.data.admin)
           }
           auth.login(data)
+          this.type=auth.getAdminType()
+          console.log(this.type)
+        
           this.closeNav();
-          this.$router.push({
-            path: 'admin'
-          })
+          // this.$router.push({
+          //   path: 'admin'
+      //    })
         } else {
           this.error = response.body.msg
         }
@@ -130,6 +140,7 @@ export default {
     // To log out, we just need to remove the token
     logout: function() {
       auth.logout();
+      this.type= false 
     }
   },
   created() {

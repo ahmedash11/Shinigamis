@@ -1,4 +1,4 @@
-<template>
+9==<template>
 <div class="homePage">
   <NavBar></NavBar>
   <Banner></Banner>

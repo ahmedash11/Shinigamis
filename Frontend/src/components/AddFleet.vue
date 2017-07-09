@@ -2,7 +2,7 @@
 <section id="contact" class="content-section text-center">
   <div class="contact-section">
     <div class="container">
-      <h2>Application Form</h2>
+      <h2>Add Fleet</h2>
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -21,11 +21,11 @@
             </div>
             <div class="form-group">
               <label for="exampleInputName2">Class</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="Class" v-model="class">
+              <input type="text" class="form-control" id="exampleInputName2" placeholder="Class" v-model="fleetclass">
             </div>
             <div class="form-group">
               <label for="exampleInputEmail2">Built</label>
-              <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Built" v-model="built">
+              <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Built" v-model="built">
             </div>
             <div class="form-group">
               <label for="exampleInputName2">Tonnage</label>
@@ -82,6 +82,10 @@
 
             <button type="submit" class="btn btn-default">Add Fleet</button>
           </form>
+          </div>
+          </div>
+          </div>
+          </div>
 </section>
 </template>
 
@@ -94,7 +98,7 @@ export default {
       name: "",
       type: "",
       design: "",
-      class: "",
+      fleetclass: "",
       built: "",
       tonnage: "",
       draft: "",
@@ -120,8 +124,8 @@ export default {
 
     // Send a request to the login URL and save the returned JWT
     AddFleet: function() {
-      this.$http.post('http://localhost:3000/addFleet', {
-        "title": this.name,
+      this.$http.post('http://localhost:3000/admin/addFleet', {
+        "name": this.name,
         "type": this.type,
         "design": this.design,
         "class": this.class,

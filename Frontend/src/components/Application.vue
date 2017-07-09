@@ -39,18 +39,22 @@
               <label for="exampleInputText">Experience</label>
               <textarea class="form-control" placeholder="Experience" v-model="experience"></textarea>
             </div>
-            <div class="form-group ">
+            <!-- <div class="form-group ">
               <label for="exampleInputText">CV</label>
               <input type="file" accept="application/pdf" class="form-control" placeholder="CV" v-model="cv">
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-default">Send Message</button>
           </form>
+          </div>
+          </div>
+          </div>
+          </div>
 </section>
 </template>
 
 <script>
 export default {
-  name: 'Fleets',
+  name: 'Application',
   data() {
     return {
 
@@ -74,7 +78,7 @@ export default {
 
     // Send a request to the login URL and save the returned JWT
     sendApplication: function() {
-      this.$http.post('http://localhost:3000/sendApplication' {
+      this.$http.post('http://localhost:3000/sendApplication' ,{
         "firstName": this.firstName,
         "lastName": this.lastName,
         "position": this.position,

@@ -1,31 +1,23 @@
 <template>
-<div class="fleetsAdmin">
+<div class="ApplicationsAdmin">
 
   <!-- Four -->
   <section id="four" class="wrapper style1 special fade-up">
     <div class="container">
 
       <header class="major">
-        <h2>Fleets</h2>
+        <h2>Applications</h2>
       </header>
 
       <div class="box alt">
         <div class="row uniform">
-          <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="fleet in fleets">
-            <img src="../../static/images/Ship1.jpeg"></img>
-            <h3>{{fleet.name}}</h3>
+          <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="Application in Applications">
+            
+            <h3>{{Application.firstName}} {{Application.lastName}}</h3>
+           
             <ul class="actions">
-              <li>
-                <router-link :to="{ name : 'EditFleet' , params: { fleetId : fleet._id }}"><button class="button special">Edit</button></router-link>
-              </li>
-              <li><a class="button special" v-on:click="deleteFleet(fleet._id)">Delete</a></li>
+              <li><a class="button special" v-on:click="deleteApplication(Application._id)">Delete</a></li>
             </ul>
-          </section>
-
-          <section class=" 4u 6u(medium) 12u$(xsmall) ">
-            <CENTER>
-              <router-link :to="{name : 'AddFleet'}"><button data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new fleet</button></router-link>
-            </CENTER>
           </section>
         </div>
       </div>
@@ -42,25 +34,36 @@
 import env from '../env'
 import auth from '../auth'
 export default {
-  name: 'fleetsAdmin',
+  name: 'applicationsAdmin',
   data() {
     return {
-      fleets: [],
-
-
+      Applications: [{
+        firstName:'Ahmed',
+        lastName:'Kamal'
+      }]
     }
   },
-  created() {
-    this.fetchFleets()
-  },
   methods: {
-    // Send a request to the login URL and save the returned JWT
-    fetchFleets: function() {
-      this.$http.get('http://localhost:3000/user/getAllFleets').then(response => {
-        this.fleets = response.data.data.fleets
+    fetchApplications: function() {
+      this.$http.get(env.URL + '/admin/findAllApplications').then(response => {
+        this.Applications = response.data.data.applications
+        console.log(this.Applications)
+      }).catch(error => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
       })
     },
-    deleteFleet: function(fleetId) {
+    deleteApplication: function(ApplicationId) {
       swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -70,8 +73,8 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(() => {
-        this.$http.post(env.URL + '/admin/deleteFleet', {
-          id: fleetId
+        this.$http.post(env.URL + '/admin/deleteApplication', {
+          id: ApplicationId
         }, {
           headers: auth.getAuthHeader()
         }).then((response) => {
@@ -80,7 +83,7 @@ export default {
             response.body.msg,
             'success'
           )
-          this.fetchFleets()
+          this.fetchApplications()
 
         }).catch((error) => {
           if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -98,7 +101,21 @@ export default {
         })
       }, (dismiss) => {})
     },
-  }
+    setSelectedApplication: function(Application) {
+      this.selectedApplication = Application
+      if (this.selectedApplication) {
+        this.name = this.selectedApplication.name
+        this.description = this.selectedApplication.description
+      } else {
+        this.name = ''
+        this.description = ''
+      }
+    }
+  },
+  created() {
+    this.fetchApplications()
+  },
+  components: {}
 }
 </script>
 
@@ -121,3 +138,4 @@ export default {
   max-width: 100%;
 }
 </style>
+-s

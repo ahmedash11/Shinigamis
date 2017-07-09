@@ -23,6 +23,19 @@
        <input id="tab5" type="radio" name="tabs">
     <label for="tab5"><span>Awards</span></label>
 
+
+    
+    <input id="tab6" type="radio" name="tabs">
+    <label for="tab6"><span>Admins</span></label>
+
+     <input id="tab7" type="radio" name="tabs">
+    <label for="tab7"><span>Applications</span></label>
+
+
+     <input id="tab8" type="radio" name="tabs">
+    <label for="tab8"><span>Positions</span></label>
+    
+
  <section id="content1" class="tab-content">
   <Clients></Clients>
   </section>
@@ -46,6 +59,21 @@
   <Awards></Awards>
 
   </section>
+   <section id="content6" class="tab-content">
+
+  <Admins></Admins>
+
+  </section>
+   <section id="content7" class="tab-content">
+
+  <Application></Application>
+
+  </section>
+     <section id="content8" class="tab-content">
+
+  <Position></Position>
+
+  </section>
   </div>
 </div>
 </template>
@@ -58,6 +86,9 @@ import Projects from './historyProjectsAdmin'
 import Locations from './locationsAdmin'
 import Fleets from './fleetsAdmin'
 import Awards from './awardsAdmin'
+import Admins from './admins'
+import Position from './positionsAdmin'
+import Application from '@/components/applicationsAdmin'
 export default {
   name: 'admin',
   data() {
@@ -71,7 +102,10 @@ export default {
     Projects,
     Locations,
     Fleets,
-    Awards
+    Awards,
+    Admins,
+    Application,
+    Position
   }
 }
 </script>
@@ -124,7 +158,7 @@ label {
   font-size: 18px;
   display: block;
   float: left;
-  width: 13%;
+  width: 10%;
   cursor: pointer;
   text-decoration: none;
   text-align: center;

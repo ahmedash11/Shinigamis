@@ -1,16 +1,16 @@
 <template>
-<div class="aboutUs">
+<div class="Services">
 
 <div class="tab_container" align="center">
 
     <input id="tab1" type="radio" name="tabs" checked>
-    <label for="tab1"><span>Chairman Message</span></label>
+    <label for="tab1"><span>Services</span></label>
 
     <input id="tab2" type="radio" name="tabs">
-    <label for="tab2"><span>Our Organization Chart</span></label>
+    <label for="tab2"><span>HSE Policy</span></label>
 
     <input id="tab3" type="radio" name="tabs">
-    <label for="tab3"><span>Our Personnel</span></label>
+    <label for="tab3"><span>Risk Assesment</span></label>
 
   <!-- One -->
   <section class="spotlight style1 bottom tab-content" id="content1" >
@@ -20,18 +20,36 @@
         <div class="row">
           <div class="4u 12u$(medium)">
             <header>
-              <h2>About Us</h2>
+              <h2>Services</h2>
 
             </header>
             <img src="../../static/images/signature-pic.jpg">
           </div>
           <div class="4u 12u$(medium)">
-            <p>In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so, we
-              have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
+          <h3> We Provide The Following Services: </h3> 
+            <p>
+            <ul>
+            <li><p>Performing ocean and costal towage operations.</p></li>  
+            <li><p>Maintenance of offshore platforms, Boat landings and riser guards.etc</p></li>    
+            <li><p>Fabrication and installation of offshore light steel structure.</p></li>  
+            <li><p>Pollution - Oil recovery operations.</p></li>  
+            <li><p>Fire-Fighting operations.</p></li> 
+            <li><p>Salvage operations.</p></li>  
+
+            </ul></p>
           </div>
           <div class="4u$ 12u$(medium)">
-            <p>needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
-              their specialized expertise and their accumulated experience in a vibrant yet sensitive field as the Oil and Gas, has made my vision for the company to become a reality. - Mahmoud Rashid</p>
+          <h3>We provide the following chartering services:</h3> 
+            <p>
+            <ul>
+            <li><p>Anchor handling, Tug and supply boats.</p></li>  
+            <li><p>Crane, Work and accommodation barges.</p></li>    
+            <li><p>Pontoons up to 15000 tons capacity.</p></li>  
+            <li><p>Diving support vessels.</p></li>  
+            <li><p>Mooring and service boats.</p></li> 
+            <li><p>Crew utility boats.</p></li>  
+
+            </ul></p>
           </div>
         </div>
       </div>
@@ -82,17 +100,12 @@
             
           </div>
           <div class="4u 12u$(medium)">
-            <p>All shipboard personnel of RASHIED MARITIME SERVICES CO. are medically fit, competent and qualified in accordance with national and international legislation.
-
-Company specifies the total manning requirements for each ship taking into consideration the minimum requirements of the national law. It also specifies the qualifications and experience requirements for each position in which respective persons are going to be involved.
-Selection and recruitment of shipboard personnel is based upon the above requirements, so that every ship is manned with capable crew to undertake the safety tasks they are expected to perform during normal and emergency operations</p>
+            <p>In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so, we
+              have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
           </div>
           <div class="4u$ 12u$(medium)">
-            <p>Shore based personnel has the appropriate qualifications and experience required to provide technical assistance and support to on-board management. Records of qualifications for every specific position are available.
-Company continuously identifies training requirements for sea going personnel in order to ensure that all ships are manned with personnel meeting the Company's requirements concerning qualification, ability and experience.
-
-In order to motivate all personnel in implementing and maintaining the Safety Management System, the Company is always taking specific measures to satisfy personnel requirements, to reward personnel efforts and to solve personnel problems.
-Ail ships are certified with the Safe Manning Certificate.</p>
+            <p>needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
+              their specialized expertise and their accumulated experience in a vibrant yet sensitive field as the Oil and Gas, has made my vision for the company to become a reality. - Mahmoud Rashid</p>
           </div>
         </div>
       </div>
@@ -106,7 +119,7 @@ Ail ships are certified with the Safe Manning Certificate.</p>
 
 <script>
 export default {
-  name: 'aboutUs',
+  name: 'services',
   data() {
     return {}
   }

@@ -3,22 +3,24 @@
 
  var positionController = {
 
-     function addPosition(req, res) {
+     addPosition(req, res) {
 
          var token = req.headers['jwt-token'];
          jwt.verify(token, (decoded) => {
-             if (decoded.type === 1) {
+             if (decoded) {
 
 
                  // creating a new Position instance and saving it
                  var newPosition = new Position({
                      title: req.body.title,
-                     description: req.body.description
+                     description: req.body.description,
+                     isOffered: false
 
                  });
                  newPosition.save();
                  res.status(200).json({
                      status: 'success',
+                     msg: 'Position successfully added',
                      data: {
                          newPosition
                      },
@@ -31,6 +33,33 @@
          });
 
      },
+     deletePosition(req, res) {
+         var token = req.headers['jwt-token'];
+
+         jwt.verify(token, (decoded) => {
+             if (decoded) {
+                 Position.deletePosition(req.body.id, (err) => {
+                     if (err) {
+                         res.status(500).json({
+                             success: false,
+                             msg: err.message
+                         });
+                     } else {
+                         res.status(200).json({
+                             success: true,
+                             msg: 'Position successfully deleted'
+                         });
+                     }
+                 })
+             } else {
+                 res.status(500).json({
+                     success: false,
+                     msg: 'Unauthorized Access',
+                 });
+             }
+         })
+     },
+
 
      viewAllPositions(req, res) {
 
@@ -64,7 +93,7 @@
      },
      viewAllOfferedPositions(req, res) {
 
-         Position.find({isOffered:true},(err, offeredPositions) => {
+         Position.find({ isOffered: true }, (err, offeredPositions) => {
              if (err) { // if error occurred
                  res.status(500).json({
                      success: false,

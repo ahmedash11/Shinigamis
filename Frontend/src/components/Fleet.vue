@@ -132,8 +132,9 @@ export default {
 
     // Send a request to the login URL and save the returned JWT
     getFleet: function() {
-      this.$http.get('http://localhost:3000/user/getFleet/'.concat(this.$route.params.fleetId)).then(data => {
+      this.$http.get('http://localhost:3000/user/getFleet/'.concat(this.$route.params.fleetId)).then(response => {
         this.Fleet = response.data.data.fleet
+        console.log(this.Fleet.type)
       })
     }
   }
