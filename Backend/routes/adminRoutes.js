@@ -1,5 +1,22 @@
 var express = require('express');
 var router = express.Router();
+const multer = require('multer');
+const crypto = require('crypto');
+const path = require('path');
+const storage = multer.diskStorage({ // specifying storage path for images
+    destination: './public/uploads/',
+    filename(req, file, cb) {
+        crypto.pseudoRandomBytes(16, (err, raw) => {
+            if (err) return cb(err);
+
+            cb(null, raw.toString('hex') + path.extname(file.originalname));
+        });
+    },
+});
+
+const upload = multer({
+    storage,
+});
 
 // Controllers
 
@@ -11,6 +28,7 @@ var locationController = require('../controllers/locationController');
 var historyProjectController = require('../controllers/historyProjectController');
 var awardController = require('../controllers/awardController');
 var positionController = require('../controllers/positionController');
+var Image = require('../models/Image');
 
 
 // Routes for admin user
@@ -54,6 +72,29 @@ router.post('/deleteApplication', applicationController.deleteApplication);
 router.post('/addPosition', positionController.addPosition);
 
 router.post('/deletePosition', positionController.deletePosition);
+
+router.post('/upload', upload.array('avatar'), (req, res) => {
+    console.log(req.files);
+    for (var i = 0; i < req.files.length; i++) {
+        const image = new Image({
+            fleet_id: req.body.fleet_id.substring(0),
+
+        });
+
+        image.img.name = req.files[i].filename;
+        image.img.path = req.files[i].path;
+        image.img.size = req.files[i].size;
+
+        image.save((err) => {
+            if (err) {
+                console.log('error');
+            } else {
+                 console.log('success');
+            }
+           
+        });
+    }
+});
 
 router.post('/offerPosition', positionController.offerPosition);
 

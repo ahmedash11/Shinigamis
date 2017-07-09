@@ -79,6 +79,10 @@
               <label for="exampleInputName2">Helideck</label>
               <input type="text" class="form-control" id="exampleInputName2" placeholder="Helideck" v-model="helideck">
             </div>
+              <div class="form-group">
+              <label for="exampleInputName2">Helideck</label>
+              <input ref="avatar" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple">
+            </div>
 
             <button type="submit" class="btn btn-default">Add Fleet</button>
           </form>
@@ -90,6 +94,8 @@
 </template>
 
 <script>
+import env from '../env'
+import auth from '../auth'
 export default {
   name: 'AddFleet',
   data() {
@@ -113,6 +119,8 @@ export default {
       fireFighting: "",
       mooringSystem: "",
       helideck: "",
+      fleet_id:"",
+      formData:[],
       images: []
 
     }
@@ -147,8 +155,24 @@ export default {
           'jwt-token': localStorage.getItem('id_token')
         }
       }).then(data => {
+        console.log('data ' + data);
+        console.log('formdata  ' + this.formData);
+        this.formData.append("fleet_id",data.data.data.fleet._id)
+         this.$http.post(env.URL+'/admin/upload',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
+            
+      })
 
       })
+    }, upload: function(fieldName, fileList) {
+        // handle file changes
+        const formData = new FormData();
+        // append the files to FormData
+        Array.from(Array(fileList.length).keys()).map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+          });
+        
+        this.formData = formData
+       
     }
   }
 }

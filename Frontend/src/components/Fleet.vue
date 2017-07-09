@@ -99,7 +99,8 @@
           <div class="container" id="features">
 
             <div class="row">
-              <div v-for=" image in Fleet.images">
+              <div v-for=" image in Images">
+              <img :src="'http://localhost:3000/'+image.img.path.replace('public','')">
 
 
 
@@ -115,16 +116,20 @@
 </template>
 
 <script>
+import env from '../env'
+import auth from '../auth'
 export default {
   name: 'Fleets',
   data() {
     return {
       Fleet: {},
+      Images:[]
 
     }
   },
   created() {
     this.getFleet()
+    this.getImages()
   },
 
   methods: {
@@ -134,7 +139,14 @@ export default {
     getFleet: function() {
       this.$http.get('http://localhost:3000/user/getFleet/'.concat(this.$route.params.fleetId)).then(response => {
         this.Fleet = response.data.data.fleet
-        console.log(this.Fleet.type)
+        
+      })
+    },
+     getImages: function() {
+      this.$http.get('http://localhost:3000/user/getImages/'.concat(this.$route.params.fleetId)).then(response => {
+        console.log(response)
+        this.Images = response.data.data.images
+        console.log(this.Images)
       })
     }
   }

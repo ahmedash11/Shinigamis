@@ -13,13 +13,17 @@ var historyProjectController = require('../controllers/historyProjectController'
 var locationController = require('../controllers/locationController');
 var awardController = require('../controllers/awardController');
 
+
 // Routes for client
 
 router.get('/getAllClients', clientController.getAllClients) // View all clients
 
 router.get('/getAllFleets', fleetController.getAllFleets) // View all fleets
 
-router.get('/getFleet/:fleetId', fleetController.getFleet) // View fleet by id
+router.get('/getFleet/:fleetId', fleetController.getFleet)    // View fleet by id
+
+router.get('/getImages/:fleetId', fleetController.getImages)
+
 
 router.get('/getAllProjects', historyProjectController.getAllProjects) // View all projects
 
