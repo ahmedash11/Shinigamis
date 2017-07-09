@@ -51,8 +51,10 @@
                 <form @submit.prevent="editClient()" role="form" style="display: block;">
                   <label class="test">Name</label>
                   <input type="text" name="name" v-model="name" required>
+
                   <label class="test">Description</label>
                   <textarea type="text" name="description" v-model="description" required></textarea>
+
                   <br>
                   <div>
                     <CENTER>
@@ -87,6 +89,7 @@
                 <form @submit.prevent="addClient()" role="form" style="display: block;" class="form-group">
                   <label class="test">Name</label>
                   <input type="text" name="name" placeholder="Name" v-model="name" required>
+
                   <label class="test">Description</label>
                   <textarea type="text" name="description" placeholder="Description" v-model="description" required></textarea>
                   <div>

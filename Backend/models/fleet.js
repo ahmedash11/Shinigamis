@@ -57,7 +57,7 @@ var fleetSchema = new Schema({
   fireFighting: String,
   mooringSystem: String,
   helideck: String,
-  images: [String]
+ 
 
 });
 
