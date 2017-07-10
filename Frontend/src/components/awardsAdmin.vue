@@ -50,8 +50,10 @@
                 <form @submit.prevent="addAward()" role="form" style="display: block;" class="form-group">
                   <label class="test">Title</label>
                   <input type="text" name="title" placeholder="Title" v-model="title" required>
-                  <label class="test">Award</label>
-                  <textarea type="image" name="image" placeholder="Image" v-model="image" required></textarea>
+    
+              <label class="test">Upload Images</label>
+             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> 
+            
                   <div>
                     <br>
                     <CENTER>
@@ -82,7 +84,8 @@ export default {
       Awards: [],
       title: '',
       image: '',
-      selectedAward: ''
+      selectedAward: '',
+      formData:{}
     }
   },
   methods: {
@@ -115,6 +118,10 @@ export default {
       }).then(response => {
         $('#addAward').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
+         this.formData.append("award_id",response.data.data.award._id)
+         this.$http.post(env.URL+'/admin/AwardImage',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
+            
+      })
         this.fetchAwards()
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -178,6 +185,16 @@ export default {
         this.name = ''
         this.description = ''
       }
+    }, upload: function(fieldName, fileList) {
+        // handle file changes
+        const formData = new FormData();
+        // append the files to FormData
+        Array.from(Array(fileList.length).keys()).map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+          });
+        
+        this.formData = formData
+       
     }
   },
   created() {

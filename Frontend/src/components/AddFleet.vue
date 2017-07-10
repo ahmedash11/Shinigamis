@@ -80,11 +80,12 @@
               <input type="text" class="form-control" id="exampleInputName2" placeholder="Helideck" v-model="helideck">
             </div>
               <div class="form-group">
-              <label for="exampleInputName2">Helideck</label>
-              <input ref="avatar" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple">
+              <label for="exampleInputName2">Upload Images</label>
+             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> 
             </div>
-
-            <button type="submit" class="btn btn-default">Add Fleet</button>
+<br>
+<br>
+            <button type="submit" class="button special">Add Fleet</button>
           </form>
           </div>
           </div>

@@ -92,6 +92,10 @@
 
                   <label class="test">Description</label>
                   <textarea type="text" name="description" placeholder="Description" v-model="description" required></textarea>
+              <div class="form-group">
+              <label for="exampleInputName2">Upload Images</label>
+             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> 
+            </div>
                   <div>
                     <br>
                     <CENTER>
@@ -122,7 +126,8 @@ export default {
       clients: [],
       name: '',
       description: '',
-      selectedClient: ''
+      selectedClient: '',
+      formData:{}
     }
   },
   methods: {
@@ -154,6 +159,10 @@ export default {
       }).then(response => {
         $('#addClient').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
+         this.formData.append("client_id",response.data.data.client._id)
+         this.$http.post(env.URL+'/admin/ClientImage',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
+            
+      })
         this.fetchClients()
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -245,6 +254,16 @@ export default {
         this.name = ''
         this.description = ''
       }
+    }, upload: function(fieldName, fileList) {
+        // handle file changes
+        const formData = new FormData();
+        // append the files to FormData
+        Array.from(Array(fileList.length).keys()).map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+          });
+        
+        this.formData = formData
+       
     }
   },
   created() {
