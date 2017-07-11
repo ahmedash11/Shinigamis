@@ -1,11 +1,10 @@
 <template>
 <div class="container">
   <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <h4>Announcements</h4>
-    </div>
-  </div>
-  <hr>
+<!--     <div class="col-xs-8 col-xs-offset-2">
+ -->      <center><h4>Announcements</h4></center>
+<!--     </div>
+ -->  <!-- </div> -->
   <div class="container">
  <button data-toggle="modal" data-target="#announcements" class="button special">+</button>
 
@@ -47,6 +46,7 @@
       </div>
   </div>
   </div>
+  </div>
   <!-- Begin of rows -->
   <div v-for="Ann in Announcement">
     <div class="col-xs-8 col-xs-offset-2 slide-row">
@@ -65,7 +65,8 @@
           <p>
             {{Ann.content}}
           </p>
-          <i class="glyphicon glyphicon-trash" @click="remove(Ann)"></i>
+          <i id="bin" class="glyphicon glyphicon-trash" @click="remove(Ann)"></i>
+          <hr>
         </div>
       </div>
       <br>
@@ -94,16 +95,39 @@ export default {
       this.$http.post('http://localhost:3000/admin/addAnnouncement',{title:this.title,content:this.content},{headers:{'jwt-token':localStorage.getItem('id_token')}}).then(data=>{
         this.title='';
         this.content='';
+        $("#announcements").modal('hide');
+         swal(
+            'Announcement Posted!',
+            "",
+            'success'
+          )
         this.getAnnouncements();
 
       })
 
     },
     remove: function(a){
+       swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(()=>{
       this.$http.post('http://localhost:3000/admin/deleteAnnouncement',{id:a._id},{headers:{'jwt-token':localStorage.getItem('id_token')}}).then(data=>{
-        console.log(data)
         this.getAnnouncements();
+         swal(
+            'Deleted!',
+            "",
+            'success'
+          )
+        
       })
+      
+
+    })
 
     },
     getAnnouncements: function() {
@@ -133,5 +157,9 @@ export default {
 .\34 u img {
   max-height: 100%;
   max-width: 100%;
+  }
+  #bin:hover{
+    color: red;
+
   }
 </style>
