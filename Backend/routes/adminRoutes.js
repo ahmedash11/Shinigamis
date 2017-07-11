@@ -21,6 +21,7 @@ const upload = multer({
 // Controllers
 
 var adminController = require('../controllers/adminController');
+var announcementController = require('../controllers/announcementController');
 var fleetController = require('../controllers/fleetController');
 var applicationController = require('../controllers/applicationController');
 var clientController = require('../controllers/clientController');
@@ -28,7 +29,7 @@ var locationController = require('../controllers/locationController');
 var historyProjectController = require('../controllers/historyProjectController');
 var awardController = require('../controllers/awardController');
 var positionController = require('../controllers/positionController');
-var Image = require('../models/Image');
+var Image = require('../models/image');
 var Client = require('../models/client.js');
 var Award = require('../models/award.js');
 var Announcement = require('../models/announcement.js');
@@ -75,6 +76,12 @@ router.post('/deleteApplication', applicationController.deleteApplication);
 router.post('/addPosition', positionController.addPosition);
 
 router.post('/deletePosition', positionController.deletePosition);
+
+router.post('/addAnnouncement',announcementController.addAnnouncement);
+
+router.get('/getAnnouncements', announcementController.findAllAnnouncements);
+
+router.post('/deleteAnnouncement',announcementController.deleteAnnouncement);
 
 router.post('/upload', upload.array('avatar'), (req, res) => {
     console.log(req.files);

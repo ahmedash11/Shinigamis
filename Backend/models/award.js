@@ -24,7 +24,7 @@ var awardSchema = new Schema({
     title: String,
     picture: String
 });
-awardSchemas.plugin(filePlugin, {
+awardSchema.plugin(filePlugin, {
     name: 'profileimg',
     upload_to: make_upload_to_model(uploads, 'photos'),
     relative_to: uploads_base,

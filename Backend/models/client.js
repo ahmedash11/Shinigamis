@@ -17,7 +17,6 @@ const make_upload_to_model = filePluginLib.make_upload_to_model;
 
 const uploads_base = path.join(__dirname, 'uploads');
 const uploads = path.join(uploads_base, 'u');
-var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 

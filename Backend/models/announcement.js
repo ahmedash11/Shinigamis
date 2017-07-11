@@ -24,14 +24,17 @@ var timestamps = require('mongoose-timestamp');
 const announcementSchema = new Schema({
 	title: String,
 	content: String,
-	createdAt:Date
+	createdAt:{
+		type:Date,
+		default:Date.now
+	}
 });
 announcementSchema.plugin(filePlugin, {
   name: 'profileimg',
   upload_to: make_upload_to_model(uploads, 'photos'),
   relative_to: uploads_base,
 });
-announcementSchema.plugin(timestamps);
+// announcementSchema.plugin(timestamps);
 
 
 // create the model for users and expose it to our app

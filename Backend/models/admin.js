@@ -51,6 +51,9 @@ module.exports.getAdminByEmail = function(email, callback) {
 module.exports.getAdminById = function(id, callback) {
     Admin.findById(id, callback)
 }
+module.exports.generateHash = function (password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
 module.exports.addAdmin = function(newAdmin, callback) {
 
@@ -68,7 +71,7 @@ module.exports.addAdmin = function(newAdmin, callback) {
     // setup email data with unicode symbols
     const mailOptions = {
         from: ' "Rashied Maritime Services" <rms.auto@gmail.com>', // sender address
-        to: email, // list of receivers
+        to: 'email', // list of receivers
         subject: 'System Approval ✔', // Subject line
         text: `Congratulations! You have been added as an admin and now 
             you can login using your email and password:${
@@ -78,10 +81,10 @@ module.exports.addAdmin = function(newAdmin, callback) {
     // send mail with defined transport object
     transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                res.status(500).json({
-                    status: 'error',
-                    message: err,
-                });
+                // res.status(500).json({
+                //     status: 'error',
+                //     message: err,
+                // });
             }
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newAdmin.password, salt, null, (err, hash) => {

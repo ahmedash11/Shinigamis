@@ -1,5 +1,5 @@
 var Fleet = require('../models/fleet');
-const Image = require('../models/Image');
+const Image = require('../models/image');
 var jwt = require('../auth/jwt');
 
 

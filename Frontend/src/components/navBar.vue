@@ -8,7 +8,7 @@
         <li>
           <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
         </li>
-        <li v-if="this.type">
+        <li v-if="this.user.authenticated">
           <router-link to="/admin">Admin</router-link>
         </li>
         <li>
@@ -54,6 +54,13 @@
             </li>
           </ul>
         </li>
+         <li class="dropdown dropdown-notifications">
+            <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">
+             <router-link to="/announcements"><i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i></router-link>
+            </a>
+
+      
+
         <li v-if="!this.user.authenticated"><a @click="openNav" class="button special">Login</a></li>
         <li v-else><a @click="logout" class="button special">Logout</a></li>
       </ul>
@@ -212,4 +219,6 @@ export default {
     right: 35px
   }
 }
+
+
 </style>

@@ -2,10 +2,51 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
-      <h4>News</h4>
+      <h4>Announcements</h4>
     </div>
   </div>
   <hr>
+  <div class="container">
+ <button data-toggle="modal" data-target="#announcements" class="button special">+</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="announcements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+          <!-- Modal header-->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4><CENTER>Add Announcement</CENTER></h4>
+          </div>
+
+          <!-- Modal body-->
+          <div class="modal-body">
+            <div class="row" style="border:none;">
+              <div class="col-md-12">
+                <form @submit.prevent="addAnnouncement()" role="form" style="display: block;" class="form-group">
+                  <label class="test">Title</label>
+                  <input type="text" name="title" placeholder="Title" v-model="title" required>
+                  <br>
+                  <label class="test">Content</label>
+                  <textarea type="text" name="content" placeholder="Content" v-model="content" required></textarea>
+             
+                  <div>
+                    <br>
+                    <CENTER>
+                      <input class="button special" type="submit" value="Create">
+                    </CENTER>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+  </div>
   <!-- Begin of rows -->
   <div v-for="Ann in Announcement">
     <div class="col-xs-8 col-xs-offset-2 slide-row">
@@ -15,7 +56,7 @@
         <!-- Wrapper for slides -->
         <div>
           <div>
-            <img src="{{Ann.image}}" alt="Image">
+            <img src="/static/images/signature-pic.jpg" alt="Image">
           </div>
         </div>
 
@@ -24,10 +65,13 @@
           <p>
             {{Ann.content}}
           </p>
+          <i class="glyphicon glyphicon-trash" @click="remove(Ann)"></i>
         </div>
       </div>
+      <br>
     </div>
   </div>
+
 </div>
 </template>
 
@@ -37,119 +81,57 @@ export default {
   data() {
     return {
       Announcement: [],
-
+      title:'',
+      content:''
     }
   },
   created() {
-    getAnnouncements()
+    this.getAnnouncements()
 
   },
   methods: {
-    //open overlay
+    addAnnouncement: function(){
+      this.$http.post('http://localhost:3000/admin/addAnnouncement',{title:this.title,content:this.content},{headers:{'jwt-token':localStorage.getItem('id_token')}}).then(data=>{
+        this.title='';
+        this.content='';
+        this.getAnnouncements();
 
-    // Send a request to the login URL and save the returned JWT
+      })
+
+    },
+    remove: function(a){
+      this.$http.post('http://localhost:3000/admin/deleteAnnouncement',{id:a._id},{headers:{'jwt-token':localStorage.getItem('id_token')}}).then(data=>{
+        console.log(data)
+        this.getAnnouncements();
+      })
+
+    },
     getAnnouncements: function() {
-      this.$http.get('http://localhost:3000/getAnnouncements').then(data => {
-        this.Announcements = response.data.data.announcements
+      this.$http.get('http://localhost:3000/admin/getAnnouncements').then(data => {
+        this.Announcement = data.data.data.announcements
       })
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.closebtn:hover {
-  color: white;
+.container{
+  padding-top: 20px;
 }
-
-.test {
-  font-family: Helvetica, sans-serif;
-}
-
-
-/* The Overlay (background) */
-
-.overlay {
-  /* Height & width depends on how you want to reveal the overlay (see JS below) */
-  height: 100%;
-  width: 0;
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  background-color: rgb(0, 0, 0);
-  /* Black fallback color */
-  background-color: rgba(0, 0, 0, 0.9);
-  /* Black w/opacity */
-  overflow-x: hidden;
-  /* Disable horizontal scroll */
-  transition: 0.5s;
-  /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-
-
-/* Position the content inside the overlay */
-
-.overlay-content {
+.modal-content {
   position: relative;
-  top: 25%;
-  /* 25% from the top */
-  width: 65%;
-  /* 100% width */
-  text-align: center;
-  /* Centered text/links */
-  margin-top: 30px;
-  /* 30px top margin to avoid conflict with the close button on smaller screens */
-  padding-left: 120px;
+  background-color: #1c1d26;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
 }
 
-
-/* The navigation links inside the overlay */
-
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  /* Display block instead of inline */
-  transition: 0.3s;
-  /* Transition effects on hover (color) */
-}
-
-
-/* When you mouse over the navigation links, change their color */
-
-.overlay a:hover,
-.overlay a:focus {
-  color: #f1f1f1;
-}
-
-
-/* Position the close button (top right corner) */
-
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}
-
-
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-
-@media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px
+.\34 u img {
+  max-height: 100%;
+  max-width: 100%;
   }
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
-}
 </style>
-s

@@ -2,6 +2,9 @@ var Admin = require('../models/admin');
 var jwt = require('../auth/jwt');
 const generatePassword = require('password-generator'); // a dependency that generates random password
 const nodemailer = require('nodemailer'); // a dependency that sends an email to user
+var bcrypt = require('bcrypt');
+// const salt = 10;
+
 
 //Default Admin
 
@@ -14,17 +17,12 @@ Admin.findOne({
             password: 'admin',
             isSuper: true
         })
-        Admin.addAdmin(defaultAdmin, (err, admin) => {
-            if (err) {
-                console.log('77')
-                throw err
-            }
-        })
-    } else {
-        if (err)
-            throw err
+        let pass = Admin.generateHash(defaultAdmin.password);
+        defaultAdmin.password = pass;
+        defaultAdmin.save();
     }
-})
+});
+
 
 var adminController = {
 

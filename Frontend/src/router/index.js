@@ -4,19 +4,20 @@ import VueResource from 'vue-resource'
 
 import HomePage from '@/components/homePage'
 import Services from '@/components/services'
-import AdminPage from '@/components/admin'
+import AdminPage from '@/components/Admin'
 import ClientsPage from '@/components/clientsPage'
 import AwardsPage from '@/components/awardsPage'
 import ApplicationAdmin from '@/components/applicationsAdmin'
 import HistoryProjectsPage from '@/components/historyProjectsPage'
 import AboutUs from '@/components/aboutUs'
 import LocationPage from '@/components/locationsPage'
-import Fleet from '@/components/fleet'
+import Fleet from '@/components/Fleet'
 import FleetEdit from '@/components/editFleet.vue'
 import AddFleet from '@/components/AddFleet.vue'
 import FleetsPage from '@/components/fleetsPage.vue'
-import Positions from '@/components/Positions.vue'
+import Positions from '@/components/positions.vue'
 import Application from '@/components/Application.vue'
+import Announcements from '@/components/announcementsAdmin.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -88,5 +89,9 @@ export default new Router({
         path: '/addFleet',
         name: 'AddFleet',
         component: AddFleet
+    },{
+        path:'/announcements',
+        name:'Announcements',
+        component:Announcements
     }]
 })
