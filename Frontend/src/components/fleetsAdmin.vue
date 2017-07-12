@@ -24,7 +24,7 @@
 
           <section class=" 4u 6u(medium) 12u$(xsmall) ">
             <CENTER>
-              <router-link :to="{name : 'AddFleet'}"><button data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new fleet</button></router-link>
+              <router-link :to="{name : 'AddFleet'}"><button id="btn" data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new fleet</button></router-link>
             </CENTER>
           </section>
         </div>

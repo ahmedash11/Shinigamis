@@ -71,7 +71,7 @@ router.post('/addAward', awardController.addAward); // Add a new award
 
 router.post('/deleteAward', awardController.deleteAward); // Delete an existing award
 
-router.post('/findApplications', applicationController.findAllApplications)
+router.get('/findApplications', applicationController.findAllApplications)
 
 router.post('/deleteApplication', applicationController.deleteApplication);
 

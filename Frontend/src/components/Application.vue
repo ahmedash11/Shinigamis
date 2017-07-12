@@ -6,7 +6,7 @@
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <form role="form" class="form-horizontal" v-on:submit.prevent="sendApplication()">
+          <form role="form" class="form-horizontal" v-on:submit.prevent="sendApplication()" enctype="multipart/form-data">
             <div class="form-group">
               <label for="exampleInputName2">First Name</label>
               <input type="text" class="form-control" id="exampleInputName2" placeholder="First Name" v-model="firstName">
@@ -39,11 +39,12 @@
               <label for="exampleInputText">Experience</label>
               <textarea class="form-control" placeholder="Experience" v-model="experience"></textarea>
             </div>
-            <!-- <div class="form-group ">
-              <label for="exampleInputText">CV</label>
-              <input type="file" accept="application/pdf" class="form-control" placeholder="CV" v-model="cv">
-            </div> -->
-            <button type="submit" class="btn btn-default">Send Message</button>
+            <div class="form-group ">
+              <label for="exampleInputText">Upload CV</label>
+              <center><input ref="avatar" class="button special" type="file" name="CV" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> </center>
+            </div>
+            <br>
+            <button type="submit" class="button special">Apply</button>
           </form>
           </div>
           </div>
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+import env from '../env'
 export default {
   name: 'Application',
   data() {
@@ -67,18 +69,30 @@ export default {
       country: "",
       birthdate: "",
       experience: "",
-      cv: ""
+      cv: "",
+      formData:[]
 
     }
 
 
   },
   methods: {
+    upload: function(fieldName, fileList) {
+        // handle file changes
+        const formData = new FormData();
+        // append the files to FormData
+        Array.from(Array(fileList.length).keys()).map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+          });
+        
+        this.formData = formData
+       
+    },
 
 
     // Send a request to the login URL and save the returned JWT
     sendApplication: function() {
-      this.$http.post('http://localhost:3000/sendApplication' ,{
+      this.$http.post(env.URL+'/user/sendApplication' ,{
         "firstName": this.firstName,
         "lastName": this.lastName,
         "position": this.position,
@@ -88,12 +102,18 @@ export default {
         "country": this.country,
         "birthdate": this.birthdate,
         "experience": this.experience,
-        "cv": this.cv
+        // "cv": this.cv
       }, {
         headers: {
           'jwt-token': localStorage.getItem('id_token')
         }
-      }).then(data => {})
+      }).then(data => {
+        this.formData.append("app_id",data.data.data.newApplication._id)
+          this.$http.post(env.URL+'/user/uploadCV',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
+            
+      })
+
+      })
     }
   }
 }

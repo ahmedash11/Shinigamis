@@ -50,7 +50,7 @@ addApplication(req, res) {
 
     jwt.verify(token, (decoded) => {
       if (decoded) {
-        Application.deleteApplication(req.body.id, (err) => {
+        Application.findByIdAndRemove(req.body.id, (err) => {
           if (err) {
             res.status(500).json({
               success: false,

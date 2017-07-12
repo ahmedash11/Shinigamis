@@ -13,7 +13,7 @@
 */
 
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
@@ -31,10 +31,10 @@ var applicationSchema = new Schema({
 
 })
 
-
 // create the model for users and expose it to our app
 var Application = module.exports = mongoose.model('Application', applicationSchema);
 
 module.exports.deleteAward = function(id, callback) {
   Application.findByIdAndRemove(id, callback)
 }
+

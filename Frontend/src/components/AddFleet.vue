@@ -85,7 +85,7 @@
             </div>
 <br>
 <br>
-            <button type="submit" class="button special">Add Fleet</button>
+            <button id="btn"type="submit" class="button special">Add Fleet</button>
           </form>
           </div>
           </div>
