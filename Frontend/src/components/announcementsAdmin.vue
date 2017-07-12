@@ -1,12 +1,14 @@
 <template>
-<div class="container">
+<div class="announcementsAdmin" align="left">
+
+    <div class="container">
+
+     <header class="major">
+        <h2>Announcements</h2>
+      </header>
+ 
   <div class="row">
-<!--     <div class="col-xs-8 col-xs-offset-2">
- -->      <center><h4>Announcements</h4></center>
-<!--     </div>
- -->  <!-- </div> -->
-  <div class="container">
- <button data-toggle="modal" data-target="#announcements" class="button special">+</button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="announcements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -72,13 +74,16 @@
       <br>
     </div>
   </div>
+   <button data-toggle="modal" data-target="#announcements" class="button special">+</button>
+
+</div>
 
 </div>
 </template>
 
 <script>
 export default {
-  name: 'Announcements',
+  name: 'announcementsAdmin',
   data() {
     return {
       Announcement: [],

@@ -34,6 +34,12 @@
 
      <input id="tab8" type="radio" name="tabs">
     <label for="tab8"><span>Positions</span></label>
+
+       <input id="tab9" type="radio" name="tabs">
+    <label for="tab9"><span>Announcements</span></label>
+
+           <input id="tab10" type="radio" name="tabs">
+    <label for="tab10"><span>Edit Password</span></label>
     
 
  <section id="content1" class="tab-content">
@@ -74,6 +80,17 @@
   <Position></Position>
 
   </section>
+
+   <section id="content9" class="tab-content">
+
+  <Announcements></Announcements>
+
+  </section>
+    <section id="content10" class="tab-content">
+
+  <editPassword></editPassword>
+
+  </section>
   </div>
 </div>
 </template>
@@ -89,6 +106,8 @@ import Awards from './awardsAdmin'
 import Admins from './admins'
 import Position from './positionsAdmin'
 import Application from '@/components/applicationsAdmin'
+import Announcements from './announcementsAdmin.vue'
+import editPassword from './editPassword.vue'
 export default {
   name: 'admin',
   data() {
@@ -105,7 +124,9 @@ export default {
     Awards,
     Admins,
     Application,
-    Position
+    Position,
+    Announcements,
+    editPassword
   }
 }
 </script>
@@ -122,7 +143,8 @@ export default {
 #tab6:checked ~ #content6,
 #tab7:checked ~ #content7,
 #tab8:checked ~ #content8,
-#tab9:checked ~ #content9 {
+#tab9:checked ~ #content9,
+#tab10:checked ~ #content10 {
   display: block;
   
   
@@ -158,7 +180,7 @@ label {
   font-size: 18px;
   display: block;
   float: left;
-  width: 10%;
+  width: 9.5%;
   cursor: pointer;
   text-decoration: none;
   text-align: center;

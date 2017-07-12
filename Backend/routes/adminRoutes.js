@@ -43,6 +43,8 @@ router.post('/authenticate', adminController.authenticate); // Admin  login
 
 router.get('/admins', adminController.getAllAdmins); // Admin can get all admins
 
+router.post('/editPassword', adminController.editPassword); // Admin can get all admins
+
 router.post('/addlocation', locationController.addLocation); // Add a new location
 
 router.post('/deletelocation', locationController.deleteLocation); // Add a new location
