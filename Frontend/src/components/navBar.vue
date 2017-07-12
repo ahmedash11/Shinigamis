@@ -158,6 +158,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.navBar{
+  padding-top: 20px;
+}
 .closebtn:hover {
   color: #fff
 }

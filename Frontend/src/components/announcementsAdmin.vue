@@ -74,8 +74,7 @@
       <br>
     </div>
   </div>
-   <button data-toggle="modal" data-target="#announcements" class="button special">+</button>
-
+   <button id="scroll" data-toggle="modal" data-target="#announcements" class="button special">+</button>
 </div>
 
 </div>
@@ -144,6 +143,11 @@ export default {
 }
 </script>
 <style scoped>
+#scroll{
+   position: fixed;
+  bottom: 100px;
+  right: 50px;
+}
 .container{
   padding-top: 20px;
 }

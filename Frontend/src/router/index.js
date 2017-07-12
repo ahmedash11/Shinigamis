@@ -17,7 +17,7 @@ import AddFleet from '@/components/AddFleet.vue'
 import FleetsPage from '@/components/fleetsPage.vue'
 import Positions from '@/components/positions.vue'
 import Application from '@/components/Application.vue'
-import Announcements from '@/components/Announcements.vue'
+import Announcements from '@/components/announcementsAdmin.vue'
 
 
 Vue.use(Router)
