@@ -20,7 +20,7 @@
 
            
             <ul class="actions">
-              <i id="bin"class=" glyphicon glyphicon-trash" v-on:click="deleteApplication(Application._id)"></i> <i id="ok" class="glyphicon glyphicon-check"></i>
+              <i id="bin"class=" glyphicon glyphicon-trash" v-on:click="deleteApplication(Application._id)"></i> <i @click="Open(Application.Cv)" id="ok" class="glyphicon glyphicon-file"></i>
             </ul>
           </section>
         </div>
@@ -70,6 +70,10 @@ export default {
           }
         }
       })
+    },
+    Open:function(URL){
+      URL = env.URL.concat(URL.replace('public',''))
+      window.open(URL)
     },
     deleteApplication: function(ApplicationId) {
       swal({
@@ -158,8 +162,7 @@ export default {
 #bin:hover{ 
   color:red; 
 }
-#name:hover{
-  color:green;
-}
+
+
 
 </style>

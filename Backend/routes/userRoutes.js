@@ -36,7 +36,7 @@ router.get('/getAllClients', clientController.getAllClients) // View all clients
 
 router.get('/getAllFleets', fleetController.getAllFleets) // View all fleets
 
-router.get('/getFleet/:fleetId', fleetController.getFleet)    // View fleet by id
+router.get('/getFleet/:fleetId', fleetController.getFleet) // View fleet by id
 
 router.get('/getImages/:fleetId', fleetController.getImages)
 
@@ -51,16 +51,24 @@ router.get('/getPositions', positionController.viewAllPositions) // View all awa
 
 router.post('/sendApplication', applicationController.addApplication) // Send Application
 
-router.post('/uploadCV', upload.single('CV'),(req,res)=>{
-	Application.find({
-		_id:req.body.app_id
-	},function(err,app){
-		// console.log(app)
-		app.cv = req.file.path
-		
-	})
+router.post('/uploadCV', upload.single('CV'), (req, res) => {
+    Application.findById(req.body.app_id, function(error, client) {
+        if (error)
+            console.log(error)
+        else {
+        	client.Cv = req.file.path
 
-	})
+            client.save((err) => {
+                if (err) {
+                    console.log('error');
+                } else {
+                    res.send("sucess");
+                }
+                console.log('success');
+            });
+        }
+    });
+})
 
 
 

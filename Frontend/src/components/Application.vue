@@ -41,7 +41,7 @@
             </div>
             <div class="form-group ">
               <label for="exampleInputText">Upload CV</label>
-              <center><input ref="avatar" class="button special" type="file" name="CV" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> </center>
+              <center><input ref="avatar" type="file" name="CV" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> </center>
             </div>
             <br>
             <button type="submit" class="button special">Apply</button>

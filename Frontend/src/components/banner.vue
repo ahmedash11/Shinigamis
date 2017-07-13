@@ -1,7 +1,7 @@
 <template>
 <div class="banner">
   <!-- Banner -->
-  <section id="banner" style="background-position: center 26.85px; background-image:url(../../static/images/rms.jpg) " >
+  <section id="banner" style="background-position: center 26.85px; background-image:url(../../static/images/OceanDrum.jpg) " >
     <div class="content">
       <header>
       <div class="image-cropper">
@@ -14,7 +14,7 @@
     </div>
    
   </section>
-<section id="one" class="spotlight style1 bottom" style="background-position: center 3.9px; background-image:url(../../static/images/rms.jpg)"">
+<section id="one" class="spotlight style1 bottom" style="background-position: center 3.9px; background-image:url(../../static/images/OceanDrum.jpg)"">
 <span class="image fit main">
   <img src="../../static/images/rms.jpg">
 </span>

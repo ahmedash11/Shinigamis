@@ -96,17 +96,17 @@
 
 
         <p>
-          <div class="container" id="features">
-
-            <div class="row">
-              <div v-for=" image in Images">
+        <div class="container">
+  <div class="row img-thumbnails">
+      <div class="col-md-6" v-for=" image in Images">
+          <a href="#">
               <img :src="'http://localhost:3000/'+image.img.path.replace('public','')">
+          </a>
+      </div>
+  </div>
+  
+</div>
 
-
-
-              </div>
-            </div>
-          </div>
         </p>
 
       </div>
@@ -164,6 +164,10 @@ export default {
   display: block;
   
   
+}
+
+.img-thumbnails .img-thumbnail {
+    margin-top: 15px;
 }
 
 .tab_container .tab-content p,
