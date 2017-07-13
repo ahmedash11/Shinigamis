@@ -25,7 +25,7 @@
  * @property {String} fireFighting Fire fighting
  * @property {String} mooringSystem Mooring system
  * @property {String} helideck Helideck
- * @property {[String]} images Images
+ * @property {String} images Images
  */
 
 

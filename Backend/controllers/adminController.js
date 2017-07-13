@@ -14,7 +14,6 @@ Admin.findOne({
     })
     Admin.addAdmin(defaultAdmin, (err, admin) => {
       if (err) {
-        console.log('77')
         throw err
       }
     })

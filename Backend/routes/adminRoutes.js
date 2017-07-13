@@ -9,6 +9,7 @@ var clientController = require('../controllers/clientController');
 var locationController = require('../controllers/locationController');
 var historyProjectController = require('../controllers/historyProjectController');
 var awardController = require('../controllers/awardController');
+var aboutUsController = require('../controllers/aboutUsController');
 
 
 // Routes for admin user
@@ -44,5 +45,11 @@ router.post('/deleteProject', historyProjectController.deleteProject); // Delete
 router.post('/addAward', awardController.addAward); // Add a new award
 
 router.post('/deleteAward', awardController.deleteAward); // Delete an existing award
+
+router.post('/updateChairmanMessage', aboutUsController.updateChairmanMessage); // Update chairman message
+
+router.post('/updatePersonnel', aboutUsController.updatePersonnel); // Update personnel
+
+router.post('/updateContactUs', aboutUsController.updateContactUs); // Update contact us
 
 module.exports = router;

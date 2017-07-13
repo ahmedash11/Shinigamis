@@ -9,6 +9,7 @@ var fleetController = require('../controllers/fleetController');
 var historyProjectController = require('../controllers/historyProjectController');
 var locationController = require('../controllers/locationController');
 var awardController = require('../controllers/awardController');
+var aboutUsController = require('../controllers/aboutUsController');
 
 // Routes for client
 
@@ -23,5 +24,7 @@ router.get('/getAllProjects', historyProjectController.getAllProjects) // View a
 router.get('/getAllLocations', locationController.getAllLocations) // View all locations
 
 router.get('/getAllAwards', awardController.getAllAwards) // View all awards
+
+router.get('/getInfo', aboutUsController.getInfo) // View about us info
 
 module.exports = router;

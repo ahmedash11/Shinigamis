@@ -8,7 +8,7 @@
 
 <script>
 import Banner from './banner'
-import ContactUs from './contactUs'
+import ContactUs from './contactUsPage'
 import AboutUs from './aboutUsPage'
 export default {
   name: 'homePage',

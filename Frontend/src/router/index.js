@@ -18,6 +18,8 @@ import FleetsPage from '@/components/fleetsPage'
 import FleetsAdmin from '@/components/fleetsAdmin'
 import FleetProfileAdmin from '@/components/fleetProfileAdmin'
 import FleetProfilePage from '@/components/fleetProfilePage'
+import ContactUsPage from '@/components/contactUsPage'
+import ContactUsAdmin from '@/components/ContactUsAdmin'
 
 
 Vue.use(Router)
@@ -222,8 +224,67 @@ export default new Router({
     },
     {
       path: '/aboutUs',
-      name: 'AboutUs',
-      component: AboutUsPage
+      name: 'AboutUsPage',
+      component: AboutUsPage,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          next();
+        } else {
+          next('/admin/aboutUs')
+        }
+      }
+    },
+    /*
+    {
+      path: '/admin/aboutUs',
+      name: 'AboutUsAdmin',
+      component: AboutUsAdmin,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          swal(
+            'Oops...',
+            'You shall not pass!!',
+            'error'
+          )
+          next('/aboutUs');
+        } else {
+          next()
+        }
+      }
+    },
+    */
+    {
+      path: '/contactUs',
+      name: 'ContactUsPage',
+      component: ContactUsPage,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          next();
+        } else {
+          next('/admin/contactUs')
+        }
+      }
+    },
+    {
+      path: '/admin/contactUs',
+      name: 'ContactUsAdmin',
+      component: ContactUsAdmin,
+      beforeEnter: (to, from, next) => {
+        auth.checkAuth()
+        if (!auth.user.authenticated) {
+          swal(
+            'Oops...',
+            'You shall not pass!!',
+            'error'
+          )
+          next('/contactUs');
+        } else {
+          next()
+        }
+      }
     }
   ]
 })
