@@ -66,7 +66,7 @@ export default {
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        cancelButtonColor: '#d53',
         confirmButtonText: 'Yes, delete it!'
       }).then(() => {
         this.$http.post(env.URL + '/admin/deleteFleet', {

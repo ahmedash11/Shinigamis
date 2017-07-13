@@ -12,13 +12,15 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
-            <img src="/static/images/pic07.jpg"></img>
-            <h3>{{client.name}}</h3>
-            <p>{{client.description}}</p>
-            <ul class="actions">
-              <li><a data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</a></li>
-              <li><a class="button special" v-on:click="deleteClient(client._id)">Delete</a></li>
-            </ul>
+            <div>
+              <img :src="'http://localhost:3000/'+client.profileimg.path.replace('public','')">
+              <h3>{{client.name}}</h3>
+              <p>{{client.description}}</p>
+              <ul class="actions">
+                <li><a data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</a></li>
+                <li><a class="button special" v-on:click="deleteClient(client._id)">Delete</a></li>
+              </ul>
+            </div>
           </section>
 
           <section class=" 4u 6u(medium) 12u$(xsmall) ">
@@ -53,6 +55,10 @@
                   <input type="text" name="name" v-model="name" required>
                   <label class="test">Description</label>
                   <textarea type="text" name="description" v-model="description" required></textarea>
+                  <div class="form-group">
+                    <label for="exampleInputName2">Upload Images</label>
+                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple">
+                  </div>
                   <br>
                   <div>
                     <CENTER>
@@ -119,7 +125,8 @@ export default {
       clients: [],
       name: '',
       description: '',
-      selectedClient: ''
+      selectedClient: '',
+      formData: {}
     }
   },
   methods: {
@@ -151,6 +158,14 @@ export default {
       }).then(response => {
         $('#addClient').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
+        this.formData.append("client_id", response.data.data.client._id)
+        this.$http.post(env.URL + '/admin/ClientImage', this.formData, {
+          headers: {
+            'jwt-token': localStorage.getItem('id_token')
+          }
+        }).then(response => {
+
+        })
         this.fetchClients()
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -242,6 +257,17 @@ export default {
         this.name = ''
         this.description = ''
       }
+    },
+    upload: function(fieldName, fileList) {
+      // handle file changes
+      const formData = new FormData();
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
+
+      this.formData = formData
+
     }
   },
   created() {

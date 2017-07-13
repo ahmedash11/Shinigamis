@@ -9,11 +9,10 @@ var announcementController = {
    * @param {Response} res
    */
 
-  function addAnnouncement(req, res) {
+  addAnnouncement(req, res) {
     var token = req.headers['jwt-token'];
     jwt.verify(token, (decoded) => {
       if (decoded.type === 1) {
-
 
         // creating a new historyProjects instance and saving it
         var newAnnouncement = new Announcement({
@@ -42,7 +41,7 @@ var announcementController = {
 
     Announcement.remove({
         _id: req.body.id
-      }
+      },
 
       function(err) {
         if (!err) {

@@ -225,15 +225,7 @@ export default new Router({
     {
       path: '/aboutUs',
       name: 'AboutUsPage',
-      component: AboutUsPage,
-      beforeEnter: (to, from, next) => {
-        auth.checkAuth()
-        if (!auth.user.authenticated) {
-          next();
-        } else {
-          next('/admin/aboutUs')
-        }
-      }
+      component: AboutUsPage
     },
     /*
     {
