@@ -13,7 +13,8 @@
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
             <div>
-              <img :src="'http://localhost:3000/'+client.profileimg.path.replace('public','')">
+              <img v-if="client.profileimg" :src="'http://localhost:3000/'+client.profileimg.path.replace('public','')">
+              <img v-else src="/static/images/pic07.jpg">
               <h3>{{client.name}}</h3>
               <p>{{client.description}}</p>
               <ul class="actions">
@@ -164,9 +165,8 @@ export default {
             'jwt-token': localStorage.getItem('id_token')
           }
         }).then(response => {
-
+          this.fetchClients()
         })
-        this.fetchClients()
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(

@@ -29,6 +29,10 @@ var locationController = require('../controllers/locationController');
 var historyProjectController = require('../controllers/historyProjectController');
 var awardController = require('../controllers/awardController');
 var positionController = require('../controllers/positionController');
+var aboutUsController = require('../controllers/aboutUsController');
+
+// Models
+
 var Image = require('../models/image');
 var Client = require('../models/client.js');
 var Award = require('../models/award.js');
@@ -41,9 +45,9 @@ router.post('/authenticate', adminController.authenticate); // Admin  login
 
 //router.post('/admin', adminController.addAdmin); // Admin can add another admin
 
-router.get('/admins', adminController.getAllAdmins); // Admin can get all admins
+//router.get('/admins', adminController.getAllAdmins); // Admin can get all admins
 
-router.post('/editPassword', adminController.editPassword); // Admin can get all admins
+//router.post('/editPassword', adminController.editPassword); // Admin can get all admins
 
 router.post('/addlocation', locationController.addLocation); // Add a new location
 
@@ -77,7 +81,7 @@ router.post('/deleteApplication', applicationController.deleteApplication);
 
 router.post('/addPosition', positionController.addPosition);
 
-router.post('/deletePosition', positionController.deletePosition);
+//router.post('/deletePosition', positionController.deletePosition);
 
 router.post('/addAnnouncement', announcementController.addAnnouncement);
 
@@ -177,6 +181,6 @@ router.post('/updateContactUs', aboutUsController.updateContactUs); // Update co
 
 router.post('/offerPosition', positionController.offerPosition);
 
-router.post('/decode', adminController.getsignedvals);
+//router.post('/decode', adminController.getsignedvals);
 
 module.exports = router;

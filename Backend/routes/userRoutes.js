@@ -17,7 +17,7 @@ const storage = multer.diskStorage({ // specifying storage path for images
 const upload = multer({
   storage,
 });
-var Application = require('../models/application');
+
 // Controllers
 
 var adminController = require('../controllers/adminController');
@@ -28,6 +28,11 @@ var fleetController = require('../controllers/fleetController');
 var historyProjectController = require('../controllers/historyProjectController');
 var locationController = require('../controllers/locationController');
 var awardController = require('../controllers/awardController');
+var aboutUsController = require('../controllers/aboutUsController');
+
+// Models
+
+var Application = require('../models/application');
 
 
 // Routes for client
@@ -38,14 +43,15 @@ router.get('/getAllFleets', fleetController.getAllFleets) // View all fleets
 
 router.get('/getFleet/:fleetId', fleetController.getFleet) // View fleet by id
 
-router.get('/getImages/:fleetId', fleetController.getImages)
-
+//router.get('/getImages/:fleetId', fleetController.getImages)
 
 router.get('/getAllProjects', historyProjectController.getAllProjects) // View all projects
 
 router.get('/getAllLocations', locationController.getAllLocations) // View all locations
 
 router.get('/getAllAwards', awardController.getAllAwards) // View all awards
+
+router.get('/getInfo', aboutUsController.getInfo) // View about us info
 
 router.get('/getPositions', positionController.viewAllPositions) // View all awards
 
@@ -69,9 +75,6 @@ router.post('/uploadCV', upload.single('CV'), (req, res) => {
     }
   });
 })
-
-
-
 
 
 module.exports = router;
