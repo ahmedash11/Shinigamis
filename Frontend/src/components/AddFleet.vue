@@ -1,15 +1,17 @@
 <template>
-<section id="contact" class="content-section text-center">
-  <div class="contact-section">
+<div class="addFleet">
+  <section id="four" class="wrapper style1 special fade-up">
     <div class="container">
-      <h2>Add Fleet</h2>
+      <header class="major">
+        <h2>Add Fleet</h2>
+      </header>
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <form role="form" class="form-horizontal" v-on:submit.prevent="AddFleet()">
             <div class="form-group">
               <label for="exampleInputName2">Name</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="Name" v-model="name">
+              <input type="text" class="form-control" id="exampleInputName2" placeholder="Name" v-model="name" required>
             </div>
             <div class="form-group">
               <label for="exampleInputName2">Type</label>
@@ -89,16 +91,17 @@
           </form>
         </div>
       </div>
+
     </div>
-  </div>
-</section>
+  </section>
+</div>
 </template>
 
 <script>
 import env from '../env'
 import auth from '../auth'
 export default {
-  name: 'AddFleet',
+  name: 'addFleet',
   data() {
     return {
       name: "",
@@ -127,7 +130,7 @@ export default {
   methods: {
     // Send a request to the login URL and save the returned JWT
     AddFleet: function() {
-      this.$http.post('http://localhost:3000/admin/addFleet', {
+      this.$http.post(env.URL + '/admin/addFleet', {
         "name": this.name,
         "type": this.type,
         "design": this.design,
@@ -146,9 +149,7 @@ export default {
         "fireFighting": this.fireFighting,
         "helideck": this.helideck
       }, {
-        headers: {
-          'jwt-token': localStorage.getItem('id_token')
-        }
+        headers: auth.getAuthHeader()
       }).then(data => {
         console.log('data ' + data);
         console.log('formdata  ' + this.formData);
@@ -160,7 +161,9 @@ export default {
         }).then(response => {
 
         })
+
       })
+
     },
     upload: function(fieldName, fileList) {
       // handle file changes
@@ -179,102 +182,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.closebtn:hover {
-  color: white;
-}
-
-.test {
-  font-family: Helvetica, sans-serif;
-}
-
-
-
-/* The Overlay (background) */
-
-.overlay {
-  /* Height & width depends on how you want to reveal the overlay (see JS below) */
-  height: 100%;
-  width: 0;
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  background-color: rgb(0, 0, 0);
-  /* Black fallback color */
-  background-color: rgba(0, 0, 0, 0.9);
-  /* Black w/opacity */
-  overflow-x: hidden;
-  /* Disable horizontal scroll */
-  transition: 0.5s;
-  /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-
-
-
-/* Position the content inside the overlay */
-
-.overlay-content {
-  position: relative;
-  top: 25%;
-  /* 25% from the top */
-  width: 65%;
-  /* 100% width */
-  text-align: center;
-  /* Centered text/links */
-  margin-top: 30px;
-  /* 30px top margin to avoid conflict with the close button on smaller screens */
-  padding-left: 120px;
-}
-
-
-
-/* The navigation links inside the overlay */
-
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  /* Display block instead of inline */
-  transition: 0.3s;
-  /* Transition effects on hover (color) */
-}
-
-
-
-/* When you mouse over the navigation links, change their color */
-
-.overlay a:hover,
-.overlay a:focus {
-  color: #f1f1f1;
-}
-
-
-
-/* Position the close button (top right corner) */
-
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}
-
-
-
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-
-@media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px
-  }
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
-}
 </style>

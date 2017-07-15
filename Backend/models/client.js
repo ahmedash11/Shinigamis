@@ -7,7 +7,16 @@
 
 
 // load the things we need
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+const path = require('path');
+const filePluginLib = require('mongoose-file');
+
+const filePlugin = filePluginLib.filePlugin;
+const make_upload_to_model = filePluginLib.make_upload_to_model;
+
+const uploads_base = path.join(__dirname, 'uploads');
+const uploads = path.join(uploads_base, 'u');
 var Schema = mongoose.Schema;
 
 
@@ -19,8 +28,14 @@ var clientSchema = new Schema({
     required: true
   },
   description: String,
-  image: String
 
+
+});
+
+clientSchema.plugin(filePlugin, {
+  name: 'profileimg',
+  upload_to: make_upload_to_model(uploads, 'photos'),
+  relative_to: uploads_base,
 });
 
 

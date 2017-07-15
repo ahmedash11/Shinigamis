@@ -48,6 +48,9 @@
             </li>
           </ul>
         </li>
+        <li v-if="this.user.authenticated">
+          <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
+        </li>
         <li v-if="!this.user.authenticated"><a @click="openNav" class="button special">Login</a></li>
         <li v-else><a @click="logout" class="button special">Logout</a></li>
       </ul>

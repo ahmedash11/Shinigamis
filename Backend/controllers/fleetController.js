@@ -1,5 +1,6 @@
 var Fleet = require('../models/fleet');
 var jwt = require('../auth/jwt');
+var Image = require('../models/image');
 
 
 var fleetController = {
@@ -225,6 +226,28 @@ var fleetController = {
       }
 
     })
+  },
+  getImages(req, res) {
+    const query = {
+      fleet_id: req.params.fleetId, // Recently Changed to Params
+    };
+
+    Image.find(query).exec((err, images) => {
+      if (err) {
+        res.status(500).json({
+          status: 'error',
+          message: err.message,
+        });
+      } else {
+        //    //console.log(images)
+        res.status(200).json({
+          status: 'success',
+          data: {
+            images,
+          },
+        });
+      }
+    });
   }
 }
 module.exports = fleetController;

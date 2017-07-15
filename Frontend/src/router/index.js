@@ -4,7 +4,8 @@ import VueResource from 'vue-resource'
 import auth from '../auth'
 
 import HomePage from '@/components/homePage'
-import AdminPage from '@/components/admin'
+import Services from '@/components/services'
+import AdminPage from '@/components/Admin'
 import ClientsPage from '@/components/clientsPage'
 import ClientsAdmin from '@/components/clientsAdmin'
 import AwardsPage from '@/components/awardsPage'
@@ -20,6 +21,13 @@ import FleetProfileAdmin from '@/components/fleetProfileAdmin'
 import FleetProfilePage from '@/components/fleetProfilePage'
 import ContactUsPage from '@/components/contactUsPage'
 import ContactUsAdmin from '@/components/ContactUsAdmin'
+import ApplicationAdmin from '@/components/applicationsAdmin'
+import Application from '@/components/Application.vue'
+import AddFleet from '@/components/AddFleet.vue'
+import Positions from '@/components/positions.vue'
+import Announcements from '@/components/announcementsAdmin.vue'
+
+
 
 
 Vue.use(Router)
@@ -32,11 +40,26 @@ export default new Router({
       path: '/',
       name: 'HomePage',
       component: HomePage
-    },
-    {
+    }, {
+      path: '/ApplicationAdmin',
+      name: 'ApplicationAdmin',
+      component: ApplicationAdmin
+    }, {
+      path: '/positions',
+      name: 'Positions',
+      component: Positions
+    }, {
+      path: '/application',
+      name: 'Application',
+      component: Application
+    }, {
       path: '/admin',
       name: 'Admin',
       component: AdminPage
+    }, {
+      path: '/services',
+      name: 'Services',
+      component: Services
     }, {
       path: '/clients',
       name: 'Clients',
@@ -277,6 +300,15 @@ export default new Router({
           next()
         }
       }
+    },
+    {
+      path: '/addFleet',
+      name: 'AddFleet',
+      component: AddFleet
+    }, {
+      path: '/announcements',
+      name: 'Announcements',
+      component: Announcements
     }
   ]
 })

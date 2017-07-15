@@ -13,7 +13,7 @@
         <div class="row uniform">
 
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="fleet in fleets">
-            <img src="/static/images/pic07.jpg"></img>
+            <img src="/static/images/Ship1.jpeg"></img>
             <router-link :to="{ name : 'FleetProfileAdmin' , params: { fleetId : fleet._id }}">
               <h3>{{fleet.name}}</h3>
             </router-link>
@@ -22,7 +22,7 @@
 
           <section class=" 4u 6u(medium) 12u$(xsmall) ">
             <CENTER>
-              <button data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new fleet</button>
+              <router-link :to="{name : 'AddFleet'}"><button id="btn" class="button special big">Add a new fleet</button></router-link>
             </CENTER>
           </section>
 

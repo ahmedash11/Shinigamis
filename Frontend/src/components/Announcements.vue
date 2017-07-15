@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
-      <h4>News</h4>
+      <h4>Announcements</h4>
     </div>
   </div>
   <hr>
@@ -15,7 +15,7 @@
         <!-- Wrapper for slides -->
         <div>
           <div>
-            <img src="{{Ann.image}}" alt="Image">
+            <img src="/static/images/signature-pic.jpg" alt="Image">
           </div>
         </div>
 

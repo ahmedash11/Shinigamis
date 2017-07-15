@@ -13,7 +13,7 @@
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
             <div>
-              <img v-if="client.profileimg" :src="'http://localhost:3000/'+client.profileimg.path.replace('public','')">
+              <img v-if="client.profileimg.path" :src="url+client.profileimg.path.replace('public','')">
               <img v-else src="/static/images/pic07.jpg">
               <h3>{{client.name}}</h3>
               <p>{{client.description}}</p>
@@ -54,6 +54,7 @@
                 <form @submit.prevent="editClient()" role="form" style="display: block;">
                   <label class="test">Name</label>
                   <input type="text" name="name" v-model="name" required>
+
                   <label class="test">Description</label>
                   <textarea type="text" name="description" v-model="description" required></textarea>
                   <div class="form-group">
@@ -94,8 +95,13 @@
                 <form @submit.prevent="addClient()" role="form" style="display: block;" class="form-group">
                   <label class="test">Name</label>
                   <input type="text" name="name" placeholder="Name" v-model="name" required>
+
                   <label class="test">Description</label>
                   <textarea type="text" name="description" placeholder="Description" v-model="description" required></textarea>
+                  <div class="form-group">
+                    <label for="exampleInputName2">Upload Images</label>
+                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple">
+                  </div>
                   <div>
                     <br>
                     <CENTER>
@@ -127,7 +133,8 @@ export default {
       name: '',
       description: '',
       selectedClient: '',
-      formData: {}
+      formData: {},
+      url: ''
     }
   },
   methods: {
@@ -272,6 +279,7 @@ export default {
   },
   created() {
     this.fetchClients()
+    this.url = env.URL
   },
   components: {}
 }

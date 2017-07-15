@@ -10,6 +10,8 @@ import './assets/css/main.css'
 import './assets/css/alertify.min.css'
 import './assets/css/default.min.css'
 import './assets/css/font-awesome.min.css'
+import './assets/css/lightgallery.min.css'
+import './assets/css/sweetalert2.min.css'
 
 // Scripts
 import './assets/js/jquery.min.js'
@@ -21,6 +23,9 @@ import './assets/js/util.js'
 import './assets/js/main.js'
 import './assets/js/bootstrap.min.js'
 import './assets/js/alertify.min.js'
+//import './assets/js/lightgallery.min.js'
+import './assets/js/sweetalert2.min.js'
+
 
 Vue.config.productionTip = false
 

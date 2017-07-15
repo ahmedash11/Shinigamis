@@ -12,7 +12,7 @@ var applicationController = {
   addApplication(req, res) {
     var token = req.headers['jwt-token'];
     jwt.verify(token, (decoded) => {
-      if (decoded.type === 1) {
+      if (decoded) {
 
 
         // creating a new historyProjects instance and saving it
@@ -46,19 +46,31 @@ var applicationController = {
   },
 
   deleteApplication(req, res) {
+    var token = req.headers['jwt-token'];
 
-    Application.remove({
-      _id: req.body.id
-    }, function(err) {
-      if (!err) {
-        message.type = 'notification!';
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        Application.findByIdAndRemove(req.body.id, (err) => {
+          if (err) {
+            res.status(500).json({
+              success: false,
+              msg: err.message
+            });
+          } else {
+            res.status(200).json({
+              success: true,
+              msg: 'Application successfully deleted'
+            });
+          }
+        })
       } else {
-        message.type = 'error';
+        res.status(500).json({
+          success: false,
+          msg: 'Unauthorized Access',
+        });
       }
-    });
-
+    })
   },
-
 
   findAllApplications(req, res) { // viewing all applications
 
@@ -82,5 +94,4 @@ var applicationController = {
 
 
 };
-
 module.exports = applicationController;

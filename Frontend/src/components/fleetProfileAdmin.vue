@@ -1,7 +1,8 @@
 <template>
 <div class="fleetProfileAdmin" align="center">
   <!-- <section id="four" class="wrapper style1 special fade-up"> -->
-
+  <br>
+  <br>
 
   <header class="major">
     <h2>{{fleet.name}}</h2>
@@ -101,9 +102,9 @@
         <p>
           <div class="container">
             <div class="row img-thumbnails">
-              <div class="col-md-6" v-for=" image in Images">
+              <div class="col-md-6" v-for=" image in images" id="lightGallery">
                 <a href="#">
-                  <img :src="'http://localhost:3000/'+image.img.path.replace('public','')">
+                  <img :src="url + image.img.path.replace('public','')">
               </a>
               </div>
             </div>
@@ -122,17 +123,21 @@
 <script>
 import env from '../env'
 import auth from '../auth'
+import jQuery from 'jQuery'
 export default {
-  name: 'FleetProfileAdmin',
+  name: 'fleetProfileAdmin',
   data() {
     return {
       fleet: {},
-      Images: []
+      images: [],
+      url: ''
     }
   },
   created() {
     this.fetchFleet()
     this.getImages()
+    this.url = env.URL
+    jQuery('#lightGallery').lightGallery();
   },
 
   methods: {
@@ -143,9 +148,7 @@ export default {
     },
     getImages: function() {
       this.$http.get(env.URL + '/user/getImages/'.concat(this.$route.params.fleetId)).then(response => {
-        console.log(response)
-        this.Images = response.data.data.images
-        console.log(this.Images)
+        this.images = response.data.data.images
       })
     },
     editFleet: function() {

@@ -12,8 +12,8 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="Award in Awards">
-            <img src="static/images/pic07.jpg"></img>
-            <h3>{{Award.name}}</h3>
+            <img src="../../static/images/rms.jpg"></img>
+            <h3>{{Award.title}}</h3>
            
             <ul class="actions">
               <li><a class="button special" v-on:click="deleteAward(Award._id)">Delete</a></li>
@@ -49,9 +49,11 @@
               <div class="col-md-12">
                 <form @submit.prevent="addAward()" role="form" style="display: block;" class="form-group">
                   <label class="test">Title</label>
-                  <input type="text" name="name" placeholder="Name" v-model="name" required>
-                  <label class="test">Award</label>
-                  <textarea type="image" name="description" placeholder="Description" v-model="description" required></textarea>
+                  <input type="text" name="title" placeholder="Title" v-model="title" required>
+    
+              <label class="test">Upload Images</label>
+             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> 
+            
                   <div>
                     <br>
                     <CENTER>
@@ -80,15 +82,17 @@ export default {
   data() {
     return {
       Awards: [],
-      name: '',
-      description: '',
-      selectedAward: ''
+      title: '',
+      image: '',
+      selectedAward: '',
+      formData:{}
     }
   },
   methods: {
     fetchAwards: function() {
       this.$http.get(env.URL + '/user/getAllAwards').then(response => {
-        this.Awards = response.data.data.Awards
+        this.Awards = response.data.data.awards
+        console.log(this.Awards)
       }).catch(error => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -106,44 +110,20 @@ export default {
     },
     addAward: function() {
       var newAward = {
-        name: this.name,
-        description: this.description
+        title: this.title,
+        image: this.image
       }
       this.$http.post(env.URL + '/admin/addAward', newAward, {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#addAward').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
+         this.formData.append("award_id",response.data.data.award._id)
+         this.$http.post(env.URL+'/admin/AwardImage',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
+            
+      })
         this.fetchAwards()
       }).catch((error) => {
-        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
-          swal(
-            'Oops...',
-            error.body.msg,
-            'error'
-          );
-        } else {
-          for (var i = 0; i < error.body.msg.length; i++) {
-            var msg = error.body.msg[i].msg
-            alertify.notify(msg, 'error', 5);
-          }
-        }
-      })
-    },
-    editAward: function() {
-      var updatedAward = {
-        id: this.selectedAward._id,
-        name: this.name,
-        description: this.description
-      }
-      this.$http.post(env.URL + '/admin/updateAward', updatedAward, {
-        headers: auth.getAuthHeader()
-      }).then(response => {
-        $('#editAward').modal('hide');
-        alertify.notify(response.body.msg, 'success', 5);
-        this.fetchAwards()
-
-      }).catch(error => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
             'Oops...',
@@ -205,6 +185,16 @@ export default {
         this.name = ''
         this.description = ''
       }
+    }, upload: function(fieldName, fileList) {
+        // handle file changes
+        const formData = new FormData();
+        // append the files to FormData
+        Array.from(Array(fileList.length).keys()).map(x => {
+            formData.append(fieldName, fileList[x], fileList[x].name);
+          });
+        
+        this.formData = formData
+       
     }
   },
   created() {

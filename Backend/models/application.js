@@ -13,8 +13,16 @@
 */
 
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const path = require('path');
+const filePluginLib = require('mongoose-file');
+const Schema = mongoose.Schema;
+
+const filePlugin = filePluginLib.filePlugin;
+const make_upload_to_model = filePluginLib.make_upload_to_model;
+
+const uploads_base = path.join(__dirname, '/public/uploads');
+const uploads = path.join(uploads_base, 'u');
 
 
 var applicationSchema = new Schema({
@@ -27,10 +35,15 @@ var applicationSchema = new Schema({
   country: String,
   birthdate: Date,
   experience: String,
-  cv: String,
+  Cv : String
 
 })
 
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('Application', applicationSchema);
+var Application = module.exports = mongoose.model('Application', applicationSchema);
+
+module.exports.deleteAward = function(id, callback) {
+  Application.findByIdAndRemove(id, callback)
+}
+
