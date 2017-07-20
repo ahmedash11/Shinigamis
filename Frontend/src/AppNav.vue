@@ -78,16 +78,12 @@
 
     </div>
   </header>
-
-  <router-view></router-view>
-
 </div>
 </template>
 
 <script>
 import env from './env'
 import auth from './auth'
-import router from './router'
 export default {
   name: 'AppNav',
   data() {

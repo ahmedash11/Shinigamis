@@ -92,27 +92,9 @@
         <a class="button special" v-on:click="editFleet(fleet._id)">Update</a>
       </div>
     </section>
-
-    <section id="content2" class="tab-content">
-
-      <div>
-        <br>
-
-
-        <p>
-          <div class="container">
-            <div class="row img-thumbnails">
-              <div class="col-md-6" v-for=" image in images" id="lightGallery">
-                <a href="#">
-                  <img :src="url + image.img.path.replace('public','')">
-              </a>
-              </div>
-            </div>
-
-          </div>
-
-        </p>
-
+    <section id="content2">
+      <div class="slick">
+        <div v-for="image in images"><img :src="url + image.img.path.replace('public','')" alt="" /></div>
       </div>
     </section>
   </div>
@@ -123,23 +105,29 @@
 <script>
 import env from '../env'
 import auth from '../auth'
-import jQuery from 'jQuery'
+import '../assets/js/slick.min.js'
+//import '../assets/js/arrive.min.js'
+//import '../assets/js/lightgallery.min.js'
 export default {
   name: 'fleetProfileAdmin',
   data() {
     return {
       fleet: {},
       images: [],
-      url: ''
+      url: '',
     }
   },
   created() {
     this.fetchFleet()
     this.getImages()
     this.url = env.URL
-    jQuery('#lightGallery').lightGallery();
   },
-
+  updated() {
+    if ($('.slick').hasClass('slick-initialized')) {
+      $('.slick').removeClass("slick-initialized slick-slider");
+    }
+    this.createSlick()
+  },
   methods: {
     fetchFleet: function() {
       this.$http.get(env.URL + '/user/getFleet/'.concat(this.$route.params.fleetId)).then(response => {
@@ -172,6 +160,20 @@ export default {
         }
       })
     },
+    createSlick: function() {
+      $('.slick').not('.slick-initialized').slick({
+        dots: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+      });
+    },
+    destroySlick: function() {
+      if ($('.slick').hasClass('slick-initialized')) {
+        $('.slick').removeClass("slick-initialized slick-slider");
+      }
+    }
   },
   components: {}
 }
@@ -179,6 +181,31 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/* external css: flickity.css */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.carousel {
+  background: #EEE;
+}
+
+.carousel img {
+  display: block;
+  height: 200px;
+}
+
+@media screen and ( min-width: 768px) {
+  .carousel img {
+    height: 400px;
+  }
+}
+
 #tab1:checked~#content1,
 #tab2:checked~#content2,
 #tab3:checked~#content3,

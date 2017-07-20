@@ -45,8 +45,6 @@ export default {
   data() {
     return {
       fleets: [],
-
-
     }
   },
   created() {

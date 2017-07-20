@@ -17,7 +17,7 @@
 
       <!-- One -->
       <section class="spotlight style1 bottom tab-content" id="content1">
-        <span class="image fit main"><img src="images/pic02.jpg" alt="" /></span>
+        <span class="image fit main"><img src="../../static/images/pic02.jpg" alt="" /></span>
         <div class="content">
           <div class="container">
             <div class="row">

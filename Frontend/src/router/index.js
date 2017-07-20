@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueResource from 'vue-resource'
+
+import VueCarousel from 'vue-carousel';
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
 import auth from '../auth'
 
 import HomePage from '@/components/homePage'
@@ -32,6 +36,8 @@ import Announcements from '@/components/announcementsAdmin.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
+Vue.use(VueCarousel);
+//Vue.use(VueAwesomeSwiper);
 
 export default new Router({
   mode: 'history',
