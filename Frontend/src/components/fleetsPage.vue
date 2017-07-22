@@ -12,7 +12,7 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="fleet in fleets">
-            <img src="/static/images/pic07.jpg"></img>
+            <img src="/static/images/OceanDrum.jpg"></img>
             <router-link :to="{ name : 'FleetProfilePage' , params: { fleetId : fleet._id }}">
               <h3>{{fleet.name}}</h3></router-link>
           </section>

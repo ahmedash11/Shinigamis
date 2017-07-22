@@ -18,7 +18,7 @@ var awardController = {
             if (decoded) {
 
                 req.checkBody('title', 'Title is required').notEmpty()
-                req.checkBody('image', 'Image is required').notEmpty()
+                // req.checkBody('image', 'Image is required').notEmpty()
 
                 req.asyncValidationErrors().then(() => {
                     var newAward = new Award({

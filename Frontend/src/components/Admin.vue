@@ -35,10 +35,10 @@
     <label for="tab8"><span>Positions</span></label>
 
     <input id="tab9" type="radio" name="tabs">
-    <label for="tab9"><span>Announcements</span></label>
+    <label for="tab9"><span>Announcements   </span></label>
 
     <input id="tab10" type="radio" name="tabs">
-    <label for="tab10"><span>Edit Password</span></label>
+    <label for="tab10"><span>Contact Us</span></label>
 
 
     <section id="content1" class="tab-content">
@@ -87,7 +87,7 @@
     </section>
     <section id="content10" class="tab-content">
 
-      <editPassword></editPassword>
+      <ContactUs></ContactUs>
 
     </section>
   </div>
@@ -106,6 +106,7 @@ import Position from './positionsAdmin'
 import Application from '@/components/applicationsAdmin'
 import Announcements from './announcementsAdmin.vue'
 import editPassword from './editPassword.vue'
+import ContactUs from '@/components/ContactUsAdmin'
 export default {
   name: 'admin',
   data() {
@@ -123,7 +124,8 @@ export default {
     Application,
     Position,
     Announcements,
-    editPassword
+    editPassword,ContactUs
+
   }
 }
 </script>
@@ -171,13 +173,13 @@ label .fa {
 
 label {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 13px;
   display: block;
   float: left;
   width: 9.5%;
   cursor: pointer;
   text-decoration: none;
-  text-align: center;
+  text-align: let;
 }
 
 

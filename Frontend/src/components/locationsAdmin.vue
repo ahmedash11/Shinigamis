@@ -311,4 +311,7 @@ export default {
   background-clip: padding-box;
   outline: 0;
 }
+{
+  text-align: left;
+}
 </style>

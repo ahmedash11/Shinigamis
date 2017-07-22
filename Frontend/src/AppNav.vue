@@ -1,13 +1,17 @@
 <template>
 <div class="AppNav">
   <!-- Header -->
+  <section id="one" class="spotlight style1 left" style="background-position:center ;background-image:url(/static/images/RapidoGee.jpg); position:relative ">
   <header id="header">
-    <h1 id="logo"><a href="#">Rashied Maritime</a></h1>
-    <nav id="nav">
+    
+    <img src="../static/images/logo.png" class="rounded" align="center">
+      <nav id="nav" >
       <ul>
         <li>
+      
           <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
-        </li>
+<!--           <router-link to="/"><i class="text" aria-hidden="true">Home</i></router-link>
+ -->        </li>
         <li>
           <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
         </li>
@@ -38,6 +42,12 @@
           <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
         </li>
         <li>
+          <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li>
+          <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li>
           <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
           <ul>
             <li>
@@ -54,7 +64,12 @@
         <li v-if="!this.user.authenticated"><a @click="openNav" class="button special">Login</a></li>
         <li v-else><a @click="logout" class="button special">Logout</a></li>
       </ul>
+      
     </nav>
+    </header>
+  
+
+    </section>
     <!-- The overlay -->
     <div id="myNav" class="overlay">
 
@@ -77,8 +92,7 @@
       </div>
 
     </div>
-  </header>
-
+ 
   <router-view></router-view>
 
 </div>
@@ -147,12 +161,57 @@ export default {
   },
   created() {
     auth.checkAuth();
+    this.backgroundImage="../../static/images/OceanDrum.jpg"
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+img {
+    height: auto;
+}
+img{
+    max-width: 100%;
+    border: none;
+}
+
+.first{
+      -webkit-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+
+}
+.second{
+  -webkit-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+    position: absolute;
+    transform: translateY(50px);
+}
+
+.fa-home:hover{
+  -webkit-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+  transform: translateY(-50px);
+}
+.text:hover{
+    -webkit-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+  transform: translateY(-50px);
+}
+
+nav{
+  position: fixed;
+}
+
+.spotlight{
+    background-attachment: fixed;
+    background-size: cover;
+    box-shadow: 0 0.25em 0.5em 0 rgba(0,0,0,.25);
+    height:60vh;
+position: relative;
+}
+
+
 .closebtn:hover {
   color: #fff
 }

@@ -1,9 +1,16 @@
 <template>
 <div class="container">
+<br>
+<br>
+<br>
+<br>
+<br>
   <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <h4>Announcements</h4>
-    </div>
+    
+
+     <header class="major">
+        <h2>Announcements</h2>
+      </header>
   </div>
   <hr>
   <!-- Begin of rows -->
@@ -14,8 +21,8 @@
 
         <!-- Wrapper for slides -->
         <div>
-          <div>
-            <img src="/static/images/signature-pic.jpg" alt="Image">
+          <div class="crop">
+            <img src="/static/images/rms.jpg" alt="Image">
           </div>
         </div>
 
@@ -24,8 +31,10 @@
           <p>
             {{Ann.content}}
           </p>
+          <hr>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </div>
@@ -41,7 +50,7 @@ export default {
     }
   },
   created() {
-    getAnnouncements()
+    this.getAnnouncements()
 
   },
   methods: {
@@ -49,8 +58,8 @@ export default {
 
     // Send a request to the login URL and save the returned JWT
     getAnnouncements: function() {
-      this.$http.get('http://localhost:3000/getAnnouncements').then(data => {
-        this.Announcements = response.data.data.announcements
+      this.$http.get('http://localhost:3000/admin/getAnnouncements').then(data => {
+        this.Announcement = data.data.data.announcements
       })
     }
   }

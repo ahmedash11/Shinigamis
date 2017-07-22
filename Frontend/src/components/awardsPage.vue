@@ -10,7 +10,8 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="award in Awards">
-            <img src="static/images/pic07.jpg"></img>
+                         <img v-if="award.profileimg.path" :src="url+award.profileimg.path.replace('public','')">
+              <img v-else src="/static/images/pic07.jpg">
             <h3>{{award.title }}</h3>
 
           </section>
@@ -23,27 +24,44 @@
 </template>
 
 <script>
+import env from '../env'
 export default {
   name: 'awardsPage',
   data() {
     return {
-      Award: [],
+      Awards: [],
+      url:""
     }
   },
   components: {},
   created() {
-    getAwards()
+    this.fetchAwards()
+ this.url= env.URL
 
   },
   methods: {
     //open overlay
 
     // Send a request to the login URL and save the returned JWT
-    getAwards: function() {
-      this.$http.get('http://localhost:3000/getAwards').then(data => {
+    fetchAwards: function() {
+      this.$http.get(env.URL + '/user/getAllAwards').then(response => {
         this.Awards = response.data.data.awards
+        console.log(this.Awards)
+      }).catch(error => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
       })
-    }
+    },
   }
 }
 </script>

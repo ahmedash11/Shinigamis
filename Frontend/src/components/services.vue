@@ -1,5 +1,15 @@
 <template>
 <div class="Services">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 
 <div class="tab_container" align="center">
 
@@ -13,12 +23,17 @@
     <label for="tab3"><span>Risk Assesment</span></label>
 
   <!-- One -->
-  <section class="spotlight style1 bottom tab-content" id="content1" >
-    <span class="image fit main"><img src="images/pic02.jpg" alt="" /></span>
+  <section id="content1">
+  <br>
+  <br>
+<br>
+<br>
+<br>
+
     <div class="content">
       <div class="container">
         <div class="row">
-          <div class="4u 12u$(medium)">
+          <div>
             <header>
               <h2>Services</h2>
 
@@ -37,9 +52,10 @@
             <li><p>Salvage operations.</p></li>  
 
             </ul></p>
+         
           </div>
           <div class="4u$ 12u$(medium)">
-          <h3>We provide the following chartering services:</h3> 
+             <h3>We provide the following chartering services:</h3> 
             <p>
             <ul>
             <li><p>Anchor handling, Tug and supply boats.</p></li>  
@@ -52,43 +68,54 @@
             </ul></p>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+   
     
   </section>
-  <section id="content2" class="spotlight style1 bottom tab-content">
+  <section id="content2">
 <div class="content">
       <div class="container">
         <div class="row">
-          <div class="4u 12u$(medium)">
+          <div>
             <header>
-              <h2>Organization Chart</h2>
+              <h2 class="h2">HSE Policy</h2>
 
             </header>  
-      
-        <div id="slider">
-    
-  
- <slider width="800px"
-        animation="fade"
-        :interval="1000"
-        :speed="1000">
- 
-    <slider-item>  <img src="../assets/logo.png"> </slider-item>
-    
-  
-</slider>
+                      <div>
+          
+            <p>
+            <ul>
+            <li><p>Health, Safety and Environment comes at the top of RMS priorities. The company keeps a strategic HSE policy which aims at ensuring the safety of the ships and the crew, in addition to the prevention of pollution and any health hazards related to the ongoing operations and services..</p></li>  
+            <li><p>Continuous efforts are exerted and are focused at ensuring healthy and safe work conditions and environmental protection through developing and enforcing appropriate safety procedures.</p></li>    
+            <li><p>A Safety Management System, that is based on the A741 (18) IMO resolution and complies with all national and International, safety related regulations, has been established and is enforced both ashore and on board the marine units. The system includes continuous training of personnel to increase their safety awareness.</p></li>  
+            <li><p>RMS to implement successful work methods while providing its services to meet the client satisfaction and maintain high records for HSE.</p></li>  
+
+            </ul></p>
+          <h3>
+          Objectives:
+  </h3>
+  <p>
+To ensure in every case healthy and safe working conditions and protection of the environment by developing and enforcing appropriate procedures.
+
+The approach of the Company, to environmental management is to seek continuous improvement in performance by taking into account scientific progress and community expectations. The Company has identified as priorities the education of employees on environmental matters and the implementation of effective systems and programs to manage risks and protect the environment.
+
+In turn all employees are expected to comply with safety and pollution prevention regulations and operating procedures at all times and to take all necessary precautions to protect themselves, their colleagues, the ship, its cargo and the environment.</p>
+          </div>
+
 </div>
 </div>
 </div>
 </div>
-</div>
+</section>
 
 
   </section>
 
 
-   <section id="content3" class="spotlight style1 bottom tab-content">
+   <section id="content3">
+   <br>
+   <br>
 <div class="content">
       <div class="container">
         <div class="row">
@@ -99,7 +126,7 @@
             </header>
             
           </div>
-          <div class="4u 12u$(medium)">
+          <div>
             <p>In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so, we
               have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
           </div>
@@ -200,7 +227,12 @@ input[type=checkbox]+label:before, input[type=radio]+label:before {
     top: 0;
     width: 1.8em;
 }
-
+p{
+  text-align: left;
+}
+.h2{
+  text-align: left;
+}
 
 .spotlight.style1 .content {
     border-color: #191a22;

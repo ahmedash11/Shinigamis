@@ -10,7 +10,8 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
-            <img src="static/images/pic07.jpg"></img>
+                <img v-if="client.profileimg.path" :src="url+client.profileimg.path.replace('public','')">
+              <img v-else src="/static/images/pic07.jpg">
             <h3>{{client.name}}</h3>
             <p>{{client.description}}</p>
           </section>
@@ -28,7 +29,8 @@ export default {
   name: 'clientsPage',
   data() {
     return {
-      clients: []
+      clients: [],
+      url:""
     }
   },
   methods: {
@@ -45,6 +47,7 @@ export default {
   components: {},
   created: function() {
     this.fetchClients();
+    this.url=env.URL;
   }
 }
 </script>

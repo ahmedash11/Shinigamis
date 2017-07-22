@@ -1,5 +1,12 @@
 <template>
 <section id="contact" class="content-section text-center">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
   <div class="contact-section">
     <div class="container">
       <h2>Application Form</h2>
@@ -31,10 +38,10 @@
               <label for="exampleInputName2">Country</label>
               <input type="text" class="form-control" id="exampleInputName2" placeholder="Country" v-model="country">
             </div>
-            <div class="form-group">
+<!--             <div class="form-group">
               <label for="exampleInputName2">Birthdate</label>
               <input type="date" class="form-control" id="exampleInputName2" v-model="birthdate">
-            </div>
+            </div> -->
             <div class="form-group ">
               <label for="exampleInputText">Experience</label>
               <textarea class="form-control" placeholder="Experience" v-model="experience"></textarea>
@@ -213,4 +220,23 @@ export default {
     right: 35px;
   }
 }
+
+input[type=email], input[type=password], input[type=text], select, textarea {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -moz-transition: border-color .2s ease-in-out;
+    -webkit-transition: border-color .2s ease-in-out;
+    -ms-transition: border-color .2s ease-in-out;
+    transition: border-color .2s ease-in-out;
+    background: 0 0;
+    /* border-radius: 4px; */
+    /* border: 1px solid rgba(255,255,255,.3); */
+    color: inherit;
+    display: block;
+    outline: 0;
+    padding: 0 1em;
+    text-decoration: none;
+    width: 100%;}
 </style>

@@ -1,7 +1,13 @@
 <template>
-<div class="aboutUsPage">
-  <div class="container">
+<div class="aboutUsPage ahmed">
+  <div class="container"  style="background-color:#000000;background-repeat: repeat-y;" >
+ 
     <div class="tab_container" align="center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <br>
       <br>
       <br>
@@ -16,8 +22,7 @@
       <label for="tab3"><span>Our Personnel</span></label>
 
       <!-- One -->
-      <section class="spotlight style1 bottom tab-content" id="content1">
-        <span class="image fit main"><img src="images/pic02.jpg" alt="" /></span>
+       <section class="tab-content style1" id="content1"> 
         <div class="content">
           <div class="container">
             <div class="row">
@@ -28,20 +33,22 @@
                 </header>
                 <img src="../../static/images/signature-pic.jpg">
               </div>
-              <div class="4u 12u$(medium)">
-                <p>In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
+              <div>
+                <p align="left">In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
                   we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
               </div>
               <div class="4u$ 12u$(medium)">
-                <p>needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
+                <p align="left">needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
                   their specialized expertise and their accumulated experience in a vibrant yet sensitive field as the Oil and Gas, has made my vision for the company to become a reality. - Mahmoud Rashid</p>
               </div>
             </div>
           </div>
         </div>
-
+  <div style="background-image:url(../../static/images/shipicon.png); background-color:#000000;background-repeat: repeat-x;  box-shadow: 0 0.25em 0.5em 0 rgba(0,0,0,0.25);">
+    
+  </div>
       </section>
-      <section id="content2" class="spotlight style1 bottom tab-content">
+      <section id="content2" class="tab-content">
         <div class="content">
           <div class="container">
             <div class="row">
@@ -51,16 +58,10 @@
 
                 </header>
 
-                <div id="slider">
+ <img src="../../static/images/chart.jpg"> 
 
 
-                  <slider width="800px" animation="fade" :interval="1000" :speed="1000">
 
-                    <slider-item> <img src="../assets/logo.png"> </slider-item>
-
-
-                  </slider>
-                </div>
               </div>
             </div>
           </div>
@@ -70,7 +71,7 @@
       </section>
 
 
-      <section id="content3" class="spotlight style1 bottom tab-content">
+      <section id="content3" class="tab-content">
         <div class="content">
           <div class="container">
             <div class="row">
@@ -81,21 +82,28 @@
                 </header>
 
               </div>
-              <div class="4u 12u$(medium)">
-                <p>In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
-                  we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
+              <div>
+                <p align="left">All shipboard personnel of RASHIED MARITIME SERVICES CO. are medically fit, competent and qualified in accordance with national and international legislation.
+
+Company specifies the total manning requirements for each ship taking into consideration the minimum requirements of the national law. It also specifies the qualifications and experience requirements for each position in which respective persons are going to be involved.
+Selection and recruitment of shipboard personnel is based upon the above requirements, so that every ship is manned with capable crew to undertake the safety tasks they are expected to perform during normal and emergency operations.
+
+Shore based personnel has the appropriate qualifications and experience required to provide technical assistance and support to on-board management. Records of qualifications for every specific position are available.
+Company continuously identifies training requirements for sea going personnel in order to ensure that all ships are manned with personnel meeting the Company's requirements concerning qualification, ability and experience.
+
+In order to motivate all personnel in implementing and maintaining the Safety Management System, the Company is always taking specific measures to satisfy personnel requirements, to reward personnel efforts and to solve personnel problems.
+Ail ships are certified with the Safe Manning Certificate.</p>
               </div>
-              <div class="4u$ 12u$(medium)">
-                <p>needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
-                  their specialized expertise and their accumulated experience in a vibrant yet sensitive field as the Oil and Gas, has made my vision for the company to become a reality. - Mahmoud Rashid</p>
-              </div>
+
             </div>
           </div>
         </div>
 
       </section>
     </div>
+    </section>
   </div>
+
 </div>
 </template>
 
@@ -118,6 +126,16 @@ export default {
   display: block;
 }
 
+.aboutUsPage{
+
+  background-image:url(../../static/images/shipicon.png); 
+  background-color:#000000;
+  background-repeat: repeat-x repeat-y;  
+ 
+
+
+}
+
 .tab_container .tab-content p,
 .tab_container .tab-content h3 {
   -webkit-animation: fadeInScale 0.7s ease-in-out;
@@ -130,12 +148,12 @@ export default {
 }
 
 .tab_container [id^="tab"]:checked+label {
-  background: #1c1d26;
+  background: #000000;
   box-shadow: inset 0 3px #e44c65;
 }
 
 .tab_container [id^="tab"]:checked+label .fa {
-  color: #1c1d26;
+  color: #000000;
 }
 
 label .fa {
@@ -149,7 +167,7 @@ label {
   font-size: 18px;
   display: block;
   float: left;
-  width: 20%;
+  width: 30%;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
@@ -184,4 +202,5 @@ input[type=radio]+label:before {
 .spotlight.style1 .content {
   border-color: #191a22;
 }
+
 </style>

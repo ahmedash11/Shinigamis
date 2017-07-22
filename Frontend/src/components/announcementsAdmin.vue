@@ -57,8 +57,8 @@
 
         <!-- Wrapper for slides -->
         <div>
-          <div>
-            <img src="/static/images/signature-pic.jpg" alt="Image">
+          <div class="crop">
+            <img src="/static/images/rms.jpg" alt="Image">
           </div>
         </div>
 
@@ -161,6 +161,32 @@ export default {
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
   outline: 0;
+}
+
+.image-cropper {
+    width: 130;
+    height: 130;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.crop {
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+
+}
+
+.crop img {
+    width: 600;
+    height: 500;
+    margin: -75px 0 0 -100px;
+}
+img {
+    display: inline;
+    margin:  auto;
+    height: 100%;
+    width: auto;
 }
 
 .\34 u img {

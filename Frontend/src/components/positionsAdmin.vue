@@ -198,6 +198,17 @@ import auth from '../auth'
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.modal-content {
+  position: relative;
+  background-color: #1c1d26;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
+}
 .closebtn:hover {
   color: white;
 }

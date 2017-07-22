@@ -26,8 +26,7 @@
     data() {
       return {
         Positions:[{
-          title:"Ahmed",
-          description:"Ezayak 3amel Eh",
+          title:"HR",
           isOffered: true
         }]
         

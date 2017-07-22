@@ -1,12 +1,30 @@
 <template>
-<div class="fleetProfilePage">
+<div class="banner">
   <!-- <section id="four" class="wrapper style1 special fade-up"> -->
 
+  <section id=banner
+  v-bind:style="{ 'background-position': 'center 26.85px' ,'background-image':'url('+backgroundImage+')'}" >
+    <div class="content">
+      <header class="major">
+      <div class="crop">
+    <img :src="profImage" class="img" />
+    </div>  
+        <h2>{{fleet.name}}</h2>
+        
+      </header>
+      <!-- <span><img class="img-circle" src="../../static/images/rms.jpg"></span> -->
+    </div>
+   
+  </section>
 
-  <header class="major">
-    <h2>{{fleet.name}}</h2>
-  </header>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+
+ 
   <div class="tab_container" align="center">
 
     <input id="tab1" type="radio" name="tabs" checked>
@@ -15,13 +33,13 @@
     <input id="tab2" type="radio" name="tabs">
     <label for="tab2"><span>Images</span></label>
 
-    <section id="content1">
+    <section class="section" id="content1">
       <div class="container">
         <table>
           <tbody>
             <tr v-if="fleet.type">
               <td>Type</td>
-              <td>{{fleet.type}}</td>
+              <td><h4>{{fleet.type}}</h4></td>
             </tr>
             <tr v-if="fleet.design">
               <td>Design</td>
@@ -91,17 +109,47 @@
       </div>
     </section>
 
-    <section id="content2" class="tab-content">
+ <section id="content2" class="tab-content section">
+ <div class="container2">
+        <div id="carousel">
+      <figure v-for=" image in Images"><img :src="url + image.img.path.replace('public','')" class="img"></figure>
 
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<!-- 
+<ul id="imageGallery">
+  <li v-for=" image in Images">
+    <img :src="url + image.img.path.replace('public','')" />
+  </li>
+
+</ul> --><!-- 
       <div>
         <br>
+
+
         <p>
           <div class="container">
             <div class="row img-thumbnails">
-              <div class="col-md-6" v-for=" image in Images">
-                <a href="#">
-              <img :src="'http://localhost:3000/'+image.img.path.replace('public','')">
-          </a>
+              <div class="col-md-6" v-for=" image in Images" id="lightGallery">
+              <div class="gallery">
+              
+                  <img :src="url + image.img.path.replace('public','')">
+             </div>
               </div>
             </div>
 
@@ -111,8 +159,13 @@
 
       </div>
     </section>
+  </div>-->
+
+
+
+
+  </section>
   </div>
-  <!-- </section> -->
 </div>
 </template>
 
@@ -123,13 +176,17 @@ export default {
   data() {
     return {
       fleet: {},
-      Images: []
-
+      Images: [],
+      profImage:"",
+      backgroundImage:"",
+      url:''
     }
   },
   created() {
     this.getFleet()
     this.getImages()
+    
+    this.url = env.URL
   },
 
   methods: {
@@ -138,13 +195,25 @@ export default {
     getFleet: function() {
       this.$http.get(env.URL + '/user/getFleet/'.concat(this.$route.params.fleetId)).then(response => {
         this.fleet = response.data.data.fleet
+        this.profImage = env.URL.concat(response.data.data.fleet.profPicture.replace('public',''))
+
+        this.backgroundImage = env.URL.concat(response.data.data.fleet.coverPhoto.replace('public',''))
+        
       })
     },
     getImages: function() {
       this.$http.get(env.URL + '/user/getImages/'.concat(this.$route.params.fleetId)).then(response => {
-        console.log(response)
+
         this.Images = response.data.data.images
-        console.log(this.Images)
+         console.log(this.Images)
+
+        if(!this.profImage){
+        this.profImage = env.URL.concat(this.Images[0].img.path.replace('public',''))
+        this.backgroundImage = env.URL.concat(this.Images[1].img.path.replace('public',''))
+      }
+
+
+       
       })
     }
   }
@@ -153,4 +222,188 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+ #tab1:checked~#content1,
+#tab2:checked~#content2,
+#tab3:checked~#content3,
+#tab4:checked~#content4,
+#tab5:checked~#content5 {
+  display: block;
+}
+
+.tab_container .tab-content p,
+.tab_container .tab-content h3 {
+  -webkit-animation: fadeInScale 0.7s ease-in-out;
+  -moz-animation: fadeInScale 0.7s ease-in-out;
+  animation: fadeInScale 0.7s ease-in-out;
+}
+
+.tab_container .tab-content h3 {
+  text-align: center;
+}
+
+.tab_container [id^="tab"]:checked+label {
+  background: #1c1d26;
+  box-shadow: inset 0 3px #e44c65;
+}
+
+.tab_container [id^="tab"]:checked+label .fa {
+  color: #1c1d26;
+}
+
+label .fa {
+  font-size: 1.3em;
+  margin: 0 0.4em 0 0;
+}
+
+
+label {
+  font-weight: 700;
+  font-size: 18px;
+  display: block;
+
+  width: 20%;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+
+
+
+
+.section {
+  clear: both;
+  padding-top: 10px;
+  display: none;
+}
+
+
+
+
+input[type=checkbox]+label:before,
+input[type=radio]+label:before {
+  border: 1px solid rgba(255, 255, 255, .3);
+  content: '';
+  display: none;
+  height: 1.8em;
+  left: 0;
+  line-height: 1.725em;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 1.8em;
+}
+
+.spotlight.style1 .content {
+  border-color: #191a22;
+}
+
+
+
+.image-cropper {
+  max-width: 100%;
+  max-height: auto;
+   width: auto;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+
+.gallery {
+    width: 500;
+    height: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.img {
+    display: inline;
+    margin:  auto;
+    height: 100%;
+    width: auto;
+  }
+
+ 
+
+.container2{
+  margin: 4% auto;
+  width: 210px;
+  height: 140px;
+  position: relative;
+  perspective: 1000px;
+}
+#carousel{
+  width: 130;
+  height: 130;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotation 20s infinite linear;
+
+}
+#carousel:hover{
+  animation-play-state: paused;
+}
+#carousel figure{
+  display: block;
+    width: 1000;
+    height: 1000;
+    position: absolute;
+    overflow: hidden;
+  left: 10px;
+  top: 10px;
+  background: black;
+  overflow: hidden;
+  border: solid 5px black;
+}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(288px);}
+#carousel figure:nth-child(2) { transform: rotateY(40deg) translateZ(288px);}
+#carousel figure:nth-child(3) { transform: rotateY(80deg) translateZ(288px);}
+#carousel figure:nth-child(4) { transform: rotateY(120deg) translateZ(288px);}
+#carousel figure:nth-child(5) { transform: rotateY(160deg) translateZ(288px);}
+#carousel figure:nth-child(6) { transform: rotateY(200deg) translateZ(288px);}
+#carousel figure:nth-child(7) { transform: rotateY(240deg) translateZ(288px);}
+#carousel figure:nth-child(8) { transform: rotateY(280deg) translateZ(288px);}
+#carousel figure:nth-child(9) { transform: rotateY(320deg) translateZ(288px);}
+
+img{
+  -webkit-filter: grayscale(0);
+  cursor: pointer;
+  transition: all .5s ease;
+  max-width: 90%;
+  max-height: auto;
+    height: auto;
+    width: auto;
+}
+
+.crop {
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+
+}
+
+.crop img {
+    width: 600;
+    height: 500;
+    margin: -75px 0 0 -100px;
+}
+
+.CarouImg {
+    width: 600;
+    height: 500;
+    margin: -75px 0 0 -100px;
+}
+
+@keyframes rotation{
+  from{
+    transform: rotateY(0deg);
+  }
+  to{
+    transform: rotateY(360deg);
+  }
+}
+
 </style>

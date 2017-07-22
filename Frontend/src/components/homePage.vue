@@ -1,8 +1,7 @@
-9==<template>
+<template>
 <div class="homePage">
   <Banner></Banner>
   <ContactUs></ContactUs>
-  <AboutUs></AboutUs>
 </div>
 </template>
 

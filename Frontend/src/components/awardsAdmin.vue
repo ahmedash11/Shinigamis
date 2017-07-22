@@ -12,7 +12,8 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="Award in Awards">
-            <img src="../../static/images/rms.jpg"></img>
+                          <img v-if="Award.profileimg.path" :src="url+Award.profileimg.path.replace('public','')">
+              <img v-else src="/static/images/rms.jpg">
             <h3>{{Award.title}}</h3>
            
             <ul class="actions">
@@ -52,7 +53,7 @@
                   <input type="text" name="title" placeholder="Title" v-model="title" required>
     
               <label class="test">Upload Images</label>
-             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> 
+             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)"> 
             
                   <div>
                     <br>
@@ -85,7 +86,8 @@ export default {
       title: '',
       image: '',
       selectedAward: '',
-      formData:{}
+      formData:{},
+      url:""
     }
   },
   methods: {
@@ -111,7 +113,7 @@ export default {
     addAward: function() {
       var newAward = {
         title: this.title,
-        image: this.image
+
       }
       this.$http.post(env.URL + '/admin/addAward', newAward, {
         headers: auth.getAuthHeader()
@@ -199,6 +201,7 @@ export default {
   },
   created() {
     this.fetchAwards()
+    this.url = env.URL
   },
   components: {}
 }

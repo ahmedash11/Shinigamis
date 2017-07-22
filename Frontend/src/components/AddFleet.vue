@@ -159,6 +159,7 @@ export default {
             'jwt-token': localStorage.getItem('id_token')
           }
         }).then(response => {
+          alertify.notify(response.body.msg, 'success', 5);
 
         })
 
