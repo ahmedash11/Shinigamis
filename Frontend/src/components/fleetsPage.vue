@@ -2,7 +2,7 @@
 <div class="fleetsPage">
 
   <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <section id="four" class="wrapper style1 special fade-up" style="background-position: center 3.9px; background-image:url(../../static/images/test.png);background-size: cover" >
     <div class="container">
 
       <header class="major">
@@ -22,6 +22,7 @@
 
 
     </div>
+
   </section>
 
 </div>
@@ -54,6 +55,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#four{
+
+  background-color:#000000;
+  background-repeat: no-repeat; ;  
+ 
+
+
+}
 .modal-content {
   position: relative;
   background-color: #1c1d26;

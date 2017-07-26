@@ -1,17 +1,9 @@
 <template>
 <div class="Services">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 
-
-<div class="tab_container" align="center">
+<div class="container" >
+<div class="tab_container" align="left">
 
     <input id="tab1" type="radio" name="tabs" checked>
     <label for="tab1"><span>Services</span></label>
@@ -142,6 +134,7 @@ In turn all employees are expected to comply with safety and pollution preventio
   </div>
 </div>
 </div>
+</div>
 </template>
 
 <script>
@@ -167,6 +160,15 @@ export default {
   
   
 }
+.Services{
+background-color: #000000;
+background-position: center 3.9px; 
+background-image:url(../../static/images/craneedit.png);
+background-size: cover
+ 
+
+
+}
 
 .tab_container .tab-content p,
 .tab_container .tab-content h3 {
@@ -179,12 +181,12 @@ export default {
 }
 
 .tab_container [id^="tab"]:checked + label {
-  background: #1c1d26;
+  background: inherit;
   box-shadow: inset 0 3px #e44c65;
 }
 
 .tab_container [id^="tab"]:checked + label .fa {
-  color: #1c1d26;
+  color: inherit;
 }
 
 label .fa {

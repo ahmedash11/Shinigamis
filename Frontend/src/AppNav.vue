@@ -4,7 +4,7 @@
   <section id="one" class="spotlight style1 left" style="background-position:center ;background-image:url(/static/images/RapidoGee.jpg); position:relative ">
   <header id="header">
     
-    <img src="../static/images/logo.png" class="rounded" align="center">
+    <img src="../static/images/logo1.png" class="rounded" align="center">
       <nav id="nav" >
       <ul>
         <li>
@@ -176,29 +176,6 @@ img{
     border: none;
 }
 
-.first{
-      -webkit-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-
-}
-.second{
-  -webkit-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-    position: absolute;
-    transform: translateY(50px);
-}
-
-.fa-home:hover{
-  -webkit-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-  transform: translateY(-50px);
-}
-.text:hover{
-    -webkit-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-  transform: translateY(-50px);
-}
-
 nav{
   position: fixed;
 }
@@ -224,7 +201,7 @@ position: relative;
   height: 100%;
   width: 0%;
   position: fixed;
-  z-index: 1;
+  z-index: 11;
   left: 0;
   top: 0;
   background-color: #000;

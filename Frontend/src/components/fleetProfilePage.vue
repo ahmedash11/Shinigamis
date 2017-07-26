@@ -43,7 +43,7 @@
             </tr>
             <tr v-if="fleet.design">
               <td>Design</td>
-              <td>{{fleet.design}}</td>
+              <td><h4>{{fleet.design}}</h4></td>
             </tr>
             <tr v-if="fleet.built">
               <td>Built</td>
@@ -110,12 +110,16 @@
     </section>
 
  <section id="content2" class="tab-content section">
- <div class="container2">
+<!--  <div class="container2">
         <div id="carousel">
       <figure v-for=" image in Images"><img :src="url + image.img.path.replace('public','')" class="img"></figure>
 
     </div>
-  </div>
+  </div> -->
+  <carousel>
+    <slide v-for="image in Images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
+  </carousel>
+  </section>
   <br>
   <br>
   <br>
@@ -171,6 +175,7 @@
 
 <script>
 import env from '../env'
+import { Carousel, Slide } from 'vue-carousel';
 export default {
   name: 'fleetProfilePage',
   data() {
@@ -187,6 +192,10 @@ export default {
     this.getImages()
     
     this.url = env.URL
+  },
+    components: {
+    Carousel,
+    Slide
   },
 
   methods: {
@@ -267,7 +276,13 @@ label {
   text-decoration: none;
   text-align: center;
 }
+.imgcarousel{
+   display: inline;
+    margin:  auto;
+    height: 100%;
+    width: 100%;
 
+}
 
 
 

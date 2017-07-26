@@ -1,16 +1,9 @@
 <template>
-<div class="aboutUsPage ahmed">
-  <div class="container"  style="background-color:#000000;background-repeat: repeat-y;" >
+<div class="aboutUsPage">
+  <div class="container"   >
  
     <div class="tab_container" align="center">
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+
 
       <input id="tab1" type="radio" name="tabs" checked>
       <label for="tab1"><span>Chairman Message</span></label>
@@ -28,12 +21,15 @@
             <div class="row">
               <div class="4u 12u$(medium)">
                 <header>
-                  <h2>About Us</h2>
+                  <h2>Chairman Message</h2>
 
                 </header>
                 <img src="../../static/images/signature-pic.jpg">
               </div>
+
               <div>
+              <br>
+              <br>
                 <p align="left">In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
                   we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
               </div>
@@ -58,7 +54,7 @@
 
                 </header>
 
- <img src="../../static/images/chart.jpg"> 
+ <img src="../../static/images/FlowChart.png"> 
 
 
 
@@ -93,7 +89,18 @@ Company continuously identifies training requirements for sea going personnel in
 
 In order to motivate all personnel in implementing and maintaining the Safety Management System, the Company is always taking specific measures to satisfy personnel requirements, to reward personnel efforts and to solve personnel problems.
 Ail ships are certified with the Safe Manning Certificate.</p>
+ <br>
+              <br>
+              
+              <br>
+              
+              <br>
+              <br>
+              <br>
               </div>
+
+              
+
 
             </div>
           </div>
@@ -128,9 +135,10 @@ export default {
 
 .aboutUsPage{
 
-  background-image:url(../../static/images/shipicon.png); 
-  background-color:#000000;
-  background-repeat: repeat-x repeat-y;  
+    background-color:#000000;
+   
+  background-image: url(../../static/images/infoedit.png);
+  background-size: cover;
  
 
 

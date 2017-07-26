@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueResource from 'vue-resource'
+import VueCarousel from 'vue-carousel';
 import auth from '../auth'
 
 import HomePage from '@/components/homePage'
@@ -20,7 +21,7 @@ import FleetsAdmin from '@/components/fleetsAdmin'
 import FleetProfileAdmin from '@/components/fleetProfileAdmin'
 import FleetProfilePage from '@/components/fleetProfilePage'
 import ContactUsPage from '@/components/contactUsPage'
-import ContactUsAdmin from '@/components/ContactUsAdmin'
+import ContactUsAdmin from '@/components/contactUsAdmin'
 import ApplicationAdmin from '@/components/applicationsAdmin'
 import Application from '@/components/Application.vue'
 import AddFleet from '@/components/AddFleet.vue'
@@ -32,6 +33,7 @@ import Announcements from '@/components/Announcements.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
+Vue.use(VueCarousel);
 
 export default new Router({
     mode: 'history',

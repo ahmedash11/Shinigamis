@@ -7,7 +7,7 @@
       <div class="crop">
     <img src="../../static/images/1.jpg" class="rounded">
     </div>  
-        <h2>Welcome to Rashied Maritime</h2>
+        <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
         
       </header>
       <!-- <span><img class="img-circle" src="../../static/images/rms.jpg"></span> -->
@@ -55,6 +55,7 @@ export default {
     let backgroundImage = new Image();
 backgroundImage.src = "../../static/images/OceanDrum.jpg";
 document.getElementById("two").style["background-image"]=`url(${backgroundImage.src})`;
+
   }
 }
 </script>
@@ -66,6 +67,7 @@ document.getElementById("two").style["background-image"]=`url(${backgroundImage.
 #two{
   background-position: center; 
   background-image:url(../../static/images/OceanDrum.jpg);
+  
 
 }
 /*#three{
@@ -73,6 +75,21 @@ document.getElementById("two").style["background-image"]=`url(${backgroundImage.
   background-image:url(../../static/images/OceanDrum.jpg);
 
 }*/
+.spotlight .content {
+    -moz-transform: translate(0,0);
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    transform: translate(0,0);
+    transition: transform 1s ease,opacity 1s ease;
+    background: rgba(23,24,32,.5);
+    }
+#Welcome{
+  font-family: didot;
+  font-size: 45px;
+      color: #fff;
+    font-weight: 600;
+
+}
 .image-cropper {
     width: 130;
     height: 130;
@@ -90,7 +107,6 @@ document.getElementById("two").style["background-image"]=`url(${backgroundImage.
 .crop img {
     width: 300px;
     height: 250px;
-margin: 100px;
  border-radius: 30%;
 }
 img {
