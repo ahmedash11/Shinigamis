@@ -14,20 +14,23 @@
           <thead>
             <tr>
               <th>Email</th>
-             
+              <th>Super</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="admin in Admins">
               <td>{{admin.email}}</td>
-              
+              <td>{{admin.isSuper}}</td>
               <td><a v-on:click="deleteAdmin(admin._id)" class="button special">Delete</a></td>
             </tr>
             <tr>
-              <td><input type="text" name="name" placeholder="Email" v-model="name"></td>
-              
-              
+              <td><input type="text" name="email" placeholder="Email" v-model="email"></td>
+              <td><select v-model="isSuper">
+                <option disabled value="">Super</option>
+                <option :value="true" >True</option>
+                <option :value="false" >False</option>
+              </select></td>
               <td><button class="button special" v-on:click="addAdmin()">+</button></td>
             </tr>
           </tbody>
@@ -48,15 +51,13 @@ export default {
   data() {
     return {
       Admins: [],
-     
-      name: '',
-      
+      email: '',
+      isSuper: ''
     }
   },
   methods: {
     fetchAdmins: function() {
       this.$http.get(env.URL + '/admin/admins').then((response) => {
-        console.log(response.body.data.Admins)
         this.Admins = response.body.data.Admins
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -75,14 +76,15 @@ export default {
     },
     addAdmin: function() {
       var newAdmin = {
-        email: this.name  
+        email: this.email,
+        isSuper: this.isSuper
       }
       this.$http.post(env.URL + '/admin/addAdmin', newAdmin, {
         headers: auth.getAuthHeader()
       }).then((response) => {
-        this.name = ''
-        
-        alertify.notify('Admin added successfully', 'success', 5);
+        this.email = ''
+        this.isSuper = ''
+        alertify.notify(response.body.msg, 'success', 5);
         this.fetchAdmins()
 
       }).catch((error) => {
@@ -113,7 +115,7 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(() => {
-        this.$http.post(env.URL + '/admin/deleteadmin', {
+        this.$http.post(env.URL + '/admin/deleteAdmin', {
           id: adminId
         }, {
           headers: auth.getAuthHeader()
@@ -123,7 +125,7 @@ export default {
             response.body.msg,
             'success'
           )
-          this.fetchadmins()
+          this.fetchAdmins()
 
         }).catch((error) => {
           if (error.body.msg instanceof String || typeof error.body.msg === "string") {
@@ -145,7 +147,7 @@ export default {
   components: {},
   created: function() {
     this.fetchAdmins();
-  
+
   }
 }
 </script>

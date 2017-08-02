@@ -44,11 +44,13 @@ var Announcement = require('../models/announcement.js');
 
 router.post('/authenticate', adminController.authenticate); // Admin  login
 
-//router.post('/admin', adminController.addAdmin); // Admin can add another admin
+router.post('/addAdmin', adminController.addAdmin); // Admin can add another admin
 
-//router.get('/admins', adminController.getAllAdmins); // Admin can get all admins
+router.post('/deleteAdmin', adminController.deleteAdmin); // Admin can delete another admin
 
-//router.post('/editPassword', adminController.editPassword); // Admin can get all admins
+router.get('/admins', adminController.getAllAdmins); // Admin can get all admins
+
+router.post('/editPassword', adminController.editPassword); // Admin can get all admins
 
 router.post('/addlocation', locationController.addLocation); // Add a new location
 

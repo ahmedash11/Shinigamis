@@ -1,10 +1,6 @@
 <template>
 <div class="admin">
-
-  </br>
-  </br>
-
-
+  <br>
   <div class="tab_container" align="right">
 
     <input id="tab1" type="radio" name="tabs" checked>
@@ -22,14 +18,11 @@
     <input id="tab5" type="radio" name="tabs">
     <label for="tab5"><span>Awards</span></label>
 
-
-
     <input id="tab6" type="radio" name="tabs">
     <label for="tab6"><span>Admins</span></label>
 
     <input id="tab7" type="radio" name="tabs">
     <label for="tab7"><span>Applications</span></label>
-
 
     <input id="tab8" type="radio" name="tabs">
     <label for="tab8"><span>Positions</span></label>
@@ -40,18 +33,19 @@
     <input id="tab10" type="radio" name="tabs">
     <label for="tab10"><span>Contact Us</span></label>
 
+    <input id="tab11" type="radio" name="tabs">
+    <label for="tab11"><span>Edit Password</span></label>
+
 
     <section id="content1" class="tab-content">
       <Clients></Clients>
     </section>
+
     <section id="content2" class="tab-content">
-
       <Projects></Projects>
-
     </section>
 
     <section id="content3" class="tab-content">
-
       <Locations></Locations>
     </section>
 
@@ -60,36 +54,33 @@
     </section>
 
     <section id="content5" class="tab-content">
-
       <Awards></Awards>
-
     </section>
+
     <section id="content6" class="tab-content">
-
       <Admins></Admins>
-
     </section>
+
     <section id="content7" class="tab-content">
-
       <Application></Application>
-
     </section>
+
     <section id="content8" class="tab-content">
-
       <Position></Position>
-
     </section>
 
     <section id="content9" class="tab-content">
-
       <Announcements></Announcements>
-
     </section>
+
     <section id="content10" class="tab-content">
-
       <ContactUs></ContactUs>
-
     </section>
+
+    <section id="content11" class="tab-content">
+      <EditPassword></EditPassword>
+    </section>
+
   </div>
 </div>
 </template>
@@ -103,10 +94,10 @@ import Fleets from './fleetsAdmin'
 import Awards from './awardsAdmin'
 import Admins from './admins'
 import Position from './positionsAdmin'
-import Application from '@/components/applicationsAdmin'
+import Application from './applicationsAdmin'
 import Announcements from './announcementsAdmin.vue'
-import editPassword from './editPassword.vue'
-import ContactUs from '@/components/ContactUsAdmin'
+import EditPassword from './editPassword.vue'
+import ContactUs from './ContactUsAdmin'
 export default {
   name: 'admin',
   data() {
@@ -124,7 +115,8 @@ export default {
     Application,
     Position,
     Announcements,
-    editPassword,ContactUs
+    EditPassword,
+    ContactUs
 
   }
 }
@@ -141,7 +133,8 @@ export default {
 #tab7:checked~#content7,
 #tab8:checked~#content8,
 #tab9:checked~#content9,
-#tab10:checked~#content10 {
+#tab10:checked~#content10,
+#tab11:checked~#content11 {
   display: block;
 }
 

@@ -13,27 +13,23 @@ var bcrypt = require('bcrypt-nodejs');
 const generatePassword = require('password-generator'); // a dependency that generates random password
 const nodemailer = require('nodemailer'); // a dependency that sends an email to user
 
-
-/*
-var path = require('path');
-var filePluginLib = require('mongoose-file');
-
-var filePlugin = filePluginLib.filePlugin;
-var make_upload_to_model = filePluginLib.make_upload_to_model;
-
-var uploads_base = path.join(__dirname, 'uploads');
-var uploads = path.join(uploads_base, 'u');
-*/
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'rashiedmaritimeservices@gmail.com',
+    pass: 'rashiedmaritime10',
+  },
+});
 
 
 // define the schema for our user model
 var adminSchema = new Schema({
-    email: {
-        type: String,
-        unique: true,
-    },
-    password: String,
-    isSuper: Boolean,
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: String,
+  isSuper: Boolean,
 });
 
 
@@ -42,68 +38,66 @@ var Admin = module.exports = mongoose.model('Admin', adminSchema);
 
 
 module.exports.getAdminByEmail = function(email, callback) {
-    var query = {
-        email: email
-    }
-    Admin.findOne(query, callback)
+  var query = {
+    email: email
+  }
+  Admin.findOne(query, callback)
 }
 
 module.exports.getAdminById = function(id, callback) {
-    Admin.findById(id, callback)
+  Admin.findById(id, callback)
 }
-module.exports.generateHash = function (password) {
+
+module.exports.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+}
 
-module.exports.addAdmin = function(newAdmin, callback) {
+module.exports.addAdmin = function(email, isSuper, callback) {
 
-    const password = generatePassword();
-    newAdmin.password = password
+  const password = generatePassword();
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'rms.auto@gmail.com',
-            pass: 'foobar1234',
-        },
-    });
+  let newAdmin = new Admin({
+    email: email,
+    password: password,
+    isSuper: isSuper
+  })
+  Admin.updatePassword(newAdmin, (err) => {
+    if (err)
+      throw err
 
     // setup email data with unicode symbols
     const mailOptions = {
-        from: ' "Rashied Maritime Services" <rms.auto@gmail.com>', // sender address
-        to: 'email', // list of receivers
-        subject: 'System Approval ✔', // Subject line
-        text: `Congratulations! You have been added as an admin and now 
-            you can login using your email and password:${
-              password}`, // plain text body
+      from: ' "Rashied Maritime Services" <rashiedmaritimeservices@gmail.com@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: 'System Approval ✔', // Subject line
+      text: `Congratulations! You have been added as an admin and now
+                you can login using your email and password:${
+                  password}`, // plain text body
     };
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-                // res.status(500).json({
-                //     status: 'error',
-                //     message: err,
-                // });
-            }
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newAdmin.password, salt, null, (err, hash) => {
-                    if (err) throw err
-                    newAdmin.password = hash
-                    newAdmin.isSuper = false
-                    newAdmin.save(callback)
-                })
-            })
-        })
-    }
+    transporter.sendMail(mailOptions, callback)
+  })
+
+}
 
 module.exports.comparePassword = function(candidatePassword, hash, callback) {
-    // bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
-    //     console.log(candidatePassword)
-    //     if (err) throw err
-    //     callback(null, isMatch)
-    // })
-    if(candidatePassword==='admin'){
-        callback(null,true)
-    }
+  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+    if (err) throw err
+    callback(null, isMatch)
+  })
+}
+
+module.exports.updatePassword = function(newAdmin, callback) {
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newAdmin.password, salt, null, (err, hash) => {
+      if (err) throw err
+      newAdmin.password = hash
+      newAdmin.save(callback)
+    })
+  })
+}
+
+module.exports.deleteAdmin = function(id, callback) {
+  Admin.findByIdAndRemove(id, callback)
 }

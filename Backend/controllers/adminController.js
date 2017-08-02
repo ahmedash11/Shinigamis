@@ -15,7 +15,7 @@ Admin.findOne({
       password: 'admin',
       isSuper: true
     })
-    Admin.addAdmin(defaultAdmin, (err, admin) => {
+    Admin.updatePassword(defaultAdmin, (err, admin) => {
       if (err) {
         throw err
       }
@@ -88,58 +88,140 @@ var adminController = {
     const token = req.headers['jwt-token'];
     jwt.verify(token, (decoded) => {
       if (decoded) {
-        Admin.find({
+
+        Admin.findOne({
           email: req.body.email
         }, function(err, admin) {
-          if (err)
-            return err;
-          else {
+          if (err) {
+            res.status(500).json({
+              success: false,
+              msg: err.message
+            });
+          }
+          if (!admin) {
+            res.status(500).json({
+              success: false,
+              msg: 'Failed to update password'
+            });
+          } else {
             req.checkBody('oldPassword', 'Your old Password is required').notEmpty();
             req.checkBody('newPassword', 'A new Password is required').notEmpty();
-            console.log(admin[0].password)
-            console.log(req.body.oldPassword)
-            req.checkBody('oldPassword', 'Passwords do not match').equals(admin[0].password);
-            req.checkBody('confirmNewPassword', 'Confirm Password does not match newPassword').equals(req.body.newPassword);
-            var errors = req.validationErrors();
-            if (errors) {
-              console.log(errors);
-              res.status(400).json({
-                err: errors
-
-              });
-            } else {
-              ////console.log('should modify');
-              Admin.findByIdAndUpdate(admin.id, {
-                $set: {
-                  password: req.body.newPassword,
-                },
-              }, {
-                safe: true,
-                upsert: true,
-                new: true,
-              }, (err, adm) => {
-                ////console.log('modified!');
-                res.status(200).json({
-                  status: 'success',
-                  data: {
-                    message: `Edited Password correctly!`,
-                  },
+            //console.log(admin[0].password)
+            //console.log(req.body.oldPassword)
+            //req.checkBody('oldPassword', 'Passwords do not match').equals(admin.password);
+            Admin.comparePassword(req.body.oldPassword, admin.password, (err, isMatch) => {
+              if (err) {
+                res.status(500).json({
+                  success: false,
+                  msg: err.message
                 });
-              });
-            }
-
+              }
+              if (isMatch) {
+                req.checkBody('confirmNewPassword', 'Confirm Password does not match New Password').equals(req.body.newPassword);
+                req.asyncValidationErrors().then(() => {
+                  admin.password = req.body.newPassword
+                  admin.save((err) => {
+                    if (err) {
+                      res.status(500).json({
+                        success: false,
+                        msg: err.message
+                      });
+                    }
+                  })
+                  Admin.updatePassword(admin, (err) => {
+                    if (err) {
+                      res.status(500).json({
+                        success: false,
+                        msg: err.message
+                      });
+                    } else {
+                      res.status(200).json({
+                        msg: 'Password updated successfully'
+                      });
+                    }
+                  })
+                }).catch((errors) => {
+                  res.status(500).json({
+                    success: false,
+                    msg: errors
+                  })
+                })
+              } else {
+                res.status(500).json({
+                  success: false,
+                  msg: 'Old Password is incorrect'
+                });
+              }
+            })
           }
         });
-
-
-
       } else {
         res.status(500).json({
-          err: 'unauthorized access',
+          err: 'Unauthorized access',
         });
       }
     });
   },
+
+  addAdmin(req, res) {
+    const token = req.headers['jwt-token'];
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        req.checkBody('email', 'Email is required').notEmpty();
+        req.checkBody('isSuper', 'Super is required').notEmpty();
+        req.checkBody('email', 'Email is not correct').isEmail();
+        req.asyncValidationErrors().then(() => {
+          Admin.addAdmin(req.body.email, req.body.isSuper, (err) => {
+            if (err) {
+              res.status(500).json({
+                msg: err.message
+              })
+            } else {
+              res.status(200).json({
+                msg: 'Admin added successfully'
+              })
+            }
+          })
+        }).catch((errors) => {
+          res.status(500).json({
+            success: false,
+            msg: errors
+          })
+        })
+      } else {
+        res.status(500).json({
+          err: 'Unauthorized access',
+        });
+      }
+    })
+  },
+
+  deleteAdmin(req, res) {
+    const token = req.headers['jwt-token'];
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        Admin.deleteAdmin(req.body.id, (err) => {
+          if (err) {
+            res.status(500).json({
+              success: false,
+              msg: err.message
+            });
+          } else {
+            res.status(200).json({
+              success: true,
+              msg: 'Admin successfully deleted'
+            });
+          }
+        })
+      } else {
+        res.status(500).json({
+          err: 'Unauthorized access',
+        });
+      }
+
+    })
+
+  }
 
 };
 module.exports = adminController;

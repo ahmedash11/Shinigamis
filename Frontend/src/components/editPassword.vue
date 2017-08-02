@@ -2,39 +2,36 @@
 <div class="editPassword">
 
   <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <section id="editPassword" class="wrapper style1 special fade-up">
     <div class="container">
 
       <header class="major">
         <h2>Edit Password</h2>
       </header>
 
- <form role="form" class="" v-on:submit.prevent="editPassword()">
-   
-           <br><br>
-      <div>
-          <div>
-          
-
-            <div >
-            <center>
-                <div class="row">
-                Enter Old Password:<input require="required"type="text" style="height:30px;font-size:10pt"class="form-control input-lg" id="myInput1" placeholder="Old Password" v-model="oldPassword" required="*"></input><br/>
-                Enter New Password:<input type="text" style="height:30px;font-size:10pt"class="form-control input-lg" id="myInput2" placeholder="New Password" v-model="newPassword" required="*"></input><br/>
-                Confirm New Password:<input type="text" style="height:30px;font-size:10pt"class="form-control input-lg" id="myInput3" placeholder="Confirm New Password" v-model="confirmNewPassword" required="*"></input>
-                </div>
-                </center>
-            </div>
-
-            <div class="modal-footer">
-                <button class="button" style="margin-bottom:20px;">Update Password</button>
-            </div>
+      <form role="form" class="" v-on:submit.prevent="editPassword()">
+        <center>
+          <div class="6u 12u$(xsmall)">
+            <label class="test">Current Password:</label>
+            <input type="password" name="name" v-model="oldPassword" required>
           </div>
-        </div>
-       </form>
 
-</div>
-</section>
+          <div class="6u 12u$(xsmall)">
+            <label class="test">Password:</label>
+            <input type="password" name="name" v-model="newPassword" required>
+          </div>
+
+          <div class="6u 12u$(xsmall)">
+            <label class="test">Confirm Password:</label>
+            <input type="password" name="name" v-model="confirmNewPassword" required>
+          </div>
+        </center>
+        <br>
+        <button class="button special" style="margin-bottom:20px;">Update Password</button>
+      </form>
+
+    </div>
+  </section>
 </div>
 </template>
 
@@ -45,15 +42,13 @@ export default {
   name: 'editPassword',
   data() {
     return {
-      email:"",
-      confirmNewPassword:"",
-      oldPassword:"",
-      newPassword:"",
+      oldPassword: "",
+      newPassword: "",
+      confirmNewPassword: ""
     }
   },
   methods: {
-    editPassword: function()
-    {
+    editPassword: function() {
       swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -63,24 +58,49 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, change it!'
       }).then(() => {
-          this.email = auth.getAdmin().email
-            this.$http.post(env.URL+'/admin/editPassword', {"oldPassword":this.oldPassword,"newPassword":this.newPassword, "confirmNewPassword":this.confirmNewPassword,"email":this.email},{headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(data => {
-                swal(
+        let data = {
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword,
+          confirmNewPassword: this.confirmNewPassword,
+          email: auth.getAdmin().email
+        }
+        this.$http.post(env.URL + '/admin/editPassword', data, {
+          headers: auth.getAuthHeader()
+        }).then(response => {
+          swal(
             'Password Changed!',
             response.body.msg,
             'success'
           )
-           
-                confirmNewPassword=""
-      oldPassword=""
-      newPassword=""
-                    }).catch(function(reason) {
-                       
-                    });
-          })
+
+          this.confirmNewPassword = ""
+          this.oldPassword = ""
+          this.newPassword = ""
+        }).catch(function(error) {
+          if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+            swal(
+              'Oops...',
+              error.body.msg,
+              'error'
+            );
+          } else {
+            if (error.body.msg.length == 1) {
+              swal(
+                'Oops...',
+                error.body.msg[0].msg,
+                'error'
+              );
+            } else {
+              for (var i = 0; i < error.body.msg.length; i++) {
+                var msg = error.body.msg[i].msg
+                alertify.notify(msg, 'error', 5);
+              }
+            }
+          }
+        });
+      })
     }
-  }
-,
+  },
   components: {}
 }
 </script>
