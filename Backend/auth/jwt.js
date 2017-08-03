@@ -1,4 +1,3 @@
-
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/admin');
 
@@ -10,7 +9,7 @@ module.exports = {
       if (err) {
         let msg = {
           success: false,
-          msg: err.message+'a7aaaa'
+          msg: err.message
         }
         return cb(msg)
       }

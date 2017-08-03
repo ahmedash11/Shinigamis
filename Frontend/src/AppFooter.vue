@@ -1,7 +1,7 @@
 <template>
 <div class="AppFooter">
   <!-- Footer -->
-  <section id="one" class="spotlight style1 left">
+  <section id="one">
     <footer id="footer">
       <ul class="icons">
         <li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
@@ -32,7 +32,6 @@ export default {
 <style scoped>
 #one::before {
   background-position: center;
-
   background-image: url(/static/images/RapidoGee.jpg);
 }
 

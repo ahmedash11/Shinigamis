@@ -5,8 +5,7 @@
  * @property {Boolean} isSuper Determines wether it is a super admin or not
  */
 
-
-// load the things we need
+var mail = require('../config/mail')
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
@@ -14,11 +13,8 @@ const generatePassword = require('password-generator'); // a dependency that gen
 const nodemailer = require('nodemailer'); // a dependency that sends an email to user
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'rashiedmaritimeservices@gmail.com',
-    pass: 'rashiedmaritime10',
-  },
+  service: mail.service,
+  auth: mail.auth
 });
 
 
@@ -54,16 +50,22 @@ module.exports.generateHash = function(password) {
 
 module.exports.addAdmin = function(email, isSuper, callback) {
 
-  const password = generatePassword();
+  var password = generatePassword();
 
   let newAdmin = new Admin({
     email: email,
     password: password,
     isSuper: isSuper
   })
+
   Admin.updatePassword(newAdmin, (err) => {
-    if (err)
-      throw err
+    if (err) {
+      let msg = {
+        success: false,
+        msg: err.message
+      }
+      return callback(msg)
+    }
 
     // setup email data with unicode symbols
     const mailOptions = {
@@ -76,7 +78,20 @@ module.exports.addAdmin = function(email, isSuper, callback) {
     };
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, callback)
+    transporter.sendMail(mailOptions, (err) => {
+      if (err) {
+        let msg = {
+          success: false,
+          msg: err.message
+        }
+        return callback(msg)
+      } else {
+        let msg = {
+          success: true
+        }
+        return callback(msg)
+      }
+    })
   })
 
 }

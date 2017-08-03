@@ -84,7 +84,9 @@ router.post('/deleteApplication', applicationController.deleteApplication);
 
 router.post('/addPosition', positionController.addPosition);
 
-//router.post('/deletePosition', positionController.deletePosition);
+router.post('/deletePosition', positionController.deletePosition);
+
+router.post('/offerPosition', positionController.offerPosition);
 
 router.post('/addAnnouncement', announcementController.addAnnouncement);
 
@@ -181,8 +183,6 @@ router.post('/updateChairmanMessage', aboutUsController.updateChairmanMessage); 
 router.post('/updatePersonnel', aboutUsController.updatePersonnel); // Update personnel
 
 router.post('/updateContactUs', aboutUsController.updateContactUs); // Update contact us
-
-router.post('/offerPosition', positionController.offerPosition);
 
 //router.post('/decode', adminController.getsignedvals);
 

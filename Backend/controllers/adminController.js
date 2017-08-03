@@ -192,20 +192,16 @@ var adminController = {
         req.checkBody('isSuper', 'Super is required').notEmpty();
         req.checkBody('email', 'Email is not correct').isEmail();
         req.asyncValidationErrors().then(() => {
-          Admin.addAdmin(req.body.email, req.body.isSuper, (err) => {
-            if (err) {
+          Admin.addAdmin(req.body.email, req.body.isSuper, (msg) => {
+            if (!msg.success) {
               res.status(500).json({
-                msg: err.message
+                msg: msg.msg
               })
             } else {
               res.status(200).json({
                 msg: 'Admin added successfully'
               })
             }
-          }).catch((err) => {
-            res.status(500).json({
-              msg: err.message
-            })
           })
         }).catch((errors) => {
           res.status(500).json({
