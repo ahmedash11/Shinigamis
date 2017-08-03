@@ -1,16 +1,16 @@
 <template>
 <div class="admins">
-
-  <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <!-- Admins Page -->
+  <section id="admins" class="wrapper style1 special fade-up">
     <div class="container">
+
       <header class="major">
         <h2>Admins</h2>
       </header>
 
-
       <div class="table-wrapper">
         <table>
+
           <thead>
             <tr>
               <th>Email</th>
@@ -18,12 +18,14 @@
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             <tr v-for="admin in Admins">
               <td>{{admin.email}}</td>
               <td>{{admin.isSuper}}</td>
               <td><a v-on:click="deleteAdmin(admin._id)" class="button special">Delete</a></td>
             </tr>
+
             <tr>
               <td><input type="text" name="email" placeholder="Email" v-model="email"></td>
               <td><select v-model="isSuper">
@@ -31,9 +33,12 @@
                 <option :value="true" >True</option>
                 <option :value="false" >False</option>
               </select></td>
-              <td><button class="button special" v-on:click="addAdmin()">+</button></td>
+              <td>
+                <button class="button special" v-on:click="addAdmin()"><i id="loading" class="fa fa-plus" aria-hidden="true"></i></button>
+              </td>
             </tr>
           </tbody>
+
         </table>
       </div>
 
@@ -75,6 +80,7 @@ export default {
       })
     },
     addAdmin: function() {
+      $('#loading').addClass('fa-circle-o-notch fa-spin fa-fw').removeClass('fa-plus')
       var newAdmin = {
         email: this.email,
         isSuper: this.isSuper
@@ -86,8 +92,9 @@ export default {
         this.isSuper = ''
         alertify.notify(response.body.msg, 'success', 5);
         this.fetchAdmins()
-
+        $('#loading').addClass('fa-plus').removeClass('fa-circle-o-notch fa-spin fa-fw')
       }).catch((error) => {
+        $('#loading').addClass('fa-plus').removeClass('fa-circle-o-notch fa-spin fa-fw')
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
             'Oops...',

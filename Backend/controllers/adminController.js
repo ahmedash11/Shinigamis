@@ -58,6 +58,13 @@ var adminController = {
       })
     })
   },
+
+  /**
+   * Get all admins
+   * @param {String} req
+   * @param {String} res
+   */
+
   getAllAdmins(req, res) { // viewing all Admins
 
     Admin.find((err, Admins) => {
@@ -83,6 +90,14 @@ var adminController = {
       res.json(decoded);
     });
   },
+
+  /**
+   * Update current password
+   * @param {String} req.body.oldPassword
+   * @param {String} req.body.newPassword
+   * @param {String} req.body.confirmNewPassword
+   */
+
   editPassword(req, res) {
 
     const token = req.headers['jwt-token'];
@@ -163,6 +178,12 @@ var adminController = {
     });
   },
 
+  /**
+   * Add a new admin
+   * @param {String} req.body.email
+   * @param {String} req.body.isSuper
+   */
+
   addAdmin(req, res) {
     const token = req.headers['jwt-token'];
     jwt.verify(token, (decoded) => {
@@ -181,6 +202,10 @@ var adminController = {
                 msg: 'Admin added successfully'
               })
             }
+          }).catch((err) => {
+            res.status(500).json({
+              msg: err.message
+            })
           })
         }).catch((errors) => {
           res.status(500).json({
@@ -195,6 +220,11 @@ var adminController = {
       }
     })
   },
+
+  /**
+   * Delete a new admin
+   * @param {String} req.body.id
+   */
 
   deleteAdmin(req, res) {
     const token = req.headers['jwt-token'];
@@ -218,9 +248,7 @@ var adminController = {
           err: 'Unauthorized access',
         });
       }
-
     })
-
   }
 
 };
