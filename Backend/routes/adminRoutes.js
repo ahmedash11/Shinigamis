@@ -118,19 +118,24 @@ router.post('/upload', upload.array('avatar'), (req, res) => {
 });
 router.post('/ClientImage', upload.single('avatar'), (req, res) => {
   Client.findById(req.body.client_id, function(error, client) {
-    if (error)
-      console.log(error)
-    else {
+    if (error) {
+      res.status(500).json({
+        msg: error.message
+      })
+    } else {
       client.profileimg.name = req.file.filename;
       client.profileimg.path = req.file.path;
       client.profileimg.size = req.file.size;
       client.save((err) => {
         if (err) {
-          console.log('error');
+          res.status(500).json({
+            msg: err.message
+          })
         } else {
-          res.send("sucess");
+          res.status(200).json({
+            msg: "Picture added successfully"
+          })
         }
-        console.log('success');
       });
     }
   });

@@ -30,7 +30,7 @@ var announcementController = {
         });
       } else {
         res.status(500).json({
-          err: 'unauthorized access',
+          err: 'Unauthorized access',
         });
       }
     });

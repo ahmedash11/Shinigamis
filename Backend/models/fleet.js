@@ -26,6 +26,8 @@
  * @property {String} mooringSystem Mooring system
  * @property {String} helideck Helideck
  * @property {String} images Images
+ * @property {String} profilePic Profile picture
+ * @property {String} coverPic Cover picture
  */
 
 
@@ -57,8 +59,8 @@ var fleetSchema = new Schema({
   fireFighting: String,
   mooringSystem: String,
   helideck: String,
- 
-
+  profilePic: String,
+  coverPic: String
 });
 
 

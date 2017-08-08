@@ -1,11 +1,11 @@
 <template>
 <section id="contact" class="content-section text-center">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
   <div class="contact-section">
     <div class="container">
@@ -38,12 +38,12 @@
               <label for="exampleInputName2">Country</label>
               <input type="text" class="form-control" id="exampleInputName2" placeholder="Country" v-model="country">
             </div>
-<!--             <div class="form-group">
+            <!--             <div class="form-group">
               <label for="exampleInputName2">Birthdate</label>
               <input type="date" class="form-control" id="exampleInputName2" v-model="birthdate">
             </div> -->
             <div class="form-group ">
-              <label for="exampleInputText">Experience</label>
+              <label for="exampleInputName2">Experience</label>
               <textarea class="form-control" placeholder="Experience" v-model="experience"></textarea>
             </div>
             <div class="form-group ">
@@ -53,10 +53,10 @@
             <br>
             <button type="submit" class="button special">Apply</button>
           </form>
-          </div>
-          </div>
-          </div>
-          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 </template>
 
@@ -77,7 +77,7 @@ export default {
       birthdate: "",
       experience: "",
       cv: "",
-      formData:[]
+      formData: []
 
     }
 
@@ -85,21 +85,21 @@ export default {
   },
   methods: {
     upload: function(fieldName, fileList) {
-        // handle file changes
-        const formData = new FormData();
-        // append the files to FormData
-        Array.from(Array(fileList.length).keys()).map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-        
-        this.formData = formData
-       
+      // handle file changes
+      const formData = new FormData();
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
+
+      this.formData = formData
+
     },
 
 
     // Send a request to the login URL and save the returned JWT
     sendApplication: function() {
-      this.$http.post(env.URL+'/user/sendApplication' ,{
+      this.$http.post(env.URL + '/user/sendApplication', {
         "firstName": this.firstName,
         "lastName": this.lastName,
         "position": this.position,
@@ -115,10 +115,14 @@ export default {
           'jwt-token': localStorage.getItem('id_token')
         }
       }).then(data => {
-        this.formData.append("app_id",data.data.data.newApplication._id)
-          this.$http.post(env.URL+'/user/uploadCV',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
-            
-      })
+        this.formData.append("app_id", data.data.data.newApplication._id)
+        this.$http.post(env.URL + '/user/uploadCV', this.formData, {
+          headers: {
+            'jwt-token': localStorage.getItem('id_token')
+          }
+        }).then(response => {
+
+        })
 
       })
     }
@@ -135,6 +139,9 @@ export default {
 .test {
   font-family: Helvetica, sans-serif;
 }
+
+
+
 
 
 /* The Overlay (background) */
@@ -160,6 +167,9 @@ export default {
 }
 
 
+
+
+
 /* Position the content inside the overlay */
 
 .overlay-content {
@@ -176,6 +186,9 @@ export default {
 }
 
 
+
+
+
 /* The navigation links inside the overlay */
 
 .overlay a {
@@ -190,12 +203,18 @@ export default {
 }
 
 
+
+
+
 /* When you mouse over the navigation links, change their color */
 
 .overlay a:hover,
 .overlay a:focus {
   color: #f1f1f1;
 }
+
+
+
 
 
 /* Position the close button (top right corner) */
@@ -206,6 +225,9 @@ export default {
   right: 45px;
   font-size: 60px;
 }
+
+
+
 
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
@@ -221,22 +243,27 @@ export default {
   }
 }
 
-input[type=email], input[type=password], input[type=text], select, textarea {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    -moz-transition: border-color .2s ease-in-out;
-    -webkit-transition: border-color .2s ease-in-out;
-    -ms-transition: border-color .2s ease-in-out;
-    transition: border-color .2s ease-in-out;
-    background: 0 0;
-    /* border-radius: 4px; */
-    /* border: 1px solid rgba(255,255,255,.3); */
-    color: inherit;
-    display: block;
-    outline: 0;
-    padding: 0 1em;
-    text-decoration: none;
-    width: 100%;}
+input[type=email],
+input[type=password],
+input[type=text],
+select,
+textarea {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  -moz-transition: border-color .2s ease-in-out;
+  -webkit-transition: border-color .2s ease-in-out;
+  -ms-transition: border-color .2s ease-in-out;
+  transition: border-color .2s ease-in-out;
+  background: 0 0;
+  /* border-radius: 4px; */
+  /* border: 1px solid rgba(255,255,255,.3); */
+  color: inherit;
+  display: block;
+  outline: 0;
+  padding: 0 1em;
+  text-decoration: none;
+  width: 100%;
+}
 </style>

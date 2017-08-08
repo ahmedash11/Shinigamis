@@ -1,35 +1,38 @@
 <template>
-<div class="banner">
+<div class="Banner">
   <!-- Banner -->
+  <section id="banner">
+    <a href="#one" class="goto-next scrolly">Next</a>
+  </section>
+
+  <!-- One -->
   <section id="one" class="spotlight style1 left">
     <div class="content">
       <header>
         <div class="crop">
-          <img src="../../static/images/1.jpg" class="rounded">
+          <img src="/static/images/1.jpg" class="rounded">
         </div>
         <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
-
       </header>
-      <!-- <span><img class="img-circle" src="../../static/images/rms.jpg"></span> -->
     </div>
-
+    <a href="#two" class="goto-next scrolly">Next</a>
   </section>
-  <section id="two" class="spotlight style1 right">
 
+  <!-- Two -->
+  <section id="two" class="spotlight style1 right">
     <div class="content">
       <header>
-
         <h2>Learn more about our Company</h2>
         <router-link to="/aboutUs"><button class="button special">About Us
         </button></router-link>
       </header>
       <!-- <span><img class="img-circle" src="../../static/images/rms.jpg"></span> -->
     </div>
+    <a href="#three" class="goto-next scrolly">Next</a>
 
   </section>
 
   <section id="three" class="spotlight style1 left">
-
     <div class="content">
       <header>
         <div class="crop">
@@ -51,52 +54,45 @@ export default {
   name: 'banner',
   data() {
     return {}
-  },
-  beforeCreated() {
-    let backgroundImage = new Image();
-    backgroundImage.src = "../../static/images/OceanDrum.jpg";
-    document.getElementById("two").style["background-image"] = `url(${backgroundImage.src})`;
-
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#two:before {
+#banner {
   background-position: center;
-  background-attachment: fixed;
+  background-image: url(/static/images/RapidoGee.jpg);
   background-size: cover;
-  background-image: url(../../static/images/Maha.jpg);
+  background-attachment: fixed;
 }
 
-#one:before {
+#banner::after {
+  display: block;
+  height: 100%;
+  position: absolute;
+}
+
+#one {
   background-position: center;
-  background-attachment: fixed;
+  background-image: url(/static/images/BannerOne.jpg);
   background-size: cover;
-  background-image: url(../../static/images/OceanDrum.jpg);
+  background-attachment: fixed;
 }
 
-#three:before {
-
-  background-attachment: fixed;
-  background-position: center 3.9px;
+#two {
+  background-position: center;
+  background-image: url(/static/images/BannerTwo.jpg);
   background-size: cover;
-  background-image: url(../../static/images/RazzoGee.jpg);
+  background-attachment: fixed;
 }
 
-
-
-
-
-
-
-
-/*#three{
-  background-position: center 26.85px;
-  background-image:url(../../static/images/OceanDrum.jpg);
-
-}*/
+#three {
+  background-position: center;
+  background-image: url(/static/images/RazzoGee.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
 
 .spotlight .content {
   -moz-transform: translate(0, 0);

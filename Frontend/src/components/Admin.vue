@@ -1,6 +1,8 @@
 <template>
 <div class="admin">
   <br>
+  <br>
+  <br>
   <div class="tab_container" align="right">
 
     <input id="tab1" type="radio" name="tabs" checked>

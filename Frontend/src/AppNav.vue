@@ -1,83 +1,80 @@
 <template>
 <div class="AppNav">
   <!-- Header -->
-  <section id="one" class="spotlight style1 left">
-    <header id="header">
+  <header id="header">
+    <img src="/static/images/logo1.png">
+    <nav id="nav">
+      <ul>
+        <li>
+          <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
+        </li>
 
-      <img src="../static/images/logo1.png" class="rounded" align="center">
-      <nav id="nav">
-        <ul>
-          <li>
-            <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
-          </li>
+        <li>
+          <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
+        </li>
 
-          <li>
-            <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
-          </li>
+        <li>
+          <a muted><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
+          <ul>
+            <li>
+              <router-link to="/services">Services</router-link>
+            </li>
+            <li>
+              <router-link to="/fleets">Fleets</router-link>
+            </li>
+          </ul>
+        </li>
 
-          <li>
-            <a muted><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
-            <ul>
-              <li>
-                <router-link to="/services">Services</router-link>
-              </li>
-              <li>
-                <router-link to="/fleets">Fleets</router-link>
-              </li>
-            </ul>
-          </li>
+        <li>
+          <a><i class="fa fa-anchor fa-2x" aria-hidden="true"></i></a>
+          <ul>
+            <li>
+              <router-link to="/clients">Clients</router-link>
+            </li>
+            <li>
+              <router-link to="/projects">Projects</router-link>
+            </li>
+          </ul>
+        </li>
 
-          <li>
-            <a><i class="fa fa-anchor fa-2x" aria-hidden="true"></i></a>
-            <ul>
-              <li>
-                <router-link to="/clients">Clients</router-link>
-              </li>
-              <li>
-                <router-link to="/projects">Projects</router-link>
-              </li>
-            </ul>
-          </li>
+        <li>
+          <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
+        </li>
 
-          <li>
-            <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
-          </li>
+        <li>
+          <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
+        </li>
 
-          <li>
-            <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
-          </li>
+        <li>
+          <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
+        </li>
 
-          <li>
-            <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
-          </li>
+        <li>
+          <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
+          <ul>
+            <li>
+              <router-link to="/contactUs">Overview</router-link>
+            </li>
+            <li>
+              <router-link to="/locations">Locations</router-link>
+            </li>
+          </ul>
+        </li>
 
-          <li>
-            <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
-            <ul>
-              <li>
-                <router-link to="/contactUs">Overview</router-link>
-              </li>
-              <li>
-                <router-link to="/locations">Locations</router-link>
-              </li>
-            </ul>
-          </li>
+        <li v-if="this.user.authenticated">
+          <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li v-if="!this.user.authenticated">
+          <a @click="openNav"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
+        </li>
+        <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+        </li>
+      </ul>
 
-          <li v-if="this.user.authenticated">
-            <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
-          </li>
-          <li v-if="!this.user.authenticated">
-            <a @click="openNav"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
-          </li>
-          <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
-          </li>
-        </ul>
-
-      </nav>
-    </header>
-
-
+    </nav>
+  </header>
   </section>
+
   <!-- The overlay -->
   <div id="myNav" class="overlay">
 
@@ -131,7 +128,6 @@ export default {
         email: this.email,
         password: this.password
       }).then((response) => {
-        console.log(response)
         let data = {
           token: response.body.data.token,
           admin: JSON.stringify(response.body.data.admin)
@@ -174,19 +170,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #one:before {
-
   background-position: center;
   background-image: url(/static/images/RapidoGee.jpg);
-  position: relative
-}
-
-img {
-  height: auto;
+  position: relative;
 }
 
 img {
   max-width: 100%;
   border: none;
+  height: auto;
 }
 
 nav {

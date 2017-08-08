@@ -8,7 +8,7 @@
       <header class="major">
         <h2>Clients</h2>
       </header>
-      <section class="col-lg-9 col-md-12 col-sm-12 small-padding">
+      <section class="col-lg-12 col-md-12 col-sm-12 small-padding">
         <div class="row" v-for="client in clients">
           <div class="col-lg-4 col-md-4 col-sm-12">
             <div data-animation class="team-member">
@@ -28,7 +28,6 @@
           </div>
 
         </div>
-
       </section>
 
       <!--     <div class="row">
@@ -62,7 +61,7 @@
     </div>
     <section class=" 4u 6u(medium) 12u$(xsmall) ">
       <CENTER>
-        <button id="scroll" data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new client</button>
+        <button id="scroll" data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">+</button>
       </CENTER>
     </section>
 
@@ -90,7 +89,7 @@
                   <textarea type="text" name="description" v-model="description" required></textarea>
                   <div class="form-group">
                     <label for="exampleInputName2">Upload Images</label>
-                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple">
+                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)">
                   </div>
                   <br>
                   <div>
@@ -131,7 +130,7 @@
                   <textarea type="text" name="description" placeholder="Description" v-model="description" required></textarea>
                   <div class="form-group">
                     <label for="exampleInputName2">Upload Images</label>
-                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple">
+                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)">
                   </div>
                   <div>
                     <br>
@@ -165,7 +164,8 @@ export default {
       description: '',
       selectedClient: '',
       formData: {},
-      url: ''
+      url: '',
+      boolean: false
     }
   },
   methods: {
@@ -197,14 +197,18 @@ export default {
       }).then(response => {
         $('#addClient').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
-        this.formData.append("client_id", response.data.data.client._id)
-        this.$http.post(env.URL + '/admin/ClientImage', this.formData, {
-          headers: {
-            'jwt-token': localStorage.getItem('id_token')
-          }
-        }).then(response => {
+        if (!$.isEmptyObject(this.formData)) {
+          this.formData.append("client_id", response.data.data.client._id)
+          this.$http.post(env.URL + '/admin/ClientImage', this.formData, {
+            headers: {
+              'jwt-token': localStorage.getItem('id_token')
+            }
+          }).then(response => {
+            this.fetchClients()
+          })
+        } else {
           this.fetchClients()
-        })
+        }
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -231,8 +235,18 @@ export default {
       }).then(response => {
         $('#editClient').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
-        this.fetchClients()
-
+        if (!$.isEmptyObject(this.formData)) {
+          this.formData.append("client_id", this.selectedClient._id)
+          this.$http.post(env.URL + '/admin/ClientImage', this.formData, {
+            headers: {
+              'jwt-token': localStorage.getItem('id_token')
+            }
+          }).then(response => {
+            this.fetchClients()
+          })
+        } else {
+          this.fetchClients()
+        }
       }).catch(error => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -288,6 +302,7 @@ export default {
     },
     setSelectedClient: function(client) {
       this.selectedClient = client
+      this.formData = {}
       if (this.selectedClient) {
         this.name = this.selectedClient.name
         this.description = this.selectedClient.description
@@ -303,9 +318,7 @@ export default {
       Array.from(Array(fileList.length).keys()).map(x => {
         formData.append(fieldName, fileList[x], fileList[x].name);
       });
-
       this.formData = formData
-
     }
   },
   created() {

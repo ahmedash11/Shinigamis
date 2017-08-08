@@ -1,7 +1,8 @@
 <template>
 <div class="aboutUsPage">
-  <div class="container"   >
- 
+  <br>
+  <div class="container">
+
     <div class="tab_container" align="center">
 
 
@@ -15,7 +16,7 @@
       <label for="tab3"><span>Our Personnel</span></label>
 
       <!-- One -->
-       <section class="tab-content style1" id="content1"> 
+      <section class="tab-content style1" id="content1">
         <div class="content">
           <div class="container">
             <div class="row">
@@ -24,12 +25,12 @@
                   <h2>Chairman Message</h2>
 
                 </header>
-                <img src="../../static/images/signature-pic.jpg">
+                <img src="/static/images/signature-pic.jpg">
               </div>
 
               <div>
-              <br>
-              <br>
+                <br>
+                <br>
                 <p align="left">In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
                   we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
               </div>
@@ -40,9 +41,9 @@
             </div>
           </div>
         </div>
-  <div style="background-image:url(../../static/images/shipicon.png); background-color:#000000;background-repeat: repeat-x;  box-shadow: 0 0.25em 0.5em 0 rgba(0,0,0,0.25);">
-    
-  </div>
+        <div style="background-image:url(../../static/images/shipicon.png); background-color:#000000;background-repeat: repeat-x;  box-shadow: 0 0.25em 0.5em 0 rgba(0,0,0,0.25);">
+
+        </div>
       </section>
       <section id="content2" class="tab-content">
         <div class="content">
@@ -54,7 +55,7 @@
 
                 </header>
 
- <img src="../../static/images/FlowChart.png"> 
+                <img src="../../static/images/FlowChart.png">
 
 
 
@@ -79,27 +80,23 @@
 
               </div>
               <div>
-                <p align="left">All shipboard personnel of RASHIED MARITIME SERVICES CO. are medically fit, competent and qualified in accordance with national and international legislation.
+                <p align="left">All shipboard personnel of RASHIED MARITIME SERVICES CO. are medically fit, competent and qualified in accordance with national and international legislation. Company specifies the total manning requirements for each ship taking into consideration
+                  the minimum requirements of the national law. It also specifies the qualifications and experience requirements for each position in which respective persons are going to be involved. Selection and recruitment of shipboard personnel is
+                  based upon the above requirements, so that every ship is manned with capable crew to undertake the safety tasks they are expected to perform during normal and emergency operations. Shore based personnel has the appropriate qualifications
+                  and experience required to provide technical assistance and support to on-board management. Records of qualifications for every specific position are available. Company continuously identifies training requirements for sea going personnel
+                  in order to ensure that all ships are manned with personnel meeting the Company's requirements concerning qualification, ability and experience. In order to motivate all personnel in implementing and maintaining the Safety Management
+                  System, the Company is always taking specific measures to satisfy personnel requirements, to reward personnel efforts and to solve personnel problems. Ail ships are certified with the Safe Manning Certificate.</p>
+                <br>
+                <br>
 
-Company specifies the total manning requirements for each ship taking into consideration the minimum requirements of the national law. It also specifies the qualifications and experience requirements for each position in which respective persons are going to be involved.
-Selection and recruitment of shipboard personnel is based upon the above requirements, so that every ship is manned with capable crew to undertake the safety tasks they are expected to perform during normal and emergency operations.
+                <br>
 
-Shore based personnel has the appropriate qualifications and experience required to provide technical assistance and support to on-board management. Records of qualifications for every specific position are available.
-Company continuously identifies training requirements for sea going personnel in order to ensure that all ships are manned with personnel meeting the Company's requirements concerning qualification, ability and experience.
-
-In order to motivate all personnel in implementing and maintaining the Safety Management System, the Company is always taking specific measures to satisfy personnel requirements, to reward personnel efforts and to solve personnel problems.
-Ail ships are certified with the Safe Manning Certificate.</p>
- <br>
-              <br>
-              
-              <br>
-              
-              <br>
-              <br>
-              <br>
+                <br>
+                <br>
+                <br>
               </div>
 
-              
+
 
 
             </div>
@@ -133,15 +130,10 @@ export default {
   display: block;
 }
 
-.aboutUsPage{
-
-    background-color:#000000;
-   
-  background-image: url(../../static/images/infoedit.png);
+.aboutUsPage {
+  background-color: #000000;
+  background-image: url(/static/images/infoedit.png);
   background-size: cover;
- 
-
-
 }
 
 .tab_container .tab-content p,
@@ -210,5 +202,4 @@ input[type=radio]+label:before {
 .spotlight.style1 .content {
   border-color: #191a22;
 }
-
 </style>
