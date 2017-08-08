@@ -1,20 +1,22 @@
 <template>
 <div class="AppNav">
   <!-- Header -->
-  <header id="header">
-    <img src="/static/images/logo1.png">
-    <nav id="nav">
+  <section id="banner" v-if="this.home">
+    <header id="header">
+    
+    <img src="../static/images/logo.png" class="rounded" align="left">
+      <nav id="nav" >
       <ul>
         <li>
+      
           <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
-        </li>
-
+<!--           <router-link to="/"><i class="text" aria-hidden="true">Home</i></router-link>
+ -->        </li>
         <li>
           <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
         </li>
-
         <li>
-          <a muted><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
+          <a><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
           <ul>
             <li>
               <router-link to="/services">Services</router-link>
@@ -24,7 +26,6 @@
             </li>
           </ul>
         </li>
-
         <li>
           <a><i class="fa fa-anchor fa-2x" aria-hidden="true"></i></a>
           <ul>
@@ -40,15 +41,12 @@
         <li>
           <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
         </li>
-
         <li>
           <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
         </li>
-
         <li>
           <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
         </li>
-
         <li>
           <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
           <ul>
@@ -60,43 +58,121 @@
             </li>
           </ul>
         </li>
-
         <li v-if="this.user.authenticated">
           <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
         </li>
-        <li v-if="!this.user.authenticated">
+ <li v-if="!this.user.authenticated">
           <a @click="openNav"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
         </li>
         <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
         </li>
       </ul>
-
+      
     </nav>
-  </header>
+    <br>
+
+  <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
+    </header>
+  
+    <a href="#two" class="goto-next scrolly"></a>
   </section>
+  <section id="one" class="spotlight style1 left" v-if="!this.home">
+  <header id="header">
+    
+    <img src="../static/images/logo.png" class="rounded" align="center">
+      <nav id="nav" >
+      <ul>
+        <li>
+      
+          <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
+<!--           <router-link to="/"><i class="text" aria-hidden="true">Home</i></router-link>
+ -->        </li>
+        <li>
+          <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li>
+          <a muted><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
+          <ul>
+            <li>
+              <router-link to="/services">Services</router-link>
+            </li>
+            <li>
+              <router-link to="/fleets">Fleets</router-link>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a><i class="fa fa-anchor fa-2x" aria-hidden="true"></i></a>
+          <ul>
+            <li>
+              <router-link to="/clients">Clients</router-link>
+            </li>
+            <li>
+              <router-link to="/projects">Projects</router-link>
+            </li>
+          </ul>
+        </li>
 
-  <!-- The overlay -->
-  <div id="myNav" class="overlay">
+        <li>
+          <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li>
+          <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li>
+          <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li>
+          <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
+          <ul>
+            <li>
+              <router-link to="/contactUs">Overview</router-link>
+            </li>
+            <li>
+              <router-link to="/locations">Locations</router-link>
+            </li>
+          </ul>
+        </li>
+        <li v-if="this.user.authenticated">
+          <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
+        </li>
+        <li v-if="!this.user.authenticated"><a @click="openNav" class="button special">Login</a></li>
+        <li v-else><a @click="logout" class="button special">Logout</a></li>
+      </ul>
+      
+    </nav>
+    </header>
+  
 
-    <!-- Button to close the overlay navigation -->
-    <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+    </section>
+    <!-- The overlay -->
+    <div id="myNav" class="overlay">
 
-    <!-- Overlay content -->
-    <div class="overlay-content">
-      <div class="container">
-        <form class="form-group" @submit.prevent="login">
-          <label class="test">Email</label>
-          <input type="email" name="email" placeholder="Enter Your Email.." v-model="email" required>
-          <label class="test">Password</label>
-          <input type="password" name="password" placeholder="Enter Your Password.." v-model="password" required>
-          <br>
-          <input type="submit" class="button special">
-        </form>
+      <!-- Button to close the overlay navigation -->
+      <a href="javascript:void(0)" class="closebtn" @click="closeNav()">&times;</a>
+
+      <!-- Overlay content -->
+      <div class="overlay-content">
+        <div class="container">
+          <form class="form-group" @submit.prevent="login">
+            <label class="test">Email</label>
+            <input type="email" name="email" placeholder="Enter Your Email.." v-model="email" required>
+            <label class="test">Password</label>
+            <input type="password" name="password" placeholder="Enter Your Password.." v-model="password" required>
+            <br>
+            <input type="submit" class="button special">
+          </form>
+        </div>
+
       </div>
 
     </div>
 
-  </div>
 </div>
 </template>
 
@@ -110,7 +186,8 @@ export default {
     return {
       email: "",
       password: "",
-      user: auth.user
+      user: auth.user,
+      home:true
     }
   },
   methods: {
@@ -128,6 +205,7 @@ export default {
         email: this.email,
         password: this.password
       }).then((response) => {
+        console.log(response)
         let data = {
           token: response.body.data.token,
           admin: JSON.stringify(response.body.data.admin)
@@ -158,39 +236,69 @@ export default {
       this.$router.push({
         path: this.$route.fullPath.replace('/admin', '')
       })
-    }
-  },
+    },
+ },
   created() {
     auth.checkAuth();
-    this.backgroundImage = "../../static/images/OceanDrum.jpg"
   },
-}
+  updated(){
+    console.log(this.$route.path)
+   if(this.$route.path==='/'){
+    this.home=true
+  }else{
+    this.home=false
+  }
+
+}}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#one:before {
-  background-position: center;
-  background-image: url(/static/images/RapidoGee.jpg);
-  position: relative;
+#Welcome{
+  font-family: didot;
+  font-size: 45px;
+      color: #fff;
+    font-weight: 600;
+
 }
 
+#banner{
+    background-position:center  ;
+  background-image:url(/static/images/RapidoGee.jpg);
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+#banner:after {
+    display: block;
+    height: 100%;
+    position: absolute;
+}
+#one:before{
+background-position:center ;
+background-image:url(/static/images/RapidoGee.jpg); 
+background-size: cover;
+background-attachment: fixed;
+}
 img {
-  max-width: 100%;
-  border: none;
-  height: auto;
+    height: auto;
+}
+img{
+    max-width: 100%;
+    border: none;
 }
 
-nav {
+nav{
   position: fixed;
 }
 
-.spotlight {
-  background-attachment: fixed;
-  background-size: cover;
-  box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, .25);
-  height: 60vh;
-  position: relative;
+.spotlight{
+    background-attachment: fixed;
+    background-size: cover;
+    box-shadow: 0 0.25em 0.5em 0 rgba(0,0,0,.25);
+    height:60vh;
+position: relative;
 }
 
 
@@ -236,6 +344,7 @@ nav {
 .overlay a:hover {
   color: #f1f1f1
 }
+
 
 .overlay .closebtn {
   position: absolute;
