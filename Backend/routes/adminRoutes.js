@@ -82,6 +82,8 @@ router.get('/findApplications', applicationController.findAllApplications)
 
 router.post('/deleteApplication', applicationController.deleteApplication);
 
+router.get('/getApplication/:applicationId', applicationController.getApplication) // View application by id
+
 router.post('/addPosition', positionController.addPosition);
 
 router.post('/deletePosition', positionController.deletePosition);

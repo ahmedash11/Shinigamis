@@ -28,8 +28,8 @@
                 <p v-if="location.email"><i class="glyphicon glyphicon-envelope"></i> Email: {{location.email}}</p>
               </td>
               <td>
-                <td><button data-toggle="modal" data-target="#editLocation" class="button special" v-on:click="setSelectedLocation(location)">Edit</button>
-                  <a v-on:click="deleteLocation(location._id)" class="button special">Delete</a></td>
+                <button data-toggle="modal" data-target="#editLocation" class="button special" v-on:click="setSelectedLocation(location)">Edit</button>
+                <a v-on:click="deleteLocation(location._id)" class="button special">Delete</a>
               </td>
             </tr>
           </tbody>
@@ -311,6 +311,7 @@ export default {
   background-clip: padding-box;
   outline: 0;
 }
+
 {
   text-align: left;
 }

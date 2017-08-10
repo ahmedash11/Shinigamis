@@ -37,6 +37,11 @@ var announcementController = {
 
   },
 
+  /**
+   * Delete a new announcement
+   * @param {Request} req
+   * @param {Response} res
+   */
 
   deleteAnnouncement(req, res) {
     Announcement.findByIdAndRemove({
@@ -59,7 +64,13 @@ var announcementController = {
     });
 
   },
-  findAllAnnouncements(req, res) { // viewing all announcements
+
+  /**
+   * Viewing all announcements
+   * @param {Request} req
+   * @param {Response} res
+   */
+  findAllAnnouncements(req, res) {
 
     Announcement.find((err, announcements) => {
       if (err) { // if error occurred

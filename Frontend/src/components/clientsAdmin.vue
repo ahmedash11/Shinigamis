@@ -10,23 +10,24 @@
       </header>
       <section class="col-lg-12 col-md-12 col-sm-12 small-padding">
         <div class="row" v-for="client in clients">
-          <div class="col-lg-4 col-md-4 col-sm-12">
-            <div data-animation class="team-member">
-              <img v-if="client.profileimg.path" :src="url+client.profileimg.path.replace('public','')">
-              <img v-else src="/static/images/pic07.jpg">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div data-animation class="team-member">
+                <img v-if="client.profileimg.path" :src="url+client.profileimg.path.replace('public','')">
+                <img v-else src="/static/images/pic07.jpg">
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-12">
+              <h3>{{client.name}}</h3>
+              <p>{{client.description}}</p>
+              <ul class="actions">
+                <li><a data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</a></li>
+                <li><a class="button special" v-on:click="deleteClient(client._id)">Delete</a></li>
+              </ul>
+              <br>
+
             </div>
           </div>
-          <div class="col-lg-8 col-md-6 col-sm-12">
-            <h3>{{client.name}}</h3>
-            <p>{{client.description}}</p>
-            <ul class="actions">
-              <li><a data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</a></li>
-              <li><a class="button special" v-on:click="deleteClient(client._id)">Delete</a></li>
-            </ul>
-            <br>
-
-          </div>
-
         </div>
       </section>
 

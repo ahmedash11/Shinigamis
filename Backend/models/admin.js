@@ -5,17 +5,11 @@
  * @property {Boolean} isSuper Determines wether it is a super admin or not
  */
 
-var mail = require('../config/mail')
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
-const generatePassword = require('password-generator'); // a dependency that generates random password
-const nodemailer = require('nodemailer'); // a dependency that sends an email to user
-
-const transporter = nodemailer.createTransport({
-  service: mail.service,
-  auth: mail.auth
-});
+var generatePassword = require('password-generator'); // a dependency that generates random password
+var mailController = require('../controllers/mailController')
 
 
 // define the schema for our user model
@@ -78,19 +72,8 @@ module.exports.addAdmin = function(email, isSuper, callback) {
     };
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, (err) => {
-      if (err) {
-        let msg = {
-          success: false,
-          msg: err.message
-        }
-        return callback(msg)
-      } else {
-        let msg = {
-          success: true
-        }
-        return callback(msg)
-      }
+    mailController.sendMail(mailOptions, (msg) => {
+      return callback(msg)
     })
   })
 

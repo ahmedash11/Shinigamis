@@ -12,15 +12,14 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="Application in Applications">
-            
+
             <h3 id="name" data-toggle="modal" data-target=".my-modal">{{Application.firstName}} {{Application.lastName}}</h3>
-              
-            
-
-
-           
+            <p>{{Application.position}}</p>
             <ul class="actions">
-              <i id="bin"class=" glyphicon glyphicon-trash" v-on:click="deleteApplication(Application._id)"></i> <i @click="Open(Application.Cv)" id="ok" class="glyphicon glyphicon-file"></i>
+              <li>
+                <i id="cv" class="fa fa-file" aria-hidden="true" v-on:click="viewApplication(Application)"></i>
+                <i id="bin" class=" glyphicon glyphicon-trash" v-on:click="deleteApplication(Application._id)"></i>
+              </li>
             </ul>
           </section>
         </div>
@@ -36,26 +35,30 @@
 
 <script>
 import env from '../env'
+import router from '../router'
 import auth from '../auth'
 export default {
-  name: 'applicationsAdmin',
+  name: 'ApplicationsAdmin',
   data() {
     return {
       Applications: {}
     }
   },
-  created(){
-    this.fetchApplications()
-  },
   methods: {
-    hi:function(){
-      console.log('hi')
+    viewApplication: function(Application) {
+      this.$router.push({
+        name: 'ApplicationAdmin',
+        params: {
+          applicationId: Application._id
+        }
+      })
     },
     fetchApplications: function() {
-      this.$http.get(env.URL + '/admin/findApplications').then(response => {
-        console.log("response"+ response)
+      this.$http.get(env.URL + '/admin/findApplications', {
+        headers: auth.getAuthHeader()
+      }).then(response => {
+        console.log("response" + response)
         this.Applications = response.data.data.applications
-        // console.log(this.Applications)
       }).catch(error => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -70,10 +73,6 @@ export default {
           }
         }
       })
-    },
-    Open:function(URL){
-      URL = env.URL.concat(URL.replace('public',''))
-      window.open(URL)
     },
     deleteApplication: function(ApplicationId) {
       swal({
@@ -133,36 +132,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/*.modal-dialog {
-  transform: none;
-}*/
-/*.modal-content {
-  position: relative;
-  background-color: #1c1d26;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  background-clip: padding-box;
-  outline: 0;
-}*/
-
-.\34 u img { 
-  max-height: 100%;   
-  max-width: 100%; 
-}
- #bin{   
-  padding-right:50px;   
-  cursor: pointer; 
-  } 
-  #ok:hover{   
-    cursor: pointer;   
-    color: green; }
-#bin:hover{ 
-  color:red; 
+.\34 u img {
+  max-height: 100%;
+  max-width: 100%;
 }
 
+#cv {
+  padding-right: 50px;
+  cursor: pointer;
+}
 
+#bin {
+  cursor: pointer;
+}
 
+#cv:hover {
+  color: green;
+}
+
+#bin:hover {
+  color: red;
+}
 </style>

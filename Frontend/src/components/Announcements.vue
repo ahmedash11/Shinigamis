@@ -1,46 +1,120 @@
 <template>
-<div class="container">
-<br>
-<br>
-<br>
-<br>
-<br>
-  <div class="row">
-    
-
-     <header class="major">
-        <h2>Announcements</h2>
-      </header>
-  </div>
-  <hr>
-  <!-- Begin of rows -->
-  <div v-for="Ann in Announcement">
-    <div class="col-xs-8 col-xs-offset-2 slide-row">
-      <div>
+<div class="">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
 
-        <!-- Wrapper for slides -->
-        <div>
-          <div class="crop">
-            <img src="/static/images/rms.jpg" alt="Image">
-          </div>
-        </div>
+  <header class="major">
+    <h2>Announcements</h2>
+  </header>
 
-        <div class="slide-content">
-          <h4>{{Ann.title}}</h4>
-          <p>
-            {{Ann.content}}
-          </p>
-          <hr>
-        </div>
+  <section id="cd-timeline" class="cd-container">
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-picture">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg" alt="Picture">
       </div>
-      <br>
+      <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h2>Title of section 1</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+        <a href="#0" class="cd-read-more">Read more</a>
+        <span class="cd-date">Jan 14</span>
+      </div>
+      <!-- cd-timeline-content -->
     </div>
-  </div>
+    <!-- cd-timeline-block -->
+
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-movie">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-movie.svg" alt="Movie">
+      </div>
+      <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h2>Title of section 2</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+        <a href="#0" class="cd-read-more">Read more</a>
+        <span class="cd-date">Jan 18</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-picture">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg" alt="Picture">
+      </div>
+      <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h2>Title of section 3</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit,
+          itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat
+          aliquam sunt similique aut adipisci.</p>
+        <a href="#0" class="cd-read-more">Read more</a>
+        <span class="cd-date">Jan 24</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-location">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-location.svg" alt="Location">
+      </div>
+      <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h2>Title of section 4</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+        <a href="#0" class="cd-read-more">Read more</a>
+        <span class="cd-date">Feb 14</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-location">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-location.svg" alt="Location">
+      </div>
+      <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h2>Title of section 5</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
+        <a href="#0" class="cd-read-more">Read more</a>
+        <span class="cd-date">Feb 18</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-movie">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-movie.svg" alt="Movie">
+      </div>
+      <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h2>Final Section</h2>
+        <p>This is the content of the last section</p>
+        <span class="cd-date">Feb 26</span>
+      </div>
+      <!-- cd-timeline-content -->
+    </div>
+    <!-- cd-timeline-block -->
+  </section>
+  <!-- cd-timeline -->
 </div>
 </template>
 
 <script>
+import env from '../env'
 export default {
   name: 'Announcements',
   data() {
@@ -51,14 +125,11 @@ export default {
   },
   created() {
     this.getAnnouncements()
-
   },
   methods: {
-    //open overlay
-
     // Send a request to the login URL and save the returned JWT
     getAnnouncements: function() {
-      this.$http.get('http://localhost:3000/admin/getAnnouncements').then(data => {
+      this.$http.get(env.URL + '/admin/getAnnouncements').then(data => {
         this.Announcement = data.data.data.announcements
       })
     }
@@ -68,96 +139,46 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.closebtn:hover {
-  color: white;
-}
-
-.test {
-  font-family: Helvetica, sans-serif;
-}
-
-
-/* The Overlay (background) */
-
-.overlay {
-  /* Height & width depends on how you want to reveal the overlay (see JS below) */
-  height: 100%;
-  width: 0;
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  background-color: rgb(0, 0, 0);
-  /* Black fallback color */
-  background-color: rgba(0, 0, 0, 0.9);
-  /* Black w/opacity */
-  overflow-x: hidden;
-  /* Disable horizontal scroll */
-  transition: 0.5s;
-  /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-
-
-/* Position the content inside the overlay */
-
-.overlay-content {
+#cd-timeline {
   position: relative;
-  top: 25%;
-  /* 25% from the top */
-  width: 65%;
-  /* 100% width */
-  text-align: center;
-  /* Centered text/links */
-  margin-top: 30px;
-  /* 30px top margin to avoid conflict with the close button on smaller screens */
-  padding-left: 120px;
+  padding: 2em 0;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
-
-/* The navigation links inside the overlay */
-
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  /* Display block instead of inline */
-  transition: 0.3s;
-  /* Transition effects on hover (color) */
-}
-
-
-/* When you mouse over the navigation links, change their color */
-
-.overlay a:hover,
-.overlay a:focus {
-  color: #f1f1f1;
-}
-
-
-/* Position the close button (top right corner) */
-
-.overlay .closebtn {
+#cd-timeline::before {
+  /* this is the vertical line */
+  content: '';
   position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
+  top: 0;
+  left: 18px;
+  height: 100%;
+  width: 4px;
+  background: #d7e4ed;
 }
 
+.cssanimations .cd-timeline-img.is-hidden {
+  visibility: hidden;
+}
 
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+.cssanimations .cd-timeline-img.bounce-in {
+  visibility: visible;
+  animation: cd-bounce-1 0.6s;
+}
 
-@media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px
+@keyframes cd-bounce-1 {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
+
+  60% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 </style>

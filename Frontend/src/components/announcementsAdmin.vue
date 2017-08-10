@@ -7,46 +7,6 @@
       <h2>Announcements</h2>
     </header>
 
-    <div class="row">
-
-      <!-- Modal -->
-      <div class="modal fade" id="announcements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-
-            <!-- Modal header-->
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4><CENTER>Add Announcement</CENTER></h4>
-            </div>
-
-            <!-- Modal body-->
-            <div class="modal-body">
-              <div class="row" style="border:none;">
-                <div class="col-md-12">
-                  <form @submit.prevent="addAnnouncement()" role="form" style="display: block;" class="form-group">
-                    <label class="test">Title</label>
-                    <input type="text" name="title" placeholder="Title" v-model="title" required>
-                    <br>
-                    <label class="test">Content</label>
-                    <textarea type="text" name="content" placeholder="Content" v-model="content" required></textarea>
-
-                    <div>
-                      <br>
-                      <CENTER>
-                        <input class="button special" type="submit" value="Create">
-                      </CENTER>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Begin of rows -->
     <div v-for="Ann in Announcement">
       <div class="col-xs-8 col-xs-offset-2 slide-row">
@@ -70,6 +30,45 @@
           </div>
         </div>
         <br>
+      </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="announcements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+          <!-- Modal header-->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4><CENTER>Add Announcement</CENTER></h4>
+          </div>
+
+          <!-- Modal body-->
+          <div class="modal-body">
+            <div class="row" style="border:none;">
+              <div class="col-md-12">
+                <form @submit.prevent="addAnnouncement()" role="form" style="display: block;" class="form-group">
+                  <label class="test">Title</label>
+                  <input type="text" name="title" placeholder="Title" v-model="title" required>
+                  <br>
+                  <label class="test">Content</label>
+                  <textarea type="text" name="content" placeholder="Content" v-model="content" required></textarea>
+
+                  <div>
+                    <br>
+                    <CENTER>
+                      <input class="button special" type="submit" value="Create">
+                    </CENTER>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>

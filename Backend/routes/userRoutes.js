@@ -31,6 +31,7 @@ var locationController = require('../controllers/locationController');
 var awardController = require('../controllers/awardController');
 var aboutUsController = require('../controllers/aboutUsController');
 var announcementController = require('../controllers/announcementController');
+var mailController = require('../controllers/mailController');
 
 // Models
 
@@ -62,57 +63,52 @@ router.get('/getPositions', positionController.viewAllPositions) // View all awa
 router.post('/sendApplication', applicationController.addApplication) // Send Application
 
 router.post('/uploadCV', upload.single('CV'), (req, res) => {
-    Application.findById(req.body.app_id, function(error, client) {
-        if (error)
-            console.log(error)
-        else {
-            
-            client.Cv = req.file.path
-            console.log(client)
+  Application.findById(req.body.app_id, function(err, client) {
+    if (err) {
+      res.status(500).json({
+        msg: err.message
+      });
+    } else {
 
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'maritimerashied@gmail.com',
-                    pass: '1212Rms3434',
-                },
-            });
+      client.Cv = req.file.path
 
-            // setup email data with unicode symbols
-            const mailOptions = {
-                from: ' "Rashied Maritime Services" <maritimerashied@gmail.com>', // sender address
-                to: 'a.rashied@rashiedmaritime.com', // list of receivers
-                subject: 'CV', // Subject line
-                text: `Application Submitted`, // plain text body
-                attachments: [{
-                    filename: client.firstName + ' ' + client.lastName + ' CV.pdf',
-                    path: client.Cv
-                }]
-            };
+      // setup email data with unicode symbols
+      const mailOptions = {
+        from: ' "Rashied Maritime Services" <maritimerashied@gmail.com>', // sender address
+        //  to: 'a.rashied@rashiedmaritime.com', // list of receivers
+        to: 'omareletreby@gmail.com', // list of receivers
+        subject: 'CV', // Subject line
+        text: `Application Submitted`, // plain text body
+        attachments: [{
+          filename: client.firstName + ' ' + client.lastName + ' CV.pdf',
+          path: client.Cv
+        }]
+      };
 
-            // send mail with defined transport object
-            transporter.sendMail(mailOptions, (err, info) => {
-                if (err) {
-                    res.status(500).json({
-                        status: 'error',
-                        message: err,
-                    });
-                } else {
-                    client.save((err) => {
-                        if (err) {
-                            console.log('error');
-                        } else {
-                            res.send("sucess");
-                        }
-                        console.log('success');
-                    });
-                } //console.log('Message %s sent: %s', info.messageId,
-                //  info.response);
-            });
-
-
+      // send mail with defined transport object
+      mailController.sendMail(mailOptions, (msg) => {
+        if (!msg.success) {
+          res.status(500).json({
+            msg: msg.msg,
+          });
+        } else {
+          client.save((err) => {
+            if (err) {
+              res.status(500).json({
+                msg: err.message,
+              });
+            } else {
+              res.status(200).json({
+                msg: "Your application was sent successfully"
+              });
+            }
+          });
         }
-    });
+      });
+
+
+    }
+  });
 })
 
 

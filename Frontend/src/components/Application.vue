@@ -1,13 +1,10 @@
 <template>
-<section id="contact" class="content-section text-center">
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+<section id="application" class="wrapper style1 special fade-up">
 
-  <div class="contact-section">
+  <div class="container">
+    <header class="major">
+      <h2>Positions</h2>
+    </header>
     <div class="container">
       <h2>Application Form</h2>
 
@@ -15,43 +12,44 @@
         <div class="col-md-8 col-md-offset-2">
           <form role="form" class="form-horizontal" v-on:submit.prevent="sendApplication()" enctype="multipart/form-data">
             <div class="form-group">
-              <label for="exampleInputName2">First Name</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="First Name" v-model="firstName">
+              <label>First Name</label>
+              <input type="text" class="form-control" placeholder="First Name" v-model="firstName" required>
             </div>
             <div class="form-group">
-              <label for="exampleInputName2">Last Name</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="Last Name" v-model="lastName">
+              <label>Last Name</label>
+              <input type="text" class="form-control" placeholder="Last Name" v-model="lastName" required>
             </div>
             <div class="form-group">
-              <label for="exampleInputName2">Position</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="Position" v-model="position">
+              <label>Position</label>
+              <input readonly type="text" class="form-control" v-model="position" required>
             </div>
             <div class="form-group">
-              <label for="exampleInputName2">Email</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="Email" v-model="email">
+              <label>Email</label>
+              <input type="email" class="form-control" placeholder="Email" v-model="email" required>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail2">Address</label>
-              <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Address" v-model="address">
+              <label>Phone</label>
+              <input type="text" class="form-control" placeholder="Phone" v-model="phone" required>
             </div>
             <div class="form-group">
-              <label for="exampleInputName2">Country</label>
-              <input type="text" class="form-control" id="exampleInputName2" placeholder="Country" v-model="country">
+              <label>Address</label>
+              <input type="text" class="form-control" placeholder="Address" v-model="address" required>
             </div>
-            <!--             <div class="form-group">
-              <label for="exampleInputName2">Birthdate</label>
-              <input type="date" class="form-control" id="exampleInputName2" v-model="birthdate">
-            </div> -->
-            <div class="form-group ">
-              <label for="exampleInputName2">Experience</label>
-              <textarea class="form-control" placeholder="Experience" v-model="experience"></textarea>
+            <div class="form-group">
+              <label>Birthdate</label>
+              <input type="date" class="form-control" v-model="birthdate" style="background-color: #1c1d26;border: 1px solid #616167;" required>
             </div>
-            <div class="form-group ">
-              <label for="exampleInputText">Upload CV</label>
-              <center><input ref="avatar" type="file" name="CV" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple"> </center>
+            <div class="form-group">
+              <label>Experience</label>
+              <textarea class="form-control" placeholder="Experience" v-model="experience" style="border: 1px solid #616167;" required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Upload CV</label>
+              <center><input ref="avatar" type="file" name="CV" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple" required> </center>
             </div>
             <br>
-            <button type="submit" class="button special">Apply</button>
+            <button type="submit" class="button special" v-if="!loading">Apply</button>
+            <button type="submit" class="button special" v-else><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
           </form>
         </div>
       </div>
@@ -62,26 +60,22 @@
 
 <script>
 import env from '../env'
+import router from '../router'
 export default {
   name: 'Application',
   data() {
     return {
-
       firstName: "",
       lastName: "",
-      position: "",
+      position: this.$route.params.position,
       phone: "",
       email: "",
       address: "",
-      country: "",
       birthdate: "",
       experience: "",
-      cv: "",
-      formData: []
-
+      formData: [],
+      loading: false
     }
-
-
   },
   methods: {
     upload: function(fieldName, fileList) {
@@ -95,10 +89,9 @@ export default {
       this.formData = formData
 
     },
-
-
     // Send a request to the login URL and save the returned JWT
     sendApplication: function() {
+      this.loading = true
       this.$http.post(env.URL + '/user/sendApplication', {
         "firstName": this.firstName,
         "lastName": this.lastName,
@@ -106,24 +99,50 @@ export default {
         "phone": this.phone,
         "email": this.email,
         "address": this.address,
-        "country": this.country,
         "birthdate": this.birthdate,
         "experience": this.experience,
         // "cv": this.cv
-      }, {
-        headers: {
-          'jwt-token': localStorage.getItem('id_token')
-        }
       }).then(data => {
-        this.formData.append("app_id", data.data.data.newApplication._id)
-        this.$http.post(env.URL + '/user/uploadCV', this.formData, {
-          headers: {
-            'jwt-token': localStorage.getItem('id_token')
-          }
-        }).then(response => {
+        this.formData.append("app_id", data.data.data.app._id)
+        this.$http.post(env.URL + '/user/uploadCV', this.formData).then(response => {
+          this.loading = false
+          alertify.notify(response.body.msg, 'success', 5);
+          this.$router.push({
+            path: '/positions'
+          })
+        }).catch((error) => {
+          this.loading = false
+          if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+            swal(
+              'Oops...',
+              error.body.msg,
+              'error'
+            );
+          } else {
 
+            for (var i = 0; i < error.body.msg.length; i++) {
+              var msg = error.body.msg[i].msg
+              alertify.notify(msg, 'error', 5);
+
+            }
+
+          }
         })
 
+      }).catch((error) => {
+        this.loading = false
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
       })
     }
   }
@@ -132,117 +151,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.closebtn:hover {
-  color: white;
-}
-
-.test {
-  font-family: Helvetica, sans-serif;
-}
-
-
-
-
-
-/* The Overlay (background) */
-
-.overlay {
-  /* Height & width depends on how you want to reveal the overlay (see JS below) */
-  height: 100%;
-  width: 0;
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  background-color: rgb(0, 0, 0);
-  /* Black fallback color */
-  background-color: rgba(0, 0, 0, 0.9);
-  /* Black w/opacity */
-  overflow-x: hidden;
-  /* Disable horizontal scroll */
-  transition: 0.5s;
-  /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-
-
-
-
-
-/* Position the content inside the overlay */
-
-.overlay-content {
-  position: relative;
-  top: 25%;
-  /* 25% from the top */
-  width: 65%;
-  /* 100% width */
-  text-align: center;
-  /* Centered text/links */
-  margin-top: 30px;
-  /* 30px top margin to avoid conflict with the close button on smaller screens */
-  padding-left: 120px;
-}
-
-
-
-
-
-/* The navigation links inside the overlay */
-
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  /* Display block instead of inline */
-  transition: 0.3s;
-  /* Transition effects on hover (color) */
-}
-
-
-
-
-
-/* When you mouse over the navigation links, change their color */
-
-.overlay a:hover,
-.overlay a:focus {
-  color: #f1f1f1;
-}
-
-
-
-
-
-/* Position the close button (top right corner) */
-
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-}
-
-
-
-
-
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-
-@media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px
-  }
-  .overlay .closebtn {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
-}
-
 input[type=email],
 input[type=password],
 input[type=text],

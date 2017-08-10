@@ -22,7 +22,8 @@ import FleetProfileAdmin from '@/components/fleetProfileAdmin'
 import FleetProfilePage from '@/components/fleetProfilePage'
 import ContactUsPage from '@/components/contactUsPage'
 import ContactUsAdmin from '@/components/contactUsAdmin'
-import ApplicationAdmin from '@/components/applicationsAdmin'
+import ApplicationsAdmin from '@/components/applicationsAdmin'
+import ApplicationAdmin from '@/components/applicationAdmin'
 import Application from '@/components/Application.vue'
 import AddFleet from '@/components/AddFleet.vue'
 import Positions from '@/components/positions.vue'
@@ -43,7 +44,12 @@ export default new Router({
       name: 'HomePage',
       component: HomePage
     }, {
-      path: '/ApplicationAdmin',
+      path: '/ApplicationsAdmin',
+      name: 'ApplicationsAdmin',
+      component: ApplicationsAdmin
+    },
+    {
+      path: '/application/:applicationId',
       name: 'ApplicationAdmin',
       component: ApplicationAdmin
     }, {
