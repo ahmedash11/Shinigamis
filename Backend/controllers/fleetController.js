@@ -227,6 +227,13 @@ var fleetController = {
 
     })
   },
+
+  /**
+   * Get all fleets
+   * @param {Request} req
+   * @param {Response} res
+   */
+
   getImages(req, res) {
     const query = {
       fleet_id: req.params.fleetId, // Recently Changed to Params
@@ -248,6 +255,65 @@ var fleetController = {
         });
       }
     });
+  },
+
+  /**
+   * Update profile pic
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  makeProfilePic(req,res){
+    Fleet.findOneAndUpdate({
+      _id: req.body.id
+    }, {
+      $set: {profilePic: req.body.path}
+    }, {
+      new: true,
+      upsert: false
+    }, (err) => {
+      if(err){
+        res.status(500).json({
+          msg: err.message
+        })
+      } else {
+        res.status(200).json({
+          msg: "Profile picture updated successfully"
+        })
+      }
+    })
+  },
+
+  /**
+   * Delete picture
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  deletePic(req,res){
+    var token = req.headers['jwt-token'];
+
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+
+          Image.deleteImage(req.body.id, (err) => {
+          if (err) {
+            res.status(500).json({
+              msg: err.message
+            });
+          } else {
+            res.status(200).json({
+              msg: 'Image successfully deleted'
+            });
+          }
+        })
+      } else {
+        res.status(500).json({
+          message: 'Unauthorized access',
+        })
+      }
+    })
   }
+
 }
 module.exports = fleetController;

@@ -64,6 +64,10 @@ router.post('/deleteFleet', fleetController.deleteFleet); // Delete an existing 
 
 router.post('/updateFleet', fleetController.updateFleet); // Update an existing fleet
 
+router.post('/makeProfilePic', fleetController.makeProfilePic); // Update profile pic
+
+router.post('/deletePic', fleetController.deletePic); // Delete pic
+
 router.post('/addClient', clientController.addClient); // Add a new client
 
 router.post('/deleteClient', clientController.deleteClient); // Delete an existing client

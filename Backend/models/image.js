@@ -23,4 +23,8 @@ imageSchema.plugin(filePlugin, {
 });
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('Image', imageSchema);
+var Image = module.exports = mongoose.model('Image', imageSchema);
+
+module.exports.deleteImage = function(id, callback) {
+  Image.findByIdAndRemove(id, callback)
+}

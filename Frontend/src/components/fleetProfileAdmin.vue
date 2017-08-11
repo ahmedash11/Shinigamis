@@ -93,26 +93,27 @@
       </div>
     </section>
 
-    <section id="content2" class="tab-content">
+    <section id="content2">
+      <div class="container">
 
-      <div>
-        <br>
-
-
-        <p>
-          <div class="container">
-            <div class="row img-thumbnails">
-              <div class="col-md-6" v-for=" image in images" id="lightGallery">
-                <a href="#">
-                  <img :src="url + image.img.path.replace('public','')">
-              </a>
-              </div>
+        <div class="row" v-for=" image in images">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div data-animation class="team-member">
+              <img :src="url + image.img.path.replace('public','')">
             </div>
-
           </div>
 
-        </p>
+          <div class="col-lg-8 col-md-6 col-sm-12">
+            <br>
+            <br>
+            <ul class="actions">
+              <button type="button" name="button" class="button special" v-on:click="deletePic(image._id)">Delete</button>
+              <button type="button" name="button" class="button special" v-on:click="makeProfilePic(image.img.path)">Make Prof Picture</button>
+              <button type="button" name="button" class="button special" v-on:click="makeCoverPic(image.img.path)">Make Cover Picture</button>
+            </ul>
+          </div>
 
+        </div>
       </div>
     </section>
   </div>
@@ -172,6 +173,69 @@ export default {
         }
       })
     },
+
+    makeProfilePic: function(path) {
+      this.$http.post(env.URL + '/admin/makeProfilePic', {
+        path: path,
+        id: this.fleet._id
+      }, {
+        headers: auth.getAuthHeader()
+      }).then(response => {
+        console.log(response)
+        alertify.notify(response.body.msg, 'success', 5);
+      }).catch(error => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
+      })
+    },
+
+    deletePic: function(id) {
+      swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d53',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(() => {
+        this.$http.post(env.URL + '/admin/deletePic', {
+          id: id
+        }, {
+          headers: auth.getAuthHeader()
+        }).then((response) => {
+          swal(
+            'Deleted!',
+            response.body.msg,
+            'success'
+          )
+          this.getImages()
+        }).catch((error) => {
+          if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+            swal(
+              'Oops...',
+              error.body.msg,
+              'error'
+            );
+          } else {
+            for (var i = 0; i < error.body.msg.length; i++) {
+              var msg = error.body.msg[i].msg
+              alertify.notify(msg, 'error', 5);
+            }
+          }
+        })
+      }, (dismiss) => {})
+    }
   },
   components: {}
 }
@@ -233,7 +297,6 @@ section {
 
 
 
-
 input[type=checkbox]+label:before,
 input[type=radio]+label:before {
   border: 1px solid rgba(255, 255, 255, .3);
@@ -251,5 +314,24 @@ input[type=radio]+label:before {
 
 .spotlight.style1 .content {
   border-color: #191a22;
+}
+
+.\34 u img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+
+img {
+  height: auto;
+}
+
+img {
+  max-width: 100%;
+  border: none;
+}
+
+@media (min-width: 768px) .col-sm-12 {
+  width: 100%;
 }
 </style>

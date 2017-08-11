@@ -3,7 +3,7 @@
   <br>
   <div class="container">
 
-    <div class="tab_container" align="center">
+    <div class="tab_container" align="left">
 
 
       <input id="tab1" type="radio" name="tabs" checked>
@@ -34,7 +34,7 @@
                 <p align="left">In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
                   we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
               </div>
-              <div class="4u$ 12u$(medium)">
+              <div>
                 <p align="left">needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
                   their specialized expertise and their accumulated experience in a vibrant yet sensitive field as the Oil and Gas, has made my vision for the company to become a reality. - Mahmoud Rashid</p>
               </div>
