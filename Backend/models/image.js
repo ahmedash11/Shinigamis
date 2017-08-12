@@ -1,5 +1,6 @@
 // load the things we need
 const mongoose = require('mongoose');
+var fs = require('fs');
 const path = require('path');
 const filePluginLib = require('mongoose-file');
 const Schema = mongoose.Schema;
@@ -26,5 +27,81 @@ imageSchema.plugin(filePlugin, {
 var Image = module.exports = mongoose.model('Image', imageSchema);
 
 module.exports.deleteImage = function(id, callback) {
-  Image.findByIdAndRemove(id, callback)
+  Image.findById(id, (err, image) => {
+    if (err) {
+      let msg = {
+        success: false,
+        msg: err.message
+      }
+      return callback(msg)
+    } else {
+      fs.unlink("" + image.img.path, (err) => {
+        if (err) {
+          let msg = {
+            success: false,
+            msg: err.message
+          }
+          return callback(msg)
+        } else {
+          image.remove((err) => {
+            if (err) {
+              let msg = {
+                success: false,
+                msg: err.message
+              }
+              return callback(msg)
+            } else {
+              let msg = {
+                success: true
+              }
+              return callback(msg)
+            }
+          })
+        }
+      })
+    }
+  })
+}
+
+module.exports.deleteFleetImages = function(fleetId, callback) {
+  var query = {
+    fleet_id: fleetId
+  }
+  Image.find(query, (err, images) => {
+    if (err) {
+      let msg = {
+        success: false,
+        msg: err.message
+      }
+      return callback(msg)
+    } else {
+      for (var i = 0; i < images.length; i++) {
+        fs.unlink("" + images[i].img.path, (err) => {
+          if (err) {
+            let msg = {
+              success: false,
+              msg: err.message
+            }
+            return callback(msg)
+          } else {
+            if (i < images.length) {
+              images[i].remove((err) => {
+                if (err) {
+                  let msg = {
+                    success: false,
+                    msg: err.message
+                  }
+                  return callback(msg)
+                }
+              })
+            }
+          }
+        })
+      }
+      let msg = {
+        success: true
+      }
+      return callback(msg)
+    }
+  })
 }

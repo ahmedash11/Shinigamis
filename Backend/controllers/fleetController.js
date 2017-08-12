@@ -102,10 +102,19 @@ var fleetController = {
               msg: err.message
             });
           } else {
-            res.status(200).json({
-              success: true,
-              msg: 'Fleet successfully deleted'
-            });
+            Image.deleteFleetImages(req.body.id, (msg) => {
+              if (!msg.success) {
+                res.status(500).json({
+                  success: false,
+                  msg: msg.msg
+                });
+              } else {
+                res.status(200).json({
+                  success: true,
+                  msg: 'Fleet successfully deleted'
+                });
+              }
+            })
           }
         })
       } else {
@@ -262,7 +271,7 @@ var fleetController = {
    * @param {Response} res
    */
 
-  makeProfilePic(req,res){
+  makeProfilePic(req, res) {
     var token = req.headers['jwt-token'];
 
     jwt.verify(token, (decoded) => {
@@ -270,12 +279,14 @@ var fleetController = {
         Fleet.findOneAndUpdate({
           _id: req.body.id
         }, {
-          $set: {profilePic: req.body.path}
+          $set: {
+            profilePic: req.body.path
+          }
         }, {
           new: true,
           upsert: false
         }, (err) => {
-          if(err){
+          if (err) {
             res.status(500).json({
               msg: err.message
             })
@@ -285,12 +296,13 @@ var fleetController = {
             })
           }
         })
-      }  else {
+      } else {
         res.status(500).json({
           success: false,
           message: 'Unauthorized access',
         })
-      }})
+      }
+    })
   },
 
   /**
@@ -299,7 +311,7 @@ var fleetController = {
    * @param {Response} res
    */
 
-  makeCoverPic(req,res){
+  makeCoverPic(req, res) {
     var token = req.headers['jwt-token'];
 
     jwt.verify(token, (decoded) => {
@@ -307,27 +319,30 @@ var fleetController = {
         Fleet.findOneAndUpdate({
           _id: req.body.id
         }, {
-          $set: {coverPic: req.body.path}
+          $set: {
+            coverPic: req.body.path
+          }
         }, {
           new: true,
           upsert: false
         }, (err) => {
-          if(err){
+          if (err) {
             res.status(500).json({
               msg: err.message
             })
           } else {
             res.status(200).json({
-                msg: "Cover picture updated successfully"
+              msg: "Cover picture updated successfully"
             })
           }
         })
-      }  else {
+      } else {
         res.status(500).json({
           success: false,
           message: 'Unauthorized access',
         })
-      }})
+      }
+    })
   },
 
   /**
@@ -336,16 +351,16 @@ var fleetController = {
    * @param {Response} res
    */
 
-  deletePic(req,res){
+  deletePic(req, res) {
     var token = req.headers['jwt-token'];
 
     jwt.verify(token, (decoded) => {
       if (decoded) {
 
-          Image.deleteImage(req.body.id, (err) => {
-          if (err) {
+        Image.deleteImage(req.body.id, (msg) => {
+          if (!msg.success) {
             res.status(500).json({
-              msg: err.message
+              msg: msg.msg
             });
           } else {
             res.status(200).json({
