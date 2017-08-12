@@ -1,6 +1,5 @@
 <template>
 <div class="fleetProfileAdmin" align="center">
-  <!-- <section id="four" class="wrapper style1 special fade-up"> -->
   <br>
   <br>
 
@@ -89,7 +88,7 @@
             </tr>
           </tbody>
         </table>
-        <a class="button special" v-on:click="editFleet(fleet._id)">Update</a>
+        <a class="button special" style="margin-bottom: 10px;" v-on:click="editFleet(fleet._id)">Update</a>
       </div>
     </section>
 
@@ -114,8 +113,50 @@
           </div>
 
         </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-6 col-sm-12">
+            <button align="center" style="margin-bottom:25px;" data-toggle="modal" data-target="#addPic" class="button special" v-on:click="resetModal()">Add Picture</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="addPic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+
+            <!-- Modal header-->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4><CENTER>Add Picture</CENTER></h4>
+            </div>
+
+            <!-- Modal body-->
+            <div class="modal-body">
+              <div class="row" style="border:none;">
+                <div class="col-md-12">
+                  <form @submit.prevent="addPic()" role="form" style="display: block;" class="form-group">
+                    <div class="form-group">
+                      <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple" required>
+                    </div>
+
+                    <div>
+                      <br>
+                      <CENTER>
+                        <input class="button special" type="submit" value="Upload">
+                      </CENTER>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
+
   </div>
   <!-- </section> -->
 </div>
@@ -124,21 +165,21 @@
 <script>
 import env from '../env'
 import auth from '../auth'
-import jQuery from 'jQuery'
+//import jQuery from 'jQuery'
 export default {
   name: 'fleetProfileAdmin',
   data() {
     return {
       fleet: {},
       images: [],
-      url: ''
+      url: '',
+      formData: [],
     }
   },
   created() {
     this.fetchFleet()
     this.getImages()
     this.url = env.URL
-    jQuery('#lightGallery').lightGallery();
   },
 
   methods: {
@@ -199,6 +240,31 @@ export default {
       })
     },
 
+    makeCoverPic: function(path) {
+      this.$http.post(env.URL + '/admin/makeCoverPic', {
+        path: path,
+        id: this.fleet._id
+      }, {
+        headers: auth.getAuthHeader()
+      }).then(response => {
+        console.log(response)
+        alertify.notify(response.body.msg, 'success', 5);
+      }).catch(error => {
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
+      })
+    },
+
     deletePic: function(id) {
       swal({
         title: 'Are you sure?',
@@ -235,9 +301,33 @@ export default {
           }
         })
       }, (dismiss) => {})
+    },
+
+    upload: function(fieldName, fileList) {
+      // handle file changes
+      const formData = new FormData();
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
+      this.formData = formData
+    },
+
+    addPic: function() {
+      this.formData.append("fleet_id", this.fleet._id)
+      this.$http.post(env.URL + '/admin/upload', this.formData, {
+        headers: auth.getAuthHeader()
+      }).then(response => {
+        $("#addPic").modal('hide');
+        alertify.notify(response.body.msg, 'success', 5);
+        this.getImages();
+      })
+    },
+
+    resetModal: function() {
+      this.formData = []
     }
-  },
-  components: {}
+  }
 }
 </script>
 
@@ -249,6 +339,18 @@ export default {
 #tab4:checked~#content4,
 #tab5:checked~#content5 {
   display: block;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #1c1d26;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
 }
 
 .tab_container .tab-content p,
@@ -269,6 +371,12 @@ export default {
 
 .tab_container [id^="tab"]:checked+label .fa {
   color: #1c1d26;
+}
+
+#scroll {
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
 }
 
 label .fa {

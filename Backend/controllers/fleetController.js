@@ -58,7 +58,7 @@ var fleetController = {
               });
             } else {
               res.status(200).json({
-                success: true,
+                msg: "Fleet added successfully",
                 data: {
                   fleet,
                 },
@@ -148,7 +148,6 @@ var fleetController = {
           fireFighting: req.body.fireFighting,
           mooringSystem: req.body.mooringSystem,
           helideck: req.body.helideck,
-          images: req.body.images
         }
 
         Fleet.updateFleet(req.body._id, updatedFleet, (err, newFleet) => {
@@ -160,7 +159,7 @@ var fleetController = {
           } else {
             res.status(200).json({
               success: true,
-              msg: 'Fleet added successfully'
+              msg: 'Fleet updated successfully'
             });
           }
         })
@@ -264,24 +263,71 @@ var fleetController = {
    */
 
   makeProfilePic(req,res){
-    Fleet.findOneAndUpdate({
-      _id: req.body.id
-    }, {
-      $set: {profilePic: req.body.path}
-    }, {
-      new: true,
-      upsert: false
-    }, (err) => {
-      if(err){
+    var token = req.headers['jwt-token'];
+
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        Fleet.findOneAndUpdate({
+          _id: req.body.id
+        }, {
+          $set: {profilePic: req.body.path}
+        }, {
+          new: true,
+          upsert: false
+        }, (err) => {
+          if(err){
+            res.status(500).json({
+              msg: err.message
+            })
+          } else {
+            res.status(200).json({
+              msg: "Profile picture updated successfully"
+            })
+          }
+        })
+      }  else {
         res.status(500).json({
-          msg: err.message
+          success: false,
+          message: 'Unauthorized access',
         })
-      } else {
-        res.status(200).json({
-          msg: "Profile picture updated successfully"
+      }})
+  },
+
+  /**
+   * Update cover pic
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  makeCoverPic(req,res){
+    var token = req.headers['jwt-token'];
+
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        Fleet.findOneAndUpdate({
+          _id: req.body.id
+        }, {
+          $set: {coverPic: req.body.path}
+        }, {
+          new: true,
+          upsert: false
+        }, (err) => {
+          if(err){
+            res.status(500).json({
+              msg: err.message
+            })
+          } else {
+            res.status(200).json({
+                msg: "Cover picture updated successfully"
+            })
+          }
         })
-      }
-    })
+      }  else {
+        res.status(500).json({
+          success: false,
+          message: 'Unauthorized access',
+        })
+      }})
   },
 
   /**

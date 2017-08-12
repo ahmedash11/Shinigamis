@@ -1,21 +1,19 @@
 var express = require('express');
 var router = express.Router();
-const multer = require('multer');
-const crypto = require('crypto');
-const path = require('path');
-const storage = multer.diskStorage({ // specifying storage path for images
-
+var multer = require('multer');
+var crypto = require('crypto');
+var path = require('path');
+var storage = multer.diskStorage({ // specifying storage path for images
   destination: './public/uploads/',
   filename(req, file, cb) {
     crypto.pseudoRandomBytes(16, (err, raw) => {
       if (err) return cb(err);
-
       cb(null, raw.toString('hex') + path.extname(file.originalname));
     });
   },
 });
 
-const upload = multer({
+var upload = multer({
   storage,
 });
 
@@ -66,6 +64,8 @@ router.post('/updateFleet', fleetController.updateFleet); // Update an existing 
 
 router.post('/makeProfilePic', fleetController.makeProfilePic); // Update profile pic
 
+router.post('/makeCoverPic', fleetController.makeCoverPic); // Update cover pic
+
 router.post('/deletePic', fleetController.deletePic); // Delete pic
 
 router.post('/addClient', clientController.addClient); // Add a new client
@@ -101,11 +101,10 @@ router.get('/getAnnouncements', announcementController.findAllAnnouncements);
 router.post('/deleteAnnouncement', announcementController.deleteAnnouncement);
 
 router.post('/upload', upload.array('avatar'), (req, res) => {
-  console.log(req.files);
+  //console.log(req.files);
   for (var i = 0; i < req.files.length; i++) {
-    const image = new Image({
+    var image = new Image({
       fleet_id: req.body.fleet_id.substring(0),
-
     });
 
     image.img.name = req.files[i].filename;
@@ -114,13 +113,18 @@ router.post('/upload', upload.array('avatar'), (req, res) => {
 
     image.save((err) => {
       if (err) {
-        console.log('error');
-      } else {
-        console.log('success');
+        return res.status(500).json({
+          msg: err.message
+        })
       }
 
     });
   }
+
+  res.status(200).json({
+    msg: 'Pictue(s) added successfully'
+  })
+  
 });
 router.post('/ClientImage', upload.single('avatar'), (req, res) => {
   Client.findById(req.body.client_id, function(error, client) {
@@ -139,9 +143,9 @@ router.post('/ClientImage', upload.single('avatar'), (req, res) => {
           })
         } else {
           res.status(200).json({
-            msg: "Picture added successfully"
+            msg: 'Pictue(s) added successfully'
           })
-        }
+         }
       });
     }
   });
@@ -157,11 +161,14 @@ router.post('/AwardImage', upload.single('avatar'), (req, res) => {
       award.profileimg.size = req.file.size;
       award.save((err) => {
         if (err) {
-          console.log('error');
+          res.status(500).json({
+            msg: err.message
+          })
         } else {
-          res.send("sucess");
-        }
-        console.log('success');
+          res.status(200).json({
+            msg: 'Pictue(s) added successfully'
+          })
+         }
       });
     }
   });
@@ -178,11 +185,14 @@ router.post('/AnnouncementImage', upload.single('avatar'), (req, res) => {
       announcement.profileimg.size = req.file.size;
       announcement.save((err) => {
         if (err) {
-          console.log('error');
+          res.status(500).json({
+            msg: err.message
+          })
         } else {
-          res.send("sucess");
-        }
-        console.log('success');
+          res.status(200).json({
+            msg: 'Pictue(s) added successfully'
+          })
+         }
       });
     }
   });

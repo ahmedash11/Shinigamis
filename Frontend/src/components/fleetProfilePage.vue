@@ -2,11 +2,11 @@
 <div class="banner">
   <!-- <section id="four" class="wrapper style1 special fade-up"> -->
 
-  <section id=banner v-bind:style="{ 'background-position': 'center 26.85px' ,'background-image':'url('+profImage+')'}">
+  <section id=banner v-bind:style="{ 'background-position': 'center 26.85px' ,'background-image':'url('+coverPic+')'}">
     <div class="content">
       <header class="major">
         <div class="crop">
-          <img :src="profImage" class="img" />
+          <img :src="profilePic" class="img" />
         </div>
         <h2>{{fleet.name}}</h2>
 
@@ -30,7 +30,7 @@
     <label for="tab1"><span>About</span></label>
 
     <input id="tab2" type="radio" name="tabs">
-    <label for="tab2"><span>Images</span></label>
+    <label for="tab2"><span>images</span></label>
 
     <section class="section" id="content1">
       <div class="container">
@@ -113,7 +113,7 @@
     <section id="content2" class="tab-content section">
 
       <carousel>
-        <slide v-for="image in Images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
+        <slide v-for="image in images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
       </carousel>
     </section>
     <br>
@@ -133,7 +133,7 @@
     <br>
     <!--
 <ul id="imageGallery">
-  <li v-for=" image in Images">
+  <li v-for=" image in images">
     <img :src="url + image.img.path.replace('public','')" />
   </li>
 
@@ -146,7 +146,7 @@
         <p>
           <div class="container">
             <div class="row img-thumbnails">
-              <div class="col-md-6" v-for=" image in Images" id="lightGallery">
+              <div class="col-md-6" v-for=" image in images" id="lightGallery">
               <div class="gallery">
 
                   <img :src="url + image.img.path.replace('public','')">
@@ -181,16 +181,15 @@ export default {
   data() {
     return {
       fleet: {},
-      Images: [],
-      profImage: "",
-      backgroundImage: "",
+      images: [],
+      profilePic: "",
+      coverPic: "",
       url: ''
     }
   },
   created() {
     this.getFleet()
     this.getImages()
-
     this.url = env.URL
   },
   components: {
@@ -204,23 +203,23 @@ export default {
     getFleet: function() {
       this.$http.get(env.URL + '/user/getFleet/'.concat(this.$route.params.fleetId)).then(response => {
         this.fleet = response.data.data.fleet
-        this.profImage = env.URL.concat(response.data.data.fleet.profilePic.replace('public', ''))
-        this.backgroundImage = env.URL.concat(response.data.data.fleet.coverPhoto.replace('public', ''))
+        if (this.fleet.profilePic)
+          this.profilePic = env.URL.concat(this.fleet.profilePic.replace('public', ''))
+        if (this.fleet.coverPic)
+          this.coverPic = env.URL.concat(this.fleet.coverPic.replace('public', ''))
       })
     },
     getImages: function() {
       this.$http.get(env.URL + '/user/getImages/'.concat(this.$route.params.fleetId)).then(response => {
-
-        this.Images = response.data.data.images
-        console.log(this.Images)
-
-        if (!this.profImage) {
-          this.profImage = env.URL.concat(this.Images[0].img.path.replace('public', ''))
-          this.backgroundImage = env.URL.concat(this.Images[1].img.path.replace('public', ''))
+        this.images = response.data.data.images
+        if (this.images.length != 0) {
+          if (!this.profilePic) {
+            this.profilePic = env.URL.concat(this.images[0].img.path.replace('public', ''))
+          }
+          if (!this.coverPic) {
+            this.coverPic = env.URL.concat(this.images[0].img.path.replace('public', ''))
+          }
         }
-
-
-
       })
     }
   }

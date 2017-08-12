@@ -87,7 +87,8 @@
             </div>
             <br>
             <br>
-            <button id="btn" type="submit" class="button special">Add Fleet</button>
+            <button type="submit" class="button special" v-if="!loading">Add Fleet</button>
+            <button type="submit" class="button special" v-else><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
           </form>
         </div>
       </div>
@@ -100,6 +101,7 @@
 <script>
 import env from '../env'
 import auth from '../auth'
+import router from '../router'
 export default {
   name: 'addFleet',
   data() {
@@ -124,12 +126,14 @@ export default {
       helideck: "",
       fleet_id: "",
       formData: [],
-      images: []
+      images: [],
+      loading: false
     }
   },
   methods: {
     // Send a request to the login URL and save the returned JWT
     AddFleet: function() {
+      this.loading = true
       this.$http.post(env.URL + '/admin/addFleet', {
         "name": this.name,
         "type": this.type,
@@ -151,18 +155,53 @@ export default {
       }, {
         headers: auth.getAuthHeader()
       }).then(data => {
-        console.log('data ' + data);
-        console.log('formdata  ' + this.formData);
-        this.formData.append("fleet_id", data.data.data.fleet._id)
-        this.$http.post(env.URL + '/admin/upload', this.formData, {
-          headers: {
-            'jwt-token': localStorage.getItem('id_token')
+        //console.log('data ' + data);
+        //console.log('formdata  ' + this.formData);
+        if (this.formData.length != 0) {
+          this.formData.append("fleet_id", data.data.data.fleet._id)
+          this.$http.post(env.URL + '/admin/upload', this.formData, {
+            headers: {
+              'jwt-token': localStorage.getItem('id_token')
+            }
+          }).then(response => {
+            this.loading = false
+            alertify.notify(data.body.msg, 'success', 5);
+            this.$router.go(-1)
+          }).catch((error) => {
+            this.loading = false
+            if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+              swal(
+                'Oops...',
+                error.body.msg,
+                'error'
+              );
+            } else {
+              for (var i = 0; i < error.body.msg.length; i++) {
+                var msg = error.body.msg[i].msg
+                alertify.notify(msg, 'error', 5);
+                this.$router.go(-1)
+              }
+            }
+          })
+        } else {
+          this.loading = false
+          alertify.notify(data.body.msg, 'success', 5);
+          this.$router.go(-1)
+        }
+      }).catch((error) => {
+        this.loading = false
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
           }
-        }).then(response => {
-          alertify.notify(response.body.msg, 'success', 5);
-
-        })
-
+        }
       })
 
     },
@@ -173,9 +212,7 @@ export default {
       Array.from(Array(fileList.length).keys()).map(x => {
         formData.append(fieldName, fileList[x], fileList[x].name);
       });
-
       this.formData = formData
-
     }
   }
 }
