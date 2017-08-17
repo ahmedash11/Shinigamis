@@ -1,18 +1,18 @@
 // load the things we need
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var fs = require('fs');
-const path = require('path');
-const filePluginLib = require('mongoose-file');
-const Schema = mongoose.Schema;
+var path = require('path');
+var filePluginLib = require('mongoose-file');
+var Schema = mongoose.Schema;
 
-const filePlugin = filePluginLib.filePlugin;
-const make_upload_to_model = filePluginLib.make_upload_to_model;
+var filePlugin = filePluginLib.filePlugin;
+var make_upload_to_model = filePluginLib.make_upload_to_model;
 
-const uploads_base = path.join(__dirname, '/public/uploads');
-const uploads = path.join(uploads_base, 'u');
+var uploads_base = path.join(__dirname, '/public/uploads');
+var uploads = path.join(uploads_base, 'u');
 
 // define the schema for our user model
-const imageSchema = mongoose.Schema({
+var imageSchema = mongoose.Schema({
   fleet_id: String,
 
 });
@@ -34,31 +34,15 @@ module.exports.deleteImage = function(id, callback) {
         msg: err.message
       }
       return callback(msg)
+    }
+    if (!image) {
+      let msg = {
+        success: false,
+        msg: "Failed to delete image"
+      }
+      return callback(msg)
     } else {
-      fs.unlink("" + image.img.path, (err) => {
-        if (err) {
-          let msg = {
-            success: false,
-            msg: err.message
-          }
-          return callback(msg)
-        } else {
-          image.remove((err) => {
-            if (err) {
-              let msg = {
-                success: false,
-                msg: err.message
-              }
-              return callback(msg)
-            } else {
-              let msg = {
-                success: true
-              }
-              return callback(msg)
-            }
-          })
-        }
-      })
+      unlinkImage(image, false, callback)
     }
   })
 }
@@ -76,28 +60,52 @@ module.exports.deleteFleetImages = function(fleetId, callback) {
       return callback(msg)
     } else {
       for (var i = 0; i < images.length; i++) {
-        fs.unlink("" + images[i].img.path, (err) => {
-          if (err) {
-            let msg = {
-              success: false,
-              msg: err.message
-            }
-            return callback(msg)
-          } else {
-            if (i < images.length) {
-              images[i].remove((err) => {
-                if (err) {
-                  let msg = {
-                    success: false,
-                    msg: err.message
-                  }
-                  return callback(msg)
-                }
-              })
-            }
-          }
-        })
+        unlinkImage(images[i], true, callback)
       }
+
+      let msg = {
+        success: true
+      }
+      return callback(msg)
+    }
+  })
+}
+
+/**
+ * Delete picture(s) from public folder
+ * @param {Image} image Image to be deleted
+ * @param {boolean} isArray Boolean to check if its an array of images or a single image to be deleted
+ */
+
+function unlinkImage(image, isArray, callback) {
+  fs.unlink(image.img.path, (err) => {
+    if (err) {
+      let msg = {
+        success: false,
+        msg: err.message
+      }
+      return callback(msg)
+    }
+    removeImage(image, isArray, callback)
+  })
+}
+
+/**
+ * Delete image from db
+ * @param {Image} image Image to be deleted
+ * @param {boolean} isArray Boolean to check if its an array of images or a single image to be deleted
+ */
+
+function removeImage(image, isArray, callback) {
+  image.remove((err) => {
+    if (err) {
+      let msg = {
+        success: false,
+        msg: err.message
+      }
+      return callback(msg)
+    }
+    if (!isArray) {
       let msg = {
         success: true
       }

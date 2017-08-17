@@ -49,17 +49,10 @@
         <div class="content">
           <div class="container">
             <div class="row">
-              <div class="4u 12u$(medium)">
-                <header>
-                  <h2>Organization Chart</h2>
-
-                </header>
-
-                <img src="../../static/images/FlowChart.png">
-
-
-
-              </div>
+              <header>
+                <h2>Organization Chart</h2>
+              </header>
+              <img src="/static/images/FlowChart.png">
             </div>
           </div>
         </div>
@@ -136,6 +129,10 @@ export default {
   background-size: cover;
 }
 
+.container {
+  margin-left: 0;
+}
+
 .tab_container .tab-content p,
 .tab_container .tab-content h3 {
   -webkit-animation: fadeInScale 0.7s ease-in-out;
@@ -201,5 +198,10 @@ input[type=radio]+label:before {
 
 .spotlight.style1 .content {
   border-color: #191a22;
+}
+
+.\34 u,
+.\34 u\24 {
+  width: 100%%;
 }
 </style>

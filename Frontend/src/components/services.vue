@@ -199,6 +199,10 @@ export default {
   background-size: cover
 }
 
+.container {
+  margin-left: 0;
+}
+
 .tab_container .tab-content p,
 .tab_container .tab-content h3 {
   -webkit-animation: fadeInScale 0.7s ease-in-out;

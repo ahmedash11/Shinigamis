@@ -12,10 +12,12 @@ import './assets/css/default.min.css'
 import './assets/css/font-awesome.min.css'
 //import './assets/css/lightgallery.min.css'
 import './assets/css/sweetalert2.min.css'
-//import './assets/css/slick.css'
+import './assets/css/slick.css'
 //import './assets/css/slick-theme.css'
 import './assets/css/prettyPhoto.css'
 */
+import './assets/css/slick.css'
+import './assets/css/slick-theme.css'
 
 
 // Scripts

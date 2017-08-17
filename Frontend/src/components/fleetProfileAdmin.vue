@@ -280,6 +280,7 @@ export default {
         }, {
           headers: auth.getAuthHeader()
         }).then((response) => {
+          console.log(response)
           swal(
             'Deleted!',
             response.body.msg,

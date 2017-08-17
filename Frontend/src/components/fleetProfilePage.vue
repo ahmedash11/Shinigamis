@@ -2,7 +2,8 @@
 <div class="banner">
   <!-- <section id="four" class="wrapper style1 special fade-up"> -->
 
-  <section id=banner v-bind:style="{ 'background-position': 'center 26.85px' ,'background-image':'url('+coverPic+')'}">
+  <section id=banner v-bind:style="{ 'background-position': 'center 26.85px' ,'background-image':'url('+coverPic+')', 'background-size': '100%',
+    'background-repeat': 'no-repeat'}">
     <div class="content">
       <header class="major">
         <div class="crop">
@@ -16,9 +17,6 @@
 
   </section>
 
-  <br>
-  <br>
-  <br>
   <br>
   <br>
 
@@ -38,13 +36,11 @@
           <tbody>
             <tr v-if="fleet.type">
               <td>Type</td>
-              <td>
-                <h4>{{fleet.type}}</h4></td>
+              <td>{{fleet.type}}</td>
             </tr>
             <tr v-if="fleet.design">
               <td>Design</td>
-              <td>
-                <h4>{{fleet.design}}</h4></td>
+              <td>{fleet.design}}</td>
             </tr>
             <tr v-if="fleet.built">
               <td>Built</td>
@@ -110,60 +106,11 @@
       </div>
     </section>
 
-    <section id="content2" class="tab-content section">
-
-      <carousel>
-        <slide v-for="image in images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
-      </carousel>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!--
-<ul id="imageGallery">
-  <li v-for=" image in images">
-    <img :src="url + image.img.path.replace('public','')" />
-  </li>
-
-</ul> -->
-    <!--
-      <div>
-        <br>
-
-
-        <p>
-          <div class="container">
-            <div class="row img-thumbnails">
-              <div class="col-md-6" v-for=" image in images" id="lightGallery">
-              <div class="gallery">
-
-                  <img :src="url + image.img.path.replace('public','')">
-             </div>
-              </div>
-            </div>
-
-          </div>
-
-        </p>
-
+    <section id="content2" class="section">
+      <div class="slick">
+        <div v-for="image in images"><img :src="url + image.img.path.replace('public','')" alt="" /></div>
       </div>
     </section>
-  </div>-->
-
-
-
 
     </section>
   </div>
@@ -172,10 +119,9 @@
 
 <script>
 import env from '../env'
-import {
-  Carousel,
-  Slide
-} from 'vue-carousel';
+import '../assets/js/slick.min.js'
+import '../assets/js/arrive.js'
+
 export default {
   name: 'fleetProfilePage',
   data() {
@@ -192,14 +138,11 @@ export default {
     this.getImages()
     this.url = env.URL
   },
-  components: {
-    Carousel,
-    Slide
+
+  updated() {
+    this.reinitializeSlick()
   },
-
   methods: {
-
-    // Send a request to the login URL and save the returned JWT
     getFleet: function() {
       this.$http.get(env.URL + '/user/getFleet/'.concat(this.$route.params.fleetId)).then(response => {
         this.fleet = response.data.data.fleet
@@ -221,6 +164,29 @@ export default {
           }
         }
       })
+    },
+    createSlick: function() {
+      $('.slick').not('.slick-initialized').slick({
+        dots: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        infinite: false,
+        arrows: false
+      });
+    },
+    destroySlick: function() {
+      if ($('.slick').hasClass('slick-initialized')) {
+        $('.slick').removeClass("slick-initialized slick-slider");
+      }
+    },
+    reinitializeSlick: function() {
+      if ($('.slick').hasClass('slick-initialized')) {
+        $('.slick').removeClass("slick-initialized slick-slider");
+      }
+
+      this.createSlick();
     }
   }
 }
@@ -230,7 +196,6 @@ export default {
 <style scoped>
 #banner:after {
   background-color: rgba(23, 24, 32, .95);
-
   display: block;
   height: 100%;
   position: absolute;
@@ -269,7 +234,6 @@ label .fa {
   margin: 0 0.4em 0 0;
 }
 
-
 label {
   font-weight: 700;
   font-size: 18px;
@@ -288,17 +252,11 @@ label {
   width: 100%;
 }
 
-
-
-
 .section {
   clear: both;
   padding-top: 10px;
   display: none;
 }
-
-
-
 
 input[type=checkbox]+label:before,
 input[type=radio]+label:before {
@@ -318,8 +276,6 @@ input[type=radio]+label:before {
   border-color: #191a22;
 }
 
-
-
 .image-cropper {
   max-width: 100%;
   max-height: auto;
@@ -328,7 +284,6 @@ input[type=radio]+label:before {
   position: relative;
   overflow: hidden;
 }
-
 
 .gallery {
   width: 500;
@@ -344,9 +299,6 @@ input[type=radio]+label:before {
   width: auto;
 }
 
-
-
-
 .crop {
   width: 400px;
   height: 350px;
@@ -354,9 +306,10 @@ input[type=radio]+label:before {
 }
 
 .crop img {
-  width: 600;
-  height: 500;
-  margin: -75px 0 0 -100px;
+  height: 50%;
+  width: 100%;
+  max-width: 100%;
+  max-width: 100%;
 }
 
 .CarouImg {
@@ -372,5 +325,9 @@ input[type=radio]+label:before {
   to {
     transform: rotateY(360deg);
   }
+}
+
+.slick {
+  width: 100%;
 }
 </style>
