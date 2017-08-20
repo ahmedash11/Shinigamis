@@ -10,11 +10,11 @@
       </header>
 
       <div class="box alt" >
-               <carousel paginationActiveColor="#000000" paginationColor="#332233" :autoplay="true" easing="linear" speed="300" loop="true">
+               <carousel paginationActiveColor="#FFFFFF" paginationColor="#333333" :autoplay="true" easing="linear" :speed=300 :loop=true>
     <slide v-for="fleet in fleets">
     <!-- <img :src="url + image.img.path.replace('public','')" class="imgcarousel"> -->
      <router-link :to="{ name : 'FleetProfilePage' , params: { fleetId : fleet._id }}">
-   <img src="/static/images/OceanDrum.jpg"></img>
+   <img src="/static/images/OceanDrum.jpg" class="imgcarousel"></img>
    <h3>{{fleet.name}}</h3></router-link>
     </slide>
   </carousel>
@@ -36,6 +36,8 @@
 
 <script>
 import env from '../env'
+import { Carousel, Slide } from 'vue-carousel';
+
 export default {
   name: 'fleetsPage',
   data() {
@@ -47,6 +49,10 @@ export default {
   },
   created() {
     this.fetchFleets()
+  },
+  components:{
+    Carousel,
+    Slide
   },
   methods: {
     // Send a request to the login URL and save the returned JWT
@@ -162,5 +168,11 @@ img {
 .\34 u img {
   max-height: 100%;
   max-width: 100%;
+}
+.imgcarousel {
+  display: inline;
+  margin: auto;
+  height: 75%;
+  width: 100%;
 }
 </style>

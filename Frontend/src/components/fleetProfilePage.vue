@@ -107,7 +107,7 @@
     </section>
 
     <section id="content2" class="section">
-  <carousel paginationActiveColor="#000000" paginationColor="#332233" :autoplay="true" easing="linear" speed="500" loop="true">
+  <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" easing="linear" :speed=500 :loop=true>
     <slide v-for="image in images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
   </carousel>
     </section>

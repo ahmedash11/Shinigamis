@@ -8,14 +8,13 @@
         <h2>Awards</h2>
       </header>
       <div class="box alt">
-        <div class="row uniform">
-          <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="award in Awards">
-                         <img v-if="award.profileimg.path" :src="url+award.profileimg.path.replace('public','')">
-              <img v-else src="/static/images/pic07.jpg">
-            <h3>{{award.title }}</h3>
-
-          </section>
-        </div>
+                <carousel paginationActiveColor="#FFFFFF" paginationColor="#333333" :autoplay=true easing="linear" :speed=300 :loop=true :display=1>
+    <slide v-for="award in Awards">
+   <img :src="url + award.profileimg.path.replace('public','')" class="imgcarousel">
+   
+   <h3>{{award.title}}</h3>
+    </slide>
+  </carousel>
       </div>
     </div>
   </section>
@@ -25,6 +24,7 @@
 
 <script>
 import env from '../env'
+import { Carousel, Slide } from 'vue-carousel';
 export default {
   name: 'awardsPage',
   data() {
@@ -38,6 +38,10 @@ export default {
     this.fetchAwards()
  this.url= env.URL
 
+  },
+  components:{
+    Carousel,
+    Slide
   },
   methods: {
     //open overlay
@@ -68,5 +72,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.imgcarousel {
+  display: inline;
+  margin: auto;
+  height: 75%;
+  width: 75%;
+}
 
 </style>

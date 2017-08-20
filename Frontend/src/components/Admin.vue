@@ -168,14 +168,14 @@ export default {
 }
 
 label .fa {
-  font-size: 1em;
+  font-size: 0.9em;
   margin: 0 0.4em 0 0;
 }
 
 
 label {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 9px;
   display: block;
   float: left;
   width: 9%;
