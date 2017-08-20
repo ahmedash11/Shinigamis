@@ -245,6 +245,11 @@ export default {
     },
   },
   created() {
+       if (this.$route.path === '/') {
+      this.home = true
+    } else {
+      this.home = false
+    }
     auth.checkAuth();
   },
   updated() {
@@ -261,7 +266,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #Welcome {
-  font-family: didot;
+  font-family: 'Raleway', sans-serif;
   font-size: 45px;
   color: #fff;
   font-weight: 600;
@@ -322,7 +327,7 @@ nav {
   height: 100%;
   width: 0%;
   position: fixed;
-  z-index: 11;
+  z-index: 111;
   left: 0;
   top: 0;
   background-color: #000;

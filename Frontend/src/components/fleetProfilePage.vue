@@ -107,11 +107,12 @@
     </section>
 
     <section id="content2" class="section">
-      <div class="slick">
-        <div v-for="image in images"><img :src="url + image.img.path.replace('public','')" alt="" /></div>
-      </div>
+  <carousel paginationActiveColor="#000000" paginationColor="#332233" :autoplay="true" easing="linear" speed="500" loop="true">
+    <slide v-for="image in images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
+  </carousel>
     </section>
-
+</div>
+</div>
     </section>
   </div>
 </div>
@@ -119,8 +120,7 @@
 
 <script>
 import env from '../env'
-import '../assets/js/slick.min.js'
-import '../assets/js/arrive.js'
+import { Carousel, Slide } from 'vue-carousel';
 
 export default {
   name: 'fleetProfilePage',
@@ -137,6 +137,10 @@ export default {
     this.getFleet()
     this.getImages()
     this.url = env.URL
+  },
+  components:{
+     Carousel,
+    Slide
   },
 
   updated() {

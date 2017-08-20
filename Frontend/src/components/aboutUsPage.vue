@@ -41,9 +41,7 @@
             </div>
           </div>
         </div>
-        <div style="background-image:url(../../static/images/shipicon.png); background-color:#000000;background-repeat: repeat-x;  box-shadow: 0 0.25em 0.5em 0 rgba(0,0,0,0.25);">
 
-        </div>
       </section>
       <section id="content2" class="tab-content">
         <div class="content">
@@ -52,7 +50,7 @@
               <header>
                 <h2>Organization Chart</h2>
               </header>
-              <img src="/static/images/FlowChart.png">
+              <img src="/static/images/teama.png">
             </div>
           </div>
         </div>
@@ -123,11 +121,7 @@ export default {
   display: block;
 }
 
-.aboutUsPage {
-  background-color: #000000;
-  background-image: url(/static/images/infoedit.png);
-  background-size: cover;
-}
+
 
 .container {
   margin-left: 0;
@@ -164,7 +158,7 @@ label {
   font-size: 18px;
   display: block;
   float: left;
-  width: 30%;
+  width: 33%;
   cursor: pointer;
   text-decoration: none;
   text-align: center;

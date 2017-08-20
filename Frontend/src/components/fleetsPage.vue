@@ -9,23 +9,22 @@
         <h2>Fleets</h2>
       </header>
 
-      <div class="box alt">
-        <div class="row uniform">
-          <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="fleet in fleets">
-            <img src="/static/images/OceanDrum.jpg"></img>
-            <router-link :to="{ name : 'FleetProfilePage' , params: { fleetId : fleet._id }}">
-              <h3>{{fleet.name}}</h3></router-link>
+      <div class="box alt" >
+               <carousel paginationActiveColor="#000000" paginationColor="#332233" :autoplay="true" easing="linear" speed="300" loop="true">
+    <slide v-for="fleet in fleets">
+    <!-- <img :src="url + image.img.path.replace('public','')" class="imgcarousel"> -->
+     <router-link :to="{ name : 'FleetProfilePage' , params: { fleetId : fleet._id }}">
+   <img src="/static/images/OceanDrum.jpg"></img>
+   <h3>{{fleet.name}}</h3></router-link>
+    </slide>
+  </carousel>
+            
+          </div>
+          </div> 
+              
           </section>
 
-        </div>
-      </div>
 
-      <div class="container2">
-        <div id="carousel">
-          <figure v-for=" image in Images"><img :src="url + image.img.path.replace('public','')" class="img"></figure>
-
-        </div>
-      </div>
 
 
     </div>

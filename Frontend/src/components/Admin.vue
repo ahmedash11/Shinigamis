@@ -99,7 +99,7 @@ import Position from './positionsAdmin'
 import Application from './applicationsAdmin'
 import Announcements from './announcementsAdmin.vue'
 import EditPassword from './editPassword.vue'
-import ContactUs from './ContactUsAdmin'
+import ContactUs from './contactUsAdmin.vue'
 export default {
   name: 'admin',
   data() {
@@ -148,20 +148,27 @@ export default {
 }
 
 .tab_container .tab-content h3 {
-  text-align: center;
+  text-align: left;
 }
 
 .tab_container [id^="tab"]:checked+label {
   background: #1c1d26;
   box-shadow: inset 0 3px #e44c65;
+   padding-left: 0.55em;
 }
+.tab_container [id^="tab"]+label {
+  padding-left: 0.55em;
+  background: #1c1d26;
+ 
+}
+
 
 .tab_container [id^="tab"]:checked+label .fa {
   color: #1c1d26;
 }
 
 label .fa {
-  font-size: 1.3em;
+  font-size: 1em;
   margin: 0 0.4em 0 0;
 }
 
@@ -171,10 +178,10 @@ label {
   font-size: 13px;
   display: block;
   float: left;
-  width: 9.5%;
+  width: 9%;
   cursor: pointer;
   text-decoration: none;
-  text-align: let;
+  text-align: left;
 }
 
 
@@ -197,7 +204,7 @@ input[type=radio]+label:before {
   left: 0;
   line-height: 1.725em;
   position: absolute;
-  text-align: center;
+  text-align: left;
   top: 0;
   width: 1.8em;
 }
