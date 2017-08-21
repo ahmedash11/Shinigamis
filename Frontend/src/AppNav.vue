@@ -1,10 +1,10 @@
 <template>
 <div class="AppNav">
   <!-- Header -->
-  <section id="banner" v-if="this.home">
+  <section id="one" class="spotlight spot style1 left" v-if="this.home">
     <header id="header">
 
-      <img src="../static/images/logo.png" class="rounded" align="left">
+      <img src="../static/images/logo1.png" class="rounded" align="left">
       <nav id="nav">
         <ul>
           <li>
@@ -77,7 +77,9 @@
       <br>
       <br>
       <br>
+      <center>
       <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
+      </center>
     </header>
 
     <a href="#two" class="goto-next scrolly"></a>
@@ -85,7 +87,7 @@
   <section id="one" class="spotlight style1 left" v-if="!this.home">
     <header id="header">
 
-      <img src="../static/images/logo.png" class="rounded" align="center">
+      <img src="../static/images/logo1.png" class="rounded" align="center">
       <nav id="nav">
         <ul>
           <li>
@@ -272,7 +274,7 @@ export default {
   font-weight: 600;
 }
 
-#banner {
+#banner:before{
   background-position: center;
   background-image: url(/static/images/RapidoGee.jpg);
   background-size: cover;
@@ -291,6 +293,7 @@ export default {
   background-image: url(/static/images/RapidoGee.jpg);
   background-size: cover;
   background-attachment: fixed;
+
 }
 
 img {
@@ -313,7 +316,10 @@ nav {
   height: 60vh;
   position: relative;
 }
+.spot{
+  height: 110vh;
 
+}
 
 .closebtn:hover {
   color: #fff

@@ -16,21 +16,17 @@
 
       <!-- One -->
       <section id="content1">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
 
         <div class="content">
           <div class="container">
             <div class="row">
-              <div>
+              <div class="4u 12u$(medium)">
                 <header>
-                  <h2>Services</h2>
+                  <h2 class="h2">Services</h2>
 
                 </header>
-                <img src="../../static/images/signature-pic.jpg">
+                
               </div>
               <div class="4u 12u$(medium)">
                 <h3> We Provide The Following Services: </h3>
@@ -142,24 +138,23 @@
 
 
       <section id="content3">
-        <br>
-        <br>
+ 
         <div class="content">
           <div class="container">
             <div class="row">
               <div class="4u 12u$(medium)">
                 <header>
-                  <h2>Personnel</h2>
+                  <h2 class="h2">Risk Assessment</h2>
 
                 </header>
 
               </div>
               <div>
                 <p>In the past two decades, RMS has evolved from an average fleet company to a dynamic offshore services corporation offering its support to a large prominent national and multinational client base in the Oil and Gas industry. In doing so,
-                  we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible</p>
+                  we have put our clients'absolute satisfaction as an ultimate goal and an embedded value that carries forward our operations. RMS has become a one-stop shop encompassing all of our customers' possible needs.</p>
               </div>
-              <div class="4u$ 12u$(medium)">
-                <p>needs. Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
+              <div>
+                <p>Meanwhile, we kept an eagle eye on the industry and adopted the latest technologies in the field that enhanced our fleet capacity and performance. Finally, I personally take pride in our loyal and truly professional team whom, with
                   their specialized expertise and their accumulated experience in a vibrant yet sensitive field as the Oil and Gas, has made my vision for the company to become a reality. - Mahmoud Rashid</p>
               </div>
             </div>
@@ -192,12 +187,7 @@ export default {
   display: block;
 }
 
-.Services {
-  background-color: #000000;
-  background-position: center 3.9px;
-  background-image: url(/static/images/craneedit.png);
-  background-size: cover
-}
+
 
 .container {
   margin-left: 0;
@@ -234,7 +224,7 @@ label {
   font-size: 18px;
   display: block;
   float: left;
-  width: 20%;
+  width: 33%;
   cursor: pointer;
   text-decoration: none;
   text-align: center;

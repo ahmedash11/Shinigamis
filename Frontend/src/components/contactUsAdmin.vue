@@ -411,4 +411,13 @@ export default {
   background-clip: padding-box;
   outline: 0;
 }
+
+article.special, section.special {
+    text-align: left; 
+    padding-left: 2.55em;
+}
+
+h3{
+text-align: center;
+}
 </style>

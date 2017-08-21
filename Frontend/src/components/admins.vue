@@ -165,4 +165,13 @@ export default {
   max-height: 100%;
   max-width: 100%;
 }
+
+article.special, section.special {
+    text-align: left; 
+    padding-left: 2.55em;
+}
+
+h3{
+text-align: center;
+}
 </style>

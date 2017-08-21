@@ -19,10 +19,10 @@
               <label>Last Name</label>
               <input type="text" class="form-control" placeholder="Last Name" v-model="lastName" required>
             </div>
-            <div class="form-group">
+           <!--  <div class="form-group">
               <label>Position</label>
               <input readonly type="text" class="form-control" v-model="position" required>
-            </div>
+            </div> -->
             <div class="form-group">
               <label>Email</label>
               <input type="email" class="form-control" placeholder="Email" v-model="email" required>
@@ -67,7 +67,7 @@ export default {
     return {
       firstName: "",
       lastName: "",
-      position: this.$route.params.position,
+      position:"",
       phone: "",
       email: "",
       address: "",

@@ -14,19 +14,19 @@
           <tbody>
             <tr>
               <td>
-                <h3><i class="glyphicon glyphicon-home" aria-hidden="true"></i> Headquarter Address</h3>
+                <h3 class="let"><i class="glyphicon glyphicon-home" aria-hidden="true"></i> Headquarter Address</h3>
               </td>
               <td>{{info.address}}</td>
             </tr>
             <tr>
               <td>
                 <h3><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> Email</h3></td>
-              <td>{{info.email}}</td>
+              <td >{{info.email}}</td>
             </tr>
             <tr>
               <td>
                 <h3><i class="glyphicon glyphicon-phone-alt" aria-hidden="true"></i> Phone</h3>
-                <td>
+                <td >
                   <div v-for="phone in info.phone">
                     {{phone}}
                     <br>
@@ -56,7 +56,7 @@
             <tr>
               <td>
                 <h3><i class="glyphicon glyphicon-user" aria-hidden="true"></i> Contact Persons</h3></td>
-              <td>
+              <td >
                 <div v-for="contactsPerson in info.contactsPersons">
                   {{contactsPerson}}
                   <br>
@@ -96,4 +96,15 @@ export default {
 </script>
 
 <style scoped>
+article.special, section.special {
+    text-align: left; 
+    padding-left: 2.55em;
+}
+
+h3{
+padding-left: 2.55em;
+}
+.td{
+  text-align: right;
+}
 </style>

@@ -13,8 +13,7 @@ var applicationController = {
 
     req.checkBody('firstName', 'First name is required').notEmpty()
     req.checkBody('lastName', 'Last name is required').notEmpty()
-    req.checkBody('position', 'Position is required').notEmpty()
-    req.checkBody('phone', 'Phone is required').notEmpty()
+        req.checkBody('phone', 'Phone is required').notEmpty()
     req.checkBody('email', 'Email is required').notEmpty()
     req.checkBody('email', 'Email is not correct').isEmail();
     req.checkBody('address', 'Address is required').notEmpty()

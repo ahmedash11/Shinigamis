@@ -312,7 +312,13 @@ export default {
   outline: 0;
 }
 
-{
-  text-align: left;
+article.special, section.special {
+    text-align: left; 
+    padding-left: 2.55em;
 }
+
+h3{
+text-align: center;
+}
+
 </style>

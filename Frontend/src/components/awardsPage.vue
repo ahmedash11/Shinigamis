@@ -8,7 +8,7 @@
         <h2>Awards</h2>
       </header>
       <div class="box alt">
-                <carousel paginationActiveColor="#FFFFFF" paginationColor="#333333" :autoplay=true easing="linear" :speed=300 :loop=true :display=1>
+                <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" :autoplayTimeout=2400 easing="linear" :speed=1000 :loop=true :navigationEnabled="true">
     <slide v-for="award in Awards">
    <img :src="url + award.profileimg.path.replace('public','')" class="imgcarousel">
    

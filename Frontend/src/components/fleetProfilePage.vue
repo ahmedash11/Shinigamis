@@ -107,9 +107,14 @@
     </section>
 
     <section id="content2" class="section">
-  <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" easing="linear" :speed=500 :loop=true>
+  <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" :autoplayTimeout=5000 easing="linear" :speed=1000 :loop=true>
     <slide v-for="image in images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
   </carousel>
+   
+       <!-- <div class="slick">
+      <div v-for="image in images"><img :src="url + image.img.path.replace('public','')" alt="" class="imgcarousel"/></div>
+        </div> -->
+     
     </section>
 </div>
 </div>
@@ -120,7 +125,9 @@
 
 <script>
 import env from '../env'
-import { Carousel, Slide } from 'vue-carousel';
+// import { Carousel, Slide } from 'vue-carousel';
+import '../assets/js/slick.min.js'
+ import '../assets/js/arrive.js'
 
 export default {
   name: 'fleetProfilePage',
@@ -138,10 +145,10 @@ export default {
     this.getImages()
     this.url = env.URL
   },
-  components:{
-     Carousel,
-    Slide
-  },
+  // components:{
+  //    Carousel,
+  //   Slide
+  // },
 
   updated() {
     this.reinitializeSlick()
@@ -172,12 +179,12 @@ export default {
     createSlick: function() {
       $('.slick').not('.slick-initialized').slick({
         dots: true,
-        slidesToShow: 1,
+        slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
-        infinite: false,
-        arrows: false
+        autoplaySpeed: 5000,
+        infinite: true,
+        arrows: true
       });
     },
     destroySlick: function() {
@@ -252,8 +259,8 @@ label {
 .imgcarousel {
   display: inline;
   margin: auto;
-  height: 100%;
-  width: 100%;
+  height: 75%;
+  width: 75%;
 }
 
 .section {

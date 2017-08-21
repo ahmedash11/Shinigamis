@@ -1,8 +1,6 @@
 <template>
 <div class="admin">
-  <br>
-  <br>
-  <br>
+
   <div class="tab_container" align="right">
 
     <input id="tab1" type="radio" name="tabs" checked>
@@ -193,7 +191,17 @@ section {
 }
 
 
-
+input[type=checkbox]+label, input[type=radio]+label {
+    text-decoration: none;
+    color: rgba(255, 255, 255, .75);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: 100;
+    padding-left: 0.55em;
+    padding-right: .75em;
+    position: relative;
+}
 
 input[type=checkbox]+label:before,
 input[type=radio]+label:before {

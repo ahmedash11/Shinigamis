@@ -12,9 +12,13 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="Award in Awards">
-                          <img v-if="Award.profileimg.path" :src="url+Award.profileimg.path.replace('public','')">
-              <img v-else src="/static/images/rms.jpg">
+                          
+                          <div><img v-if="Award.profileimg.path" :src="url+Award.profileimg.path.replace('public','')">
+                          </div>
+              
+              <div>
             <h3>{{Award.title}}</h3>
+            </div>
            
             <ul class="actions">
               <li><a class="button special" v-on:click="deleteAward(Award._id)">Delete</a></li>

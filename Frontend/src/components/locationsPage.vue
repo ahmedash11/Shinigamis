@@ -75,4 +75,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+article.special, section.special {
+    text-align: left; 
+    padding-left: 2.55em;
+}
+
+h3{
+text-align: center;
+}
 </style>
