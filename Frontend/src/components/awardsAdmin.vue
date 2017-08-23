@@ -1,8 +1,7 @@
 <template>
 <div class="awardsAdmin">
 
-  <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <section class="wrapper style1 special fade-up">
     <div class="container">
 
       <header class="major">
@@ -12,14 +11,9 @@
       <div class="box alt">
         <div class="row uniform">
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="Award in Awards">
-                          
-                          <div><img v-if="Award.profileimg.path" :src="url+Award.profileimg.path.replace('public','')">
-                          </div>
-              
-              <div>
+            <img v-if="Award.profileimg.path" :src="url+Award.profileimg.path.replace('public','')">
+            <img v-else src="/static/images/rms.jpg">
             <h3>{{Award.title}}</h3>
-            </div>
-           
             <ul class="actions">
               <li><a class="button special" v-on:click="deleteAward(Award._id)">Delete</a></li>
             </ul>
@@ -27,7 +21,7 @@
 
           <section class=" 4u 6u(medium) 12u$(xsmall) ">
             <CENTER>
-              <button data-toggle="modal" data-target="#addAward" class="button special big" v-on:click="setSelectedAward('')">Add a new Award</button>
+              <button data-toggle="modal" data-target="#addAward" class="button special big" v-on:click="resetModal()">Add a new Award</button>
             </CENTER>
           </section>
         </div>
@@ -55,10 +49,10 @@
                 <form @submit.prevent="addAward()" role="form" style="display: block;" class="form-group">
                   <label class="test">Title</label>
                   <input type="text" name="title" placeholder="Title" v-model="title" required>
-    
-              <label class="test">Upload Images</label>
-             <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)"> 
-            
+
+                  <label class="test">Upload Images</label>
+                  <input ref="avatar" class="button special" type="file" name="avatar" id="awardPicture" v-on:change="upload($event.target.name, $event.target.files)" required>
+
                   <div>
                     <br>
                     <CENTER>
@@ -90,8 +84,8 @@ export default {
       title: '',
       image: '',
       selectedAward: '',
-      formData:{},
-      url:""
+      formData: {},
+      url: ""
     }
   },
   methods: {
@@ -117,18 +111,33 @@ export default {
     addAward: function() {
       var newAward = {
         title: this.title,
-
       }
       this.$http.post(env.URL + '/admin/addAward', newAward, {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#addAward').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
-         this.formData.append("award_id",response.data.data.award._id)
-         this.$http.post(env.URL+'/admin/AwardImage',this.formData, {headers : {'jwt-token' : localStorage.getItem('id_token')}}).then(response => {
-            
-      })
-        this.fetchAwards()
+        this.formData.append("award_id", response.data.data.award._id)
+        this.$http.post(env.URL + '/admin/AwardImage', this.formData, {
+          headers: {
+            'jwt-token': localStorage.getItem('id_token')
+          }
+        }).then(response => {
+          this.fetchAwards()
+        }).catch((error) => {
+          if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+            swal(
+              'Oops...',
+              error.body.msg,
+              'error'
+            );
+          } else {
+            for (var i = 0; i < error.body.msg.length; i++) {
+              var msg = error.body.msg[i].msg
+              alertify.notify(msg, 'error', 5);
+            }
+          }
+        })
       }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -172,7 +181,9 @@ export default {
               'Oops...',
               error.body.msg,
               'error'
-            );
+            ).then(() => {
+              this.fetchAwards()
+            })
           } else {
             for (var i = 0; i < error.body.msg.length; i++) {
               var msg = error.body.msg[i].msg
@@ -182,25 +193,23 @@ export default {
         })
       }, (dismiss) => {})
     },
-    setSelectedAward: function(Award) {
-      this.selectedAward = Award
-      if (this.selectedAward) {
-        this.name = this.selectedAward.name
-        this.description = this.selectedAward.description
-      } else {
-        this.name = ''
-        this.description = ''
-      }
-    }, upload: function(fieldName, fileList) {
-        // handle file changes
-        const formData = new FormData();
-        // append the files to FormData
-        Array.from(Array(fileList.length).keys()).map(x => {
-            formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-        
-        this.formData = formData
-       
+    upload: function(fieldName, fileList) {
+      // handle file changes
+      const formData = new FormData();
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        formData.append(fieldName, fileList[x], fileList[x].name);
+      });
+
+      this.formData = formData
+
+    },
+    resetModal: function() {
+      this.title = '';
+      this.formData = {}
+      var $el = $('#awardPicture');
+      $el.wrap('<form>').closest('form').get(0).reset();
+      $el.unwrap();
     }
   },
   created() {
@@ -228,5 +237,6 @@ export default {
 .\34 u img {
   max-height: 100%;
   max-width: 100%;
+  min-height: 100%
 }
 </style>

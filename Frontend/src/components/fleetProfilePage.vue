@@ -1,5 +1,5 @@
 <template>
-<div class="banner">
+<div class="banner1">
   <!-- <section id="four" class="wrapper style1 special fade-up"> -->
 
   <section id=banner v-bind:style="{ 'background-position': 'center 26.85px' ,'background-image':'url('+coverPic+')', 'background-size': '100%',
@@ -40,7 +40,7 @@
             </tr>
             <tr v-if="fleet.design">
               <td>Design</td>
-              <td>{fleet.design}}</td>
+              <td>{{fleet.design}}</td>
             </tr>
             <tr v-if="fleet.built">
               <td>Built</td>
@@ -73,7 +73,7 @@
             </tr>
             <tr v-if="fleet.crane">
               <td>Crane</td>
-              <td>{{fleet.Crane}}</td>
+              <td>{{fleet.crane}}</td>
             </tr>
             <tr v-if="fleet.accomodation">
               <td>Accomodation</td>
@@ -107,28 +107,31 @@
     </section>
 
     <section id="content2" class="section">
-  <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" :autoplayTimeout=5000 easing="linear" :speed=1000 :loop=true>
-    <slide v-for="image in images"><img :src="url + image.img.path.replace('public','')" class="imgcarousel"></slide>
-  </carousel>
-   
-       <!-- <div class="slick">
-      <div v-for="image in images"><img :src="url + image.img.path.replace('public','')" alt="" class="imgcarousel"/></div>
-        </div> -->
-     
+      <carousel :perPageCustom="[[480, 1], [768, 2]]" paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" :autoplayTimeout=5000 easing="linear" :speed=1000 :loop=true v-if="images.length>2">
+        <slide v-for="image in images" :key="image._id">
+          <img :src="url + image.img.path.replace('public','')" class="imgcarousel">
+        </slide>
+      </carousel>
+      <carousel :perPageCustom="[[480, 1], [768, 1]]" paginationActiveColor="#ffffff" paginationColor="#333333" :autoplayTimeout=5000 easing="linear" :speed=1000 v-else>
+        <slide v-for="image in images" :key="image._id">
+          <img :src="url + image.img.path.replace('public','')" class="imgcarousel">
+        </slide>
+      </carousel>
     </section>
-</div>
-</div>
-    </section>
+
   </div>
+</div>
+</section>
+</div>
 </div>
 </template>
 
 <script>
 import env from '../env'
-// import { Carousel, Slide } from 'vue-carousel';
-import '../assets/js/slick.min.js'
- import '../assets/js/arrive.js'
-
+import {
+  Carousel,
+  Slide
+} from 'vue-carousel';
 export default {
   name: 'fleetProfilePage',
   data() {
@@ -145,13 +148,25 @@ export default {
     this.getImages()
     this.url = env.URL
   },
-  // components:{
-  //    Carousel,
-  //   Slide
-  // },
 
   updated() {
-    this.reinitializeSlick()
+    if (this.images.length > 2) {
+      $('.VueCarousel-inner').css({
+        "transform": "translateX(-949px)",
+        "flex-basis": "949px",
+        "visibility": "visible"
+      })
+    } else {
+      $('.VueCarousel-inner').css({
+        "transform": "translateX(0px)",
+        "flex-basis": "1898px",
+        "visibility": "visible"
+      })
+    }
+    $('.VueCarousel-pagination').css(
+      "float",
+      "none"
+    )
   },
   methods: {
     getFleet: function() {
@@ -175,30 +190,11 @@ export default {
           }
         }
       })
-    },
-    createSlick: function() {
-      $('.slick').not('.slick-initialized').slick({
-        dots: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        infinite: true,
-        arrows: true
-      });
-    },
-    destroySlick: function() {
-      if ($('.slick').hasClass('slick-initialized')) {
-        $('.slick').removeClass("slick-initialized slick-slider");
-      }
-    },
-    reinitializeSlick: function() {
-      if ($('.slick').hasClass('slick-initialized')) {
-        $('.slick').removeClass("slick-initialized slick-slider");
-      }
-
-      this.createSlick();
     }
+  },
+  components: {
+    Carousel,
+    Slide
   }
 }
 </script>
@@ -336,9 +332,5 @@ input[type=radio]+label:before {
   to {
     transform: rotateY(360deg);
   }
-}
-
-.slick {
-  width: 100%;
 }
 </style>

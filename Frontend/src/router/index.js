@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueResource from 'vue-resource'
-import VueCarousel from 'vue-carousel';
+import VueCarousel from 'vue-carousel'
+import Carousel3d from 'vue-carousel-3d'
 import auth from '../auth'
 
 import HomePage from '@/components/homePage'
@@ -34,7 +35,8 @@ import Announcements from '@/components/Announcements.vue'
 
 Vue.use(Router)
 Vue.use(VueResource)
-Vue.use(VueCarousel);
+//Vue.use(VueCarousel)
+//Vue.use(Carousel3d)
 
 export default new Router({
   mode: 'history',
@@ -57,7 +59,7 @@ export default new Router({
       name: 'Positions',
       component: Positions
     }, {
-      path: '/application',
+      path: '/apply/:position',
       name: 'Application',
       component: Application
     }, {

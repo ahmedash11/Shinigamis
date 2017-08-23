@@ -1,17 +1,14 @@
 <template>
 <div class="AppNav">
   <!-- Header -->
-  <section id="one" class="spotlight spot style1 left" v-if="this.home">
+  <section id="one" class="spotlight spot style1 left" style="background-size: 100%;" v-if="this.home">
     <header id="header">
 
-      <img src="../static/images/logo1.png" class="rounded" align="left">
+      <img src="/static/images/logo1.png" class="rounded" align="left">
       <nav id="nav">
         <ul>
           <li>
-
             <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
-            <!--           <router-link to="/"><i class="text" aria-hidden="true">Home</i></router-link>
- -->
           </li>
           <li>
             <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
@@ -68,33 +65,32 @@
           <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
           </li>
         </ul>
-
       </nav>
-      <br>
 
       <br>
       <br>
       <br>
       <br>
       <br>
+      <br>
+
       <center>
-      <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
+        <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
       </center>
+
     </header>
 
     <a href="#two" class="goto-next scrolly"></a>
   </section>
+
   <section id="one" class="spotlight style1 left" v-if="!this.home">
     <header id="header">
 
-      <img src="../static/images/logo1.png" class="rounded" align="center">
+      <img src="/static/images/logo1.png" class="rounded" align="center">
       <nav id="nav">
         <ul>
           <li>
-
             <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
-            <!--           <router-link to="/"><i class="text" aria-hidden="true">Home</i></router-link>
- -->
           </li>
           <li>
             <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
@@ -151,12 +147,12 @@
           <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
           </li>
         </ul>
-
       </nav>
+
     </header>
 
-
   </section>
+
   <!-- The overlay -->
   <div id="myNav" class="overlay">
 
@@ -247,7 +243,7 @@ export default {
     },
   },
   created() {
-       if (this.$route.path === '/') {
+    if (this.$route.path === '/') {
       this.home = true
     } else {
       this.home = false
@@ -274,7 +270,7 @@ export default {
   font-weight: 600;
 }
 
-#banner:before{
+#banner:before {
   background-position: center;
   background-image: url(/static/images/RapidoGee.jpg);
   background-size: cover;
@@ -293,7 +289,6 @@ export default {
   background-image: url(/static/images/RapidoGee.jpg);
   background-size: cover;
   background-attachment: fixed;
-
 }
 
 img {
@@ -316,9 +311,9 @@ nav {
   height: 60vh;
   position: relative;
 }
-.spot{
-  height: 110vh;
 
+.spot {
+  min-height: 100vh;
 }
 
 .closebtn:hover {

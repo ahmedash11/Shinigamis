@@ -3,10 +3,9 @@
 
   <div class="container">
     <header class="major">
-      <h2>Positions</h2>
+      <h2>Application Form</h2>
     </header>
     <div class="container">
-      <h2>Application Form</h2>
 
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -19,10 +18,10 @@
               <label>Last Name</label>
               <input type="text" class="form-control" placeholder="Last Name" v-model="lastName" required>
             </div>
-           <!--  <div class="form-group">
+            <div class="form-group">
               <label>Position</label>
               <input readonly type="text" class="form-control" v-model="position" required>
-            </div> -->
+            </div>
             <div class="form-group">
               <label>Email</label>
               <input type="email" class="form-control" placeholder="Email" v-model="email" required>
@@ -67,7 +66,7 @@ export default {
     return {
       firstName: "",
       lastName: "",
-      position:"",
+      position: "",
       phone: "",
       email: "",
       address: "",
@@ -76,6 +75,9 @@ export default {
       formData: [],
       loading: false
     }
+  },
+  created() {
+    this.position = this.$route.params.position
   },
   methods: {
     upload: function(fieldName, fileList) {

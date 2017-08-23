@@ -90,7 +90,7 @@
                   <textarea type="text" name="description" v-model="description" required></textarea>
                   <div class="form-group">
                     <label for="exampleInputName2">Upload Images</label>
-                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)">
+                    <input ref="avatar" class="button special" type="file" name="avatar" id="editClientPicture" v-on:change="upload($event.target.name, $event.target.files)">
                   </div>
                   <br>
                   <div>
@@ -131,7 +131,7 @@
                   <textarea type="text" name="description" placeholder="Description" v-model="description" required></textarea>
                   <div class="form-group">
                     <label for="exampleInputName2">Upload Images</label>
-                    <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)">
+                    <input ref="avatar" class="button special" type="file" name="avatar" id="addClientPicture" v-on:change="upload($event.target.name, $event.target.files)">
                   </div>
                   <div>
                     <br>
@@ -307,10 +307,14 @@ export default {
       if (this.selectedClient) {
         this.name = this.selectedClient.name
         this.description = this.selectedClient.description
+        var $el = $('#editClientPicture');
       } else {
         this.name = ''
         this.description = ''
+        var $el = $('#addClientPicture');
       }
+      $el.wrap('<form>').closest('form').get(0).reset();
+      $el.unwrap();
     },
     upload: function(fieldName, fileList) {
       // handle file changes

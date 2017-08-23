@@ -100,8 +100,9 @@ router.get('/getAnnouncements', announcementController.findAllAnnouncements);
 
 router.post('/deleteAnnouncement', announcementController.deleteAnnouncement);
 
+router.post('/updateContactUs', aboutUsController.updateContactUs); // Update contact us
+
 router.post('/upload', upload.array('avatar'), (req, res) => {
-  //console.log(req.files);
   for (var i = 0; i < req.files.length; i++) {
     var image = new Image({
       fleet_id: req.body.fleet_id.substring(0),
@@ -117,15 +118,16 @@ router.post('/upload', upload.array('avatar'), (req, res) => {
           msg: err.message
         })
       }
-
     });
   }
 
   res.status(200).json({
     msg: 'Pictue(s) added successfully'
   })
-  
+
 });
+
+
 router.post('/ClientImage', upload.single('avatar'), (req, res) => {
   Client.findById(req.body.client_id, function(error, client) {
     if (error) {
@@ -151,29 +153,8 @@ router.post('/ClientImage', upload.single('avatar'), (req, res) => {
   });
 });
 
-router.post('/AwardImage', upload.single('avatar'), (req, res) => {
-  Award.findById(req.body.award_id, function(error, award) {
-    if (error)
-      console.log(error)
-    else {
-      award.profileimg.name = req.file.filename;
-      award.profileimg.path = req.file.path;
-      award.profileimg.size = req.file.size;
-      award.save((err) => {
-        if (err) {
-          res.status(500).json({
-            msg: err.message
-          })
-        } else {
-          res.status(200).json({
-            msg: 'Pictue(s) added successfully'
-          })
-         }
-      });
-    }
-  });
+router.post('/AwardImage', upload.single('avatar'),awardController.uploadAwardImage);
 
-});
 
 router.post('/AnnouncementImage', upload.single('avatar'), (req, res) => {
   Announcement.findById(req.body.user_id, function(error, announcement) {
@@ -197,14 +178,5 @@ router.post('/AnnouncementImage', upload.single('avatar'), (req, res) => {
     }
   });
 });
-
-
-router.post('/updateChairmanMessage', aboutUsController.updateChairmanMessage); // Update chairman message
-
-router.post('/updatePersonnel', aboutUsController.updatePersonnel); // Update personnel
-
-router.post('/updateContactUs', aboutUsController.updateContactUs); // Update contact us
-
-//router.post('/decode', adminController.getsignedvals);
 
 module.exports = router;

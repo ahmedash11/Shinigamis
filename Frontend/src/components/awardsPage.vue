@@ -1,21 +1,17 @@
 <template>
 <div class="awardsPage">
 
-  <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <section id="awards">
     <div class="container">
       <header class="major">
         <h2>Awards</h2>
       </header>
-      <div class="box alt">
-                <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" :autoplayTimeout=2400 easing="linear" :speed=1000 :loop=true :navigationEnabled="true">
-    <slide v-for="award in Awards">
-   <img :src="url + award.profileimg.path.replace('public','')" class="imgcarousel">
-   
-   <h3>{{award.title}}</h3>
-    </slide>
-  </carousel>
-      </div>
+      <carousel paginationActiveColor="#ffffff" paginationColor="#333333" :autoplay="true" :autoplayTimeout=2400 easing="linear" :speed=1000 :loop=true :navigationEnabled="true">
+        <slide v-for="award in Awards">
+          <img :src="url + award.profileimg.path.replace('public','')" class="imgcarousel">
+          <h3>{{award.title}}</h3>
+        </slide>
+      </carousel>
     </div>
   </section>
 
@@ -24,33 +20,37 @@
 
 <script>
 import env from '../env'
-import { Carousel, Slide } from 'vue-carousel';
+import {
+  Carousel,
+  Slide
+} from 'vue-carousel';
 export default {
   name: 'awardsPage',
   data() {
     return {
       Awards: [],
-      url:""
+      url: ""
     }
   },
-  components: {},
+  components: {
+    Carousel,
+    Slide
+  },
   created() {
     this.fetchAwards()
- this.url= env.URL
-
+    this.url = env.URL
   },
-  components:{
+  updated() {
+    $('.VueCarousel-navigation-button').css("border-bottom", "none")
+  },
+  components: {
     Carousel,
     Slide
   },
   methods: {
-    //open overlay
-
-    // Send a request to the login URL and save the returned JWT
     fetchAwards: function() {
       this.$http.get(env.URL + '/user/getAllAwards').then(response => {
         this.Awards = response.data.data.awards
-        console.log(this.Awards)
       }).catch(error => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
@@ -78,5 +78,4 @@ export default {
   height: 75%;
   width: 75%;
 }
-
 </style>

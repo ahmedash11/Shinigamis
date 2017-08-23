@@ -1,23 +1,19 @@
 <template>
-<div class="announcementsAdmin" align="left">
+<div class="announcementsAdmin">
+  <section id="announcementsAdmin" class="wrapper style1 special fade-up">
 
-  <div class="container">
+    <div class="container">
 
-    <header class="major">
-      <h2>Announcements</h2>
-    </header>
-
-    <!-- Begin of rows -->
-    <div v-for="Ann in Announcement">
-      <div class="col-xs-8 col-xs-offset-2 slide-row">
-        <div>
+      <header class="major">
+        <h2>Announcements</h2>
+      </header>
 
 
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" v-for="Ann in Announcement">
           <!-- Wrapper for slides -->
-          <div>
-            <div class="crop">
-              <img src="/static/images/rms.jpg" alt="Image">
-            </div>
+          <div class="crop" style="max-width:100%; max-height:100%;">
+            <img src="/static/images/rms.jpg" alt="Image">
           </div>
 
           <div class="slide-content">
@@ -26,13 +22,16 @@
               {{Ann.content}}
             </p>
             <i id="bin" class="glyphicon glyphicon-trash" @click="remove(Ann)"></i>
+
             <hr>
           </div>
-        </div>
-        <br>
-      </div>
-    </div>
 
+        </div>
+      </div>
+
+
+
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="announcements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -71,10 +70,13 @@
         </div>
       </div>
     </div>
-  </div>
-  <button id="scroll" data-toggle="modal" data-target="#announcements" class="button special">+</button>
-</div>
 
+    <section class=" 4u 6u(medium) 12u$(xsmall) ">
+      <CENTER>
+        <button id="scroll" data-toggle="modal" data-target="#announcements" class="button special">+</button>
+      </CENTER>
+    </section>
+  </section>
 </div>
 </template>
 
@@ -162,9 +164,7 @@ export default {
   right: 50px;
 }
 
-.container {
-  padding-top: 20px;
-}
+
 
 .modal-content {
   position: relative;
@@ -186,17 +186,6 @@ export default {
   border-radius: 50%;
 }
 
-.crop {
-  width: 400px;
-  height: 350px;
-  overflow: hidden;
-}
-
-.crop img {
-  width: 600;
-  height: 500;
-  margin: -75px 0 0 -100px;
-}
 
 img {
   display: inline;
