@@ -37,38 +37,22 @@ export default {
   name: 'banner',
   data() {
     return {}
-  },
-  beforeCreated() {
-    let backgroundImage = new Image();
-    backgroundImage.src = "/static/images/OceanDrum.jpg";
-    document.getElementById("two").style["background-image"] = `url(${backgroundImage.src})`;
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#banner {
-  background-position: center 26.85px;
-  background-image: url(/static/images/RapidoGee1.jpg);
-}
-
-.banner {
-  background-position: center 26.85px;
-  background-image: url(/static/images/RapidoGee1.jpg);
-  background: rgba(23, 24, 32, 0);
-}
-
 .three1:before {
   background-position: center;
-  background-image: url(/static/images/RazzoGee.jpg);
+  background-image: url(/../../static/images/RazzoGee.jpg);
   background-size: cover;
   position: relative
 }
 
 .three2:before {
   background-position: center;
-  background-image: url(/static/images/Maha.jpg);
+  background-image: url(/../../static/images/Maha.jpg);
   background-size: cover;
   position: relative
 }
