@@ -11,7 +11,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "engines": {
-    "node": "*"
+    "node": "7.5.0"
   },
   "dependencies": {
     "compression-webpack-plugin": "^1.0.0",
