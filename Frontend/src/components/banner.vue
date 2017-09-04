@@ -45,14 +45,14 @@ export default {
 <style scoped>
 .three1:before {
   background-position: center;
-  background-image: url(/../../static/images/RazzoGee.jpg);
+  background-image: url(../../static/images/RazzoGee.jpg);
   background-size: cover;
   position: relative
 }
 
 .three2:before {
   background-position: center;
-  background-image: url(/../../static/images/Maha.jpg);
+  background-image: url(../../static/images/Maha.jpg);
   background-size: cover;
   position: relative
 }
