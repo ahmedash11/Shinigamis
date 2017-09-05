@@ -93,11 +93,13 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.ModuleConcatenationPlugin(),
     //Offline Plugin
     new OfflinePlugin({
-      publicPath: '/',
-      excludes: ['**/*.map'],
-      externals: [
-        '/'
-      ],
+      caches: {
+        main: [
+          '/',
+          ':rest:'
+        ]
+      },
+      externals: ['/'],
       ServiceWorker: {
         navigateFallbackURL: '/'
       },
