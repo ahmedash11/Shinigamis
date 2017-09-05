@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#ver:9/5/2017, 1:39:53 PM
+#ver:9/5/2017, 2:14:28 PM
 #plugin:4.8.3
 
 CACHE:
@@ -52,8 +52,8 @@ CACHE:
 /static/js/1.7b0a49b3529f292dcd6e.js.gz
 /static/js/2.6d5c1e2250a79d26d23f.js.gz
 /static/js/3.d4ffa11d5299a3d27b54.js.gz
-/static/js/4.baa7f1b71ed5db226c67.js.gz
 /static/js/6.de6c21c64542da92c67c.js.gz
+/static/js/4.baa7f1b71ed5db226c67.js.gz
 /static/js/9.a9a2c436b8044c9a2b5a.js.gz
 /static/js/14.edcde1a5603044ca64c9.js.gz
 /static/js/16.0638cedf09d9c054d0a5.js.gz
@@ -69,103 +69,102 @@ CACHE:
 /static/css/alertify.min.css
 /static/css/default.min.css
 /static/css/bootstrap.css
+/static/css/ie8.css
 /static/css/font-awesome.min.css
 /static/css/ie9.css
-/static/css/ie8.css
 /static/css/images/arrow.svg
-/static/css/images/ie/banner-overlay.png
 /static/css/images/overlay.png
+/static/css/images/ie/banner-overlay.png
 /static/css/sweetalert2.min.css
 /static/css/main.css
-/static/fonts/fontawesome-webfont.svg
 /static/fonts/fontawesome-webfont.eot
+/static/fonts/fontawesome-webfont.svg
 /static/fonts/fontawesome-webfont.ttf
-/static/fonts/fontawesome-webfont.woff
 /static/fonts/fontawesome-webfont.woff2
 /static/fonts/glyphicons-halflings-regular.eot
 /static/fonts/FontAwesome.otf
-/static/fonts/glyphicons-halflings-regular.svg
 /static/fonts/glyphicons-halflings-regular.ttf
 /static/fonts/glyphicons-halflings-regular.woff
-/static/fonts/lg.eot
+/static/fonts/glyphicons-halflings-regular.svg
 /static/fonts/lg.ttf
+/static/fonts/lg.eot
 /static/fonts/glyphicons-halflings-regular.woff2
 /static/fonts/lg.svg
 /static/fonts/lg.woff
 /static/images/1.jpg
-/static/images/award1.jpg
 /static/images/AboutUs.jpg
-/static/images/capitano-gee-banner.jpg
+/static/images/award1.jpg
 /static/images/banner.jpg
-/static/images/Capitano Gee.jpg
+/static/images/capitano-gee-banner.jpg
 /static/images/chart.jpg
+/static/images/CapitanoGee.jpg
 /static/images/crane.png
-/static/images/craneedit.png
-/static/images/FlowChart.png
 /static/images/CV .pdf
-/static/images/Geebo Elemlak.JPG
-/static/images/Info.png
-/static/images/Geebo Elemlak1.JPG
+/static/images/craneedit.png
 /static/images/BannerOne.jpg
+/static/images/FlowChart.png
+/static/images/GeeboElemlak.JPG
+/static/images/Info.png
+/static/images/GeeboElemlak1.JPG
 /static/images/infoedit.png
 /static/images/logo.png
 /static/images/LADYNADA.JPG
 /static/images/logo1.png
-/static/images/Lord Gee.jpg
-/static/images/Lord Gee1.jpg
-/static/images/BannerTwo.jpg
 /static/images/Maha.jpg
+/static/images/BannerTwo.jpg
 /static/images/OceanDrum.jpg
-/static/images/Oceano Gee1.jpg
+/static/images/OceanoGee.jpg
 /static/images/pic01.jpg
+/static/images/LordGee.jpg
 /static/images/pic02.jpg
-/static/images/Oceano Gee.jpg
-/static/images/pic05.jpg
-/static/images/pic04.jpg
 /static/images/pic03.jpg
+/static/images/pic04.jpg
+/static/images/pic05.jpg
 /static/images/pic06.jpg
 /static/images/pic07.jpg
 /static/images/pic08.jpg
-/static/images/RazzoGee.jpg
-/static/images/rms.jpg
 /static/images/RapidoGee.jpg
+/static/images/rms.jpg
+/static/images/RazzoGee.jpg
 /static/images/Ship1.jpeg
 /static/images/Ship2.jpeg
 /static/images/RapidoGee1.jpg
-/static/images/shipico.jpeg
 /static/images/Ship3.jpeg
+/static/images/shipico.jpeg
 /static/images/shipIcon.png
 /static/images/shipiconedit.png
 /static/images/signature-pic.jpg
-/static/images/teama.xcf
-/static/images/teama.png
+/static/images/SIRGEE.JPG
 /static/images/Services.jpeg
+/static/images/teama.png
+/static/images/teama.xcf
 /static/images/test.png
-/static/img/video-play.png
 /static/img/loading.gif
+/static/img/video-play.png
 /static/img/vimeo-play.png
 /static/img/youtube-play.png
 /static/js/alertify.min.js
-/static/js/ie/PIE.htc
-/static/js/ie/respond.min.js
-/static/js/jquery.dropotron.min.js
-/static/js/jquery.min.js
 /static/js/bootstrap.min.js
 /static/js/ie/html5shiv.js
+/static/js/ie/respond.min.js
+/static/js/jquery.dropotron.min.js
+/static/js/ie/PIE.htc
+/static/js/main.js
+/static/js/jquery.scrollex.min.js
 /static/js/jquery.scrolly.min.js
+/static/js/jquery.min.js
+/static/fonts/fontawesome-webfont.woff
+/static/js/util.js
 /static/js/skel.min.js
 /static/js/sweetalert2.min.js
-/static/js/jquery.scrollex.min.js
-/static/js/main.js
 /static/sass/libs/_vars.scss
-/static/sass/libs/_skel.scss
-/static/sass/libs/_functions.scss
 /static/sass/libs/_mixins.scss
-/static/sass/ie9.scss
-/static/sass/ie8.scss
 /static/sass/main.scss
+/static/sass/libs/_skel.scss
+/static/sass/ie8.scss
+/static/sass/libs/_functions.scss
+/static/sass/ie9.scss
 /static/logo.png
-/static/js/util.js
 /
 
 NETWORK:
