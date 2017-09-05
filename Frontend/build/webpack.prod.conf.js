@@ -8,6 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var OfflinePlugin = require('offline-plugin');
 
 var env = config.build.env
 
@@ -88,7 +89,23 @@ var webpackConfig = merge(baseWebpackConfig, {
       from: path.resolve(__dirname, '../static'),
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
-    }])
+    }]),
+    //Offline Plugin
+    new OfflinePlugin({
+      publicPath: '/',
+      excludes: ['**/*.map'],
+      externals: [
+        '/'
+      ],
+      ServiceWorker: {
+        navigateFallbackURL: '/'
+      },
+      AppCache: {
+        FALLBACK: {
+          '/': '/offline-page.html'
+        }
+      }
+    })
   ]
 })
 

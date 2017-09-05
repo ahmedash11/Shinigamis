@@ -128,6 +128,11 @@ app.all('*', function(req, res, next) {
 // Set view engine
 app.set('view engine', 'ejs')
 
+//compression
+var compression = require('compression');
+
+app.use(compression()); //use compression
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 var adminRoutes = require('./routes/adminRoutes')

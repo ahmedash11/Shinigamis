@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import router from './router'
 import App from './App'
+require('offline-plugin/runtime').install();
 
 /* CSS
 import './assets/css/bootstrap.css'
@@ -15,10 +16,9 @@ import './assets/css/sweetalert2.min.css'
 import './assets/css/slick.css'
 //import './assets/css/slick-theme.css'
 import './assets/css/prettyPhoto.css'
-*/
 import './assets/css/slick.css'
 import './assets/css/slick-theme.css'
-
+*/
 
 // Scripts
 //import './assets/js/jquery.min.js'
