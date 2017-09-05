@@ -70,10 +70,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 // CORS Middleware
 app.use(cors())
 
-// SPA History Middleware
-app.use(history)
-
-
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({}))
 app.use(bodyParser.json())
@@ -142,10 +138,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 var adminRoutes = require('./routes/adminRoutes')
 var userRoutes = require('./routes/userRoutes')
 
+// SPA History Middleware
+app.use(history())
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/admin', adminRoutes)
 app.use('/user', userRoutes)
 
-// 404 for any other route
+//404 for any other route
 app.use(function(req, res, next) {
   if (!res.headersSent) {
     res.status(404).json({
