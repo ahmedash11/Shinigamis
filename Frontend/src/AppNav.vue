@@ -198,6 +198,8 @@ export default {
   methods: {
     //open overlay
     openNav: function() {
+      this.email = ""
+      this.password = ""
       document.getElementById("myNav").style.width = "100%";
     },
     //close overlay

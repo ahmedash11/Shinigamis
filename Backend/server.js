@@ -12,6 +12,7 @@ var app = express();
 var mime = require('mime');
 var crypto = require('crypto');
 var zlib = require('zlib');
+var history = require('connect-history-api-fallback');
 //var current;
 var image;
 
@@ -68,6 +69,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // CORS Middleware
 app.use(cors())
+
+// SPA History Middleware
+app.use(history)
 
 
 // Body Parser Middleware

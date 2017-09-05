@@ -90,6 +90,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
     }]),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     //Offline Plugin
     new OfflinePlugin({
       publicPath: '/',
