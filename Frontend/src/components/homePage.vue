@@ -6,9 +6,15 @@
 </template>
 
 <script>
-import Banner from './banner'
-import ContactUs from './contactUsPage'
-import AboutUs from './aboutUsPage'
+//import Banner from './banner'
+var Banner = () =>
+  import ('./banner')
+//import ContactUs from './contactUsPage'
+var ContactUs = () =>
+  import ('./contactUsPage')
+//import AboutUs from './aboutUsPage'
+var AboutUs = () =>
+  import ('./aboutUsPage')
 export default {
   name: 'homePage',
   data() {

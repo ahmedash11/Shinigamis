@@ -87,17 +87,39 @@
 
 <script>
 import env from '../env'
-import Clients from './clientsAdmin'
-import Projects from './historyProjectsAdmin'
-import Locations from './locationsAdmin'
-import Fleets from './fleetsAdmin'
-import Awards from './awardsAdmin'
-import Admins from './admins'
-import Position from './positionsAdmin'
-import Application from './applicationsAdmin'
-import Announcements from './announcementsAdmin.vue'
-import EditPassword from './editPassword.vue'
-import ContactUs from './contactUsAdmin.vue'
+//import Clients from './clientsAdmin'
+var Clients = () =>
+  import ('./clientsAdmin')
+//import Projects from './historyProjectsAdmin'
+var Projects = () =>
+  import ('./historyProjectsAdmin')
+//import Locations from './locationsAdmin'
+var Locations = () =>
+  import ('./locationsAdmin')
+//import Fleets from './fleetsAdmin'
+var Fleets = () =>
+  import ('./fleetsAdmin')
+//import Awards from './awardsAdmin'
+var Awards = () =>
+  import ('./awardsAdmin')
+//import Admins from './admins'
+var Admins = () =>
+  import ('./admins')
+//import Position from './positionsAdmin'
+var Position = () =>
+  import ('./positionsAdmin')
+//import Application from './applicationsAdmin'
+var Application = () =>
+  import ('./applicationsAdmin')
+//import Announcements from './announcementsAdmin.vue'
+var Announcements = () =>
+  import ('./announcementsAdmin.vue')
+//import EditPassword from './editPassword.vue'
+var EditPassword = () =>
+  import ('./editPassword.vue')
+//import ContactUs from './contactUsAdmin.vue'
+var ContactUs = () =>
+  import ('./contactUsAdmin.vue')
 export default {
   name: 'admin',
   data() {
@@ -152,12 +174,12 @@ export default {
 .tab_container [id^="tab"]:checked+label {
   background: #1c1d26;
   box-shadow: inset 0 3px #e44c65;
-   padding-left: 0.55em;
+  padding-left: 0.55em;
 }
+
 .tab_container [id^="tab"]+label {
   padding-left: 0.55em;
   background: #1c1d26;
- 
 }
 
 
@@ -191,16 +213,17 @@ section {
 }
 
 
-input[type=checkbox]+label, input[type=radio]+label {
-    text-decoration: none;
-    color: rgba(255, 255, 255, .75);
-    cursor: pointer;
-    display: inline-block;
-    font-size: 0.9em;
-    font-weight: 100;
-    padding-left: 0.55em;
-    padding-right: .75em;
-    position: relative;
+input[type=checkbox]+label,
+input[type=radio]+label {
+  text-decoration: none;
+  color: rgba(255, 255, 255, .75);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.9em;
+  font-weight: 100;
+  padding-left: 0.55em;
+  padding-right: .75em;
+  position: relative;
 }
 
 input[type=checkbox]+label:before,
