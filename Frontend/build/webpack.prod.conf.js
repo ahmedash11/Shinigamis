@@ -93,22 +93,15 @@ var webpackConfig = merge(baseWebpackConfig, {
       ignore: ['.*']
     }]),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    //PurifyCss Plugin
+    new PurifyCSSPlugin({
+      paths: glob.sync([path.join(__dirname, 'index.html'), path.join(__dirname, 'src/**/*.vue')]),
+      minimize: true
+    }),
     //Offline Plugin
     new OfflinePlugin({
-      caches: {
-        main: [
-          '/',
-          ':rest:'
-        ]
-      },
-      externals: ['/'],
       ServiceWorker: {
         navigateFallbackURL: '/'
-      },
-      AppCache: {
-        FALLBACK: {
-          '/': '/offline-page.html'
-        }
       }
     })
   ]

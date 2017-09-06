@@ -6,9 +6,9 @@
 </template>
 
 <script>
-//import AppNav from './AppNav.vue'
-var AppNav = () =>
-  import ('./AppNav.vue')
+import AppNav from './AppNav.vue'
+//var AppNav = () =>
+//import ('./AppNav.vue')
 //import AppFooter from './AppFooter.vue'
 var AppFooter = () =>
   import ('./AppFooter.vue')

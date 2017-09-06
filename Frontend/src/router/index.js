@@ -5,8 +5,8 @@ import VueCarousel from 'vue-carousel'
 import Carousel3d from 'vue-carousel-3d'
 import auth from '../auth'
 
-//import HomePage from '@/components/homePage'
-var HomePage = () => import('@/components/homePage')
+import HomePage from '@/components/homePage'
+//var HomePage = () => import('@/components/homePage')
 //import Services from '@/components/services'
 var Services = () => import('@/components/services')
 //import AdminPage from '@/components/Admin'
