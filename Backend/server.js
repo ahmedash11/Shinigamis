@@ -145,7 +145,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', adminRoutes)
 app.use('/user', userRoutes)
 
-//404 for any other route
+/*//404 for any other route
 app.use(function(req, res, next) {
   if (!res.headersSent) {
     res.status(404).json({
@@ -156,7 +156,7 @@ app.use(function(req, res, next) {
 
   next();
 });
-
+*/
 
 // Starting the server
 app.listen(port, () => {
