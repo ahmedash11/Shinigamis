@@ -142,6 +142,15 @@ var userRoutes = require('./routes/userRoutes')
 app.use(history())
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.configure('production', => {
+  app.use((req, res, next) => {
+    if (req.header 'x-forwarded-proto' !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+      next()
+  })
+})
+
 app.use('/admin', adminRoutes)
 app.use('/user', userRoutes)
 
