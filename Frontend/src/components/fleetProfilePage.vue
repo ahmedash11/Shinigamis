@@ -188,6 +188,9 @@ export default {
           if (!this.coverPic) {
             this.coverPic = env.URL.concat(this.images[0].img.path.replace('public', ''))
           }
+        } else {
+          this.profilePic = env.URL.concat('/static/images/pic02.jpg')
+          this.coverPic = env.URL.concat('/static/images/pic05.jpg')
         }
       })
     }
