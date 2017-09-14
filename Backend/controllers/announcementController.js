@@ -10,24 +10,51 @@ var announcementController = {
    */
 
 
-  addAnnouncement(req, res) {
+  addAnnouncement(req, res, next) {
     var token = req.headers['jwt-token'];
     jwt.verify(token, (decoded) => {
       if (decoded) {
-        // creating a new historyProjects instance and saving it
-        var newAnnouncement = new Announcement({
-          title: req.body.title,
-          content: req.body.content,
-          // image: req.body.image,
-          createdAt: req.body.createdAt
-        });
-        newAnnouncement.save();
-        res.status(200).json({
-          status: 'success',
-          data: {
-            newAnnouncement,
-          }
-        });
+        req.checkBody('title', 'Name is required').notEmpty()
+        req.checkBody('content', 'Content is required').notEmpty()
+        req.checkBody('createdAt', 'Date is required').notEmpty()
+
+        req.asyncValidationErrors().then(() => {
+          var newAnnouncement = new Announcement({
+            title: req.body.title,
+            content: req.body.content,
+            createdAt: req.body.createdAt
+          });
+          newAnnouncement.save((err, announcement) => {
+            if (err) {
+              return res.status(500).json({
+                msg: err.message
+              });
+            }
+            if (!announcement) {
+              return res.status(500).json({
+                msg: 'Failed to add announcement'
+              });
+            } else {
+              /*
+                res.status(200).json({
+                    success: true,
+                    msg: 'Announcement added successfully',
+                    data: {
+                        announcement,
+                    }
+                });
+                */
+              req.body.newAnnouncement = announcement
+              next()
+            }
+          })
+
+        }).catch((errors) => {
+          res.status(500).json({
+            msg: errors
+          })
+        })
+
       } else {
         res.status(500).json({
           err: 'Unauthorized access',
@@ -35,6 +62,35 @@ var announcementController = {
       }
     });
 
+  },
+  /**
+   * Upload announcement image
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  uploadAnnouncementImage(req, res) {
+    if (req.file) {
+      var announcement = req.body.newAnnouncement
+      announcement.profileimg.name = req.file.filename;
+      announcement.profileimg.path = req.file.path;
+      announcement.profileimg.size = req.file.size;
+      announcement.save((err) => {
+        if (err) {
+          res.status(500).json({
+            msg: err.message
+          })
+        } else {
+          res.status(200).json({
+            msg: 'Announcement added successfully'
+          })
+        }
+      });
+    } else {
+      res.status(200).json({
+        msg: 'Announcement added successfully'
+      })
+    }
   },
 
   /**
@@ -44,24 +100,27 @@ var announcementController = {
    */
 
   deleteAnnouncement(req, res) {
-    Announcement.findByIdAndRemove({
-      _id: req.body.id
-    }, function(err) {
-      if (!err) {
-        res.status(200).json({
-          data: {
-            msg: 'This Announcement has been removed successfully!',
+    var token = req.headers['jwt-token'];
 
+    jwt.verify(token, (decoded) => {
+      if (decoded) {
+        Announcement.findByIdAndRemove({
+          _id: req.body.id
+        }, function(err) {
+          if (!err) {
+            res.status(200).json({
+              msg: 'This Announcement has been removed successfully!',
+            })
+          } else {
+            res.status(200).json({
+              msg: err.msg
+            })
           }
-        })
+        });
       } else {
-        res.status(200).json({
-          data: {
-            msg: err.msg
-          }
-        })
+
       }
-    });
+    })
 
   },
 
@@ -75,13 +134,10 @@ var announcementController = {
     Announcement.find((err, announcements) => {
       if (err) { // if error occurred
         res.status(500).json({
-          status: 'error',
-          message: err.message,
+          msg: err.message,
         });
       } else {
-        ////console.log(historyProjects);
         res.status(200).json({
-          status: 'success',
           data: {
             announcements,
           },

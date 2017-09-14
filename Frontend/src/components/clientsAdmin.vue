@@ -1,8 +1,8 @@
 <template>
 <div class="clientsAdmin">
 
-  <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <!-- Clients Admin -->
+  <section id="clientsAdmin" class="wrapper style1 special fade-up">
     <div class="container">
 
       <header class="major">
@@ -30,34 +30,6 @@
           </div>
         </div>
       </section>
-
-      <!--     <div class="row">
-        <div class="row uniform">
-           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="client in clients">
-            <div>
-              <img v-if="client.profileimg.path" :src="url+client.profileimg.path.replace('public','')">
-              <img v-else src="/static/images/pic07.jpg">
-
-
-              <h3>{{client.name}}</h3>
-              <p>{{client.description}}</p>
-              <ul class="actions">
-                <li><a data-toggle="modal" data-target="#editClient" class="button special" v-on:click="setSelectedClient(client)">Edit</a></li>
-                <li><a class="button special" v-on:click="deleteClient(client._id)">Delete</a></li>
-              </ul>
-
-
-            </div>
-          </section>
-
-          <section class=" 4u 6u(medium) 12u$(xsmall) ">
-            <CENTER>
-              <button id ="btn" data-toggle="modal" data-target="#addClient" class="button special big" v-on:click="setSelectedClient('')">Add a new client</button>
-            </CENTER>
-          </section>
-        </div>
-      </div> -->
-
 
     </div>
     <section class=" 4u 6u(medium) 12u$(xsmall) ">
@@ -189,28 +161,16 @@ export default {
       })
     },
     addClient: function() {
-      var newClient = {
-        name: this.name,
-        description: this.description
-      }
-      this.$http.post(env.URL + '/admin/addClient', newClient, {
+      this.formData.append("name", this.name)
+      this.formData.append("description", this.description)
+      this.$http.post(env.URL + '/admin/addClient', this.formData, {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#addClient').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
-        if (!$.isEmptyObject(this.formData)) {
-          this.formData.append("client_id", response.data.data.client._id)
-          this.$http.post(env.URL + '/admin/ClientImage', this.formData, {
-            headers: {
-              'jwt-token': localStorage.getItem('id_token')
-            }
-          }).then(response => {
-            this.fetchClients()
-          })
-        } else {
-          this.fetchClients()
-        }
+        this.fetchClients()
       }).catch((error) => {
+        this.setSelectedClient('')
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
             'Oops...',
@@ -226,29 +186,17 @@ export default {
       })
     },
     editClient: function() {
-      var updatedClient = {
-        id: this.selectedClient._id,
-        name: this.name,
-        description: this.description
-      }
-      this.$http.post(env.URL + '/admin/updateClient', updatedClient, {
+      this.formData.append("id", this.selectedClient._id)
+      this.formData.append("name", this.name)
+      this.formData.append("description", this.description)
+      this.$http.post(env.URL + '/admin/updateClient', this.formData, {
         headers: auth.getAuthHeader()
       }).then(response => {
         $('#editClient').modal('hide');
         alertify.notify(response.body.msg, 'success', 5);
-        if (!$.isEmptyObject(this.formData)) {
-          this.formData.append("client_id", this.selectedClient._id)
-          this.$http.post(env.URL + '/admin/ClientImage', this.formData, {
-            headers: {
-              'jwt-token': localStorage.getItem('id_token')
-            }
-          }).then(response => {
-            this.fetchClients()
-          })
-        } else {
-          this.fetchClients()
-        }
+        this.fetchClients()
       }).catch(error => {
+        this.setSelectedClient(this.selectedClient)
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
             'Oops...',
@@ -303,7 +251,7 @@ export default {
     },
     setSelectedClient: function(client) {
       this.selectedClient = client
-      this.formData = {}
+      this.formData = new FormData()
       if (this.selectedClient) {
         this.name = this.selectedClient.name
         this.description = this.selectedClient.description
@@ -317,13 +265,10 @@ export default {
       $el.unwrap();
     },
     upload: function(fieldName, fileList) {
-      // handle file changes
-      const formData = new FormData();
       // append the files to FormData
       Array.from(Array(fileList.length).keys()).map(x => {
-        formData.append(fieldName, fileList[x], fileList[x].name);
+        this.formData.append(fieldName, fileList[x], fileList[x].name);
       });
-      this.formData = formData
     }
   },
   created() {

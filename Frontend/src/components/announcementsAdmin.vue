@@ -10,18 +10,22 @@
 
 
       <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12" v-for="Ann in Announcement">
+        <div class="col-lg-12 col-md-12 col-sm-12" v-for="announcement in announcements">
           <!-- Wrapper for slides -->
           <div class="crop" style="max-width:100%; max-height:100%;">
-            <img src="/static/images/rms.jpg" alt="Image">
+            <img v-if="announcement.profileimg.path" :src="url+announcement.profileimg.path.replace('public','')">
+            <img src="/static/images/rms.jpg" v-else>
           </div>
 
           <div class="slide-content">
-            <h4>{{Ann.title}}</h4>
+            <h4>{{announcement.title}}</h4>
             <p>
-              {{Ann.content}}
+              {{announcement.content}}
             </p>
-            <i id="bin" class="glyphicon glyphicon-trash" @click="remove(Ann)"></i>
+            <p>
+              {{announcement.createdAt}}
+            </p>
+            <i id="bin" class="glyphicon glyphicon-trash" @click="removeAnnouncement(announcement._id)"></i>
 
             <hr>
           </div>
@@ -55,6 +59,16 @@
                   <br>
                   <label class="test">Content</label>
                   <textarea type="text" name="content" placeholder="Content" v-model="content" required></textarea>
+                  <br>
+                  <label class="test">Announcement Date</label>
+                  <input type="date" style="color: #7e7f84; background-color: #1c1d26; border-color: #606066;" v-model="createdAt" required/>
+                  <br>
+                  <div class="form-group">
+                    <label for="exampleInputName2">Upload Image</label>
+                    <CENTER>
+                      <input ref="avatar" class="button special" type="file" name="avatar" id="addAnnouncementImage" style="background-color: #1c1d26" v-on:change="upload($event.target.name, $event.target.files)">
+                    </CENTER>
+                  </div>
 
                   <div>
                     <br>
@@ -73,7 +87,7 @@
 
     <section class=" 4u 6u(medium) 12u$(xsmall) ">
       <CENTER>
-        <button id="scroll" data-toggle="modal" data-target="#announcements" class="button special">+</button>
+        <button id="scroll" data-toggle="modal" data-target="#announcements" class="button special" v-on:click="createFormData()">+</button>
       </CENTER>
     </section>
   </section>
@@ -87,27 +101,29 @@ export default {
   name: 'announcementsAdmin',
   data() {
     return {
-      Announcement: [],
+      announcements: [],
       title: '',
-      content: ''
+      content: '',
+      createdAt: '',
+      formData: {},
+      url: ''
     }
   },
   created() {
+    this.url = env.URL
     this.getAnnouncements()
-
   },
   methods: {
     addAnnouncement: function() {
-      this.$http.post(env.URL + '/admin/addAnnouncement', {
-        title: this.title,
-        content: this.content
-      }, {
-        headers: {
-          'jwt-token': localStorage.getItem('token')
-        }
+      this.formData.append("title", this.title)
+      this.formData.append("content", this.content)
+      this.formData.append("createdAt", this.createdAt)
+      this.$http.post(env.URL + '/admin/addAnnouncement', this.formData, {
+        headers: auth.getAuthHeader()
       }).then(response => {
         this.title = '';
         this.content = '';
+        this.createdAt = '';
         $("#announcements").modal('hide');
         swal(
           'Announcement Posted!',
@@ -115,11 +131,23 @@ export default {
           'success'
         )
         this.getAnnouncements();
-
+      }).catch((error) => {
+        this.createFormData()
+        if (error.body.msg instanceof String || typeof error.body.msg === "string") {
+          swal(
+            'Oops...',
+            error.body.msg,
+            'error'
+          );
+        } else {
+          for (var i = 0; i < error.body.msg.length; i++) {
+            var msg = error.body.msg[i].msg
+            alertify.notify(msg, 'error', 5);
+          }
+        }
       })
-
     },
-    remove: function(a) {
+    removeAnnouncement: function(announcementId) {
       swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -129,12 +157,10 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(() => {
-        this.$http.post('http://localhost:3000/admin/deleteAnnouncement', {
-          id: a._id
+        this.$http.post(env.URL + '/admin/deleteAnnouncement', {
+          id: announcementId
         }, {
-          headers: {
-            'jwt-token': localStorage.getItem('id_token')
-          }
+          headers: auth.getAuthHeader()
         }).then(data => {
           this.getAnnouncements();
           swal(
@@ -142,17 +168,50 @@ export default {
             "",
             'success'
           )
-
         })
-
-
       })
-
+    },
+    createFormData: function() {
+      this.title = '';
+      this.content = '';
+      this.createdAt = '';
+      var $el = $('#addAnnouncementImage');
+      $el.wrap('<form>').closest('form').get(0).reset();
+      $el.unwrap();
+      this.formData = {}
+      this.formData = new FormData()
+    },
+    upload: function(fieldName, fileList) {
+      // append the files to FormData
+      Array.from(Array(fileList.length).keys()).map(x => {
+        this.formData.append(fieldName, fileList[x], fileList[x].name);
+      });
     },
     getAnnouncements: function() {
-      this.$http.get('http://localhost:3000/admin/getAnnouncements').then(data => {
-        this.Announcement = data.data.data.announcements
+      this.$http.get(env.URL + '/admin/getAnnouncements').then(data => {
+        this.announcements = data.data.data.announcements
+        this.announcements.sort(function(a, b) {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
+        for (var i = 0; i < this.announcements.length; i++) {
+          this.announcements[i].createdAt = this.formatDate(this.announcements[i].createdAt)
+        }
       })
+    },
+    formatDate: function(date) {
+      var date = new Date(date)
+      var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+      ];
+
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+
+      return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
   }
 }
@@ -163,8 +222,6 @@ export default {
   bottom: 100px;
   right: 50px;
 }
-
-
 
 .modal-content {
   position: relative;

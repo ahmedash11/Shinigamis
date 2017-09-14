@@ -3,12 +3,19 @@
   <!-- Header -->
   <section id="one" class="spotlight spot style1 left" style="background-size: 100%;" v-if="this.home">
     <header id="header">
-
+      <h1 id="logo">
       <img src="/static/images/logo1.png" class="rounded" align="left">
+    </h1>
+
       <nav id="nav">
         <ul>
           <li>
-            <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/">Home</router-link>
+              </li>
+            </ul>
           </li>
           <li>
             <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
@@ -377,6 +384,12 @@ nav {
     font-size: 40px;
     top: 15px;
     right: 35px
+  }
+}
+
+@media screen and (max-width: 736px) {
+  #titleBar .title {
+    display: none;
   }
 }
 </style>

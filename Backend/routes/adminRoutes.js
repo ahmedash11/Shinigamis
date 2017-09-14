@@ -3,7 +3,7 @@ var router = express.Router();
 var multer = require('multer');
 var crypto = require('crypto');
 var path = require('path');
-var storage = multer.diskStorage({ // specifying storage path for images
+var storage = multer.diskStorage({ // Specifying storage path for images
   destination: './public/uploads/',
   filename(req, file, cb) {
     crypto.pseudoRandomBytes(16, (err, raw) => {
@@ -13,9 +13,7 @@ var storage = multer.diskStorage({ // specifying storage path for images
   },
 });
 
-var upload = multer({
-  storage,
-});
+var upload = multer({storage,});
 
 // Controllers
 
@@ -68,11 +66,11 @@ router.post('/makeCoverPic', fleetController.makeCoverPic); // Update cover pic
 
 router.post('/deletePic', fleetController.deletePic); // Delete pic
 
-router.post('/addClient', clientController.addClient); // Add a new client
+router.post('/addClient', upload.single('avatar'), clientController.addClient, clientController.uploadClientImage); // Add a new client
 
 router.post('/deleteClient', clientController.deleteClient); // Delete an existing client
 
-router.post('/updateClient', clientController.updateClient); // Update an existing fleet
+router.post('/updateClient', upload.single('avatar'),clientController.updateClient, clientController.updateClientImage); // Update an existing client
 
 router.post('/addProject', historyProjectController.addProject); // Add a new project
 
@@ -94,7 +92,7 @@ router.post('/deletePosition', positionController.deletePosition);
 
 router.post('/offerPosition', positionController.offerPosition);
 
-router.post('/addAnnouncement', announcementController.addAnnouncement);
+router.post('/addAnnouncement', upload.single('avatar'),announcementController.addAnnouncement, announcementController.uploadAnnouncementImage);
 
 router.get('/getAnnouncements', announcementController.findAllAnnouncements);
 
@@ -125,32 +123,6 @@ router.post('/upload', upload.array('avatar'), (req, res) => {
     msg: 'Pictue(s) added successfully'
   })
 
-});
-
-
-router.post('/ClientImage', upload.single('avatar'), (req, res) => {
-  Client.findById(req.body.client_id, function(error, client) {
-    if (error) {
-      res.status(500).json({
-        msg: error.message
-      })
-    } else {
-      client.profileimg.name = req.file.filename;
-      client.profileimg.path = req.file.path;
-      client.profileimg.size = req.file.size;
-      client.save((err) => {
-        if (err) {
-          res.status(500).json({
-            msg: err.message
-          })
-        } else {
-          res.status(200).json({
-            msg: 'Pictue(s) added successfully'
-          })
-         }
-      });
-    }
-  });
 });
 
 router.post('/AwardImage', upload.single('avatar'),awardController.uploadAwardImage);

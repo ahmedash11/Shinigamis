@@ -1,7 +1,7 @@
 {
   "name": "shinigamis",
   "version": "1.0.0",
-  "description": "MEAN Stack application",
+  "description": "Rashied Application",
   "main": "server.js",
   "scripts": {
     "start": "node server",
