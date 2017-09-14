@@ -138,7 +138,7 @@
                 <div class="col-md-12">
                   <form @submit.prevent="addPic()" role="form" style="display: block;" class="form-group">
                     <div class="form-group">
-                      <input ref="avatar" class="button special" type="file" name="avatar" id="avatar" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple" required>
+                      <input ref="avatar" class="button special" type="file" name="avatar" id="addImage" v-on:change="upload($event.target.name, $event.target.files)" multiple="multiple" required>
                     </div>
 
                     <div>
@@ -327,6 +327,9 @@ export default {
 
     resetModal: function() {
       this.formData = []
+      var $el = $('#addImage');
+      $el.wrap('<form>').closest('form').get(0).reset();
+      $el.unwrap();
     }
   }
 }

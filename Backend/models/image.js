@@ -11,6 +11,8 @@ var make_upload_to_model = filePluginLib.make_upload_to_model;
 var uploads_base = path.join(__dirname, '/public/uploads');
 var uploads = path.join(uploads_base, 'u');
 
+var Fleet = require('./fleet')
+
 // define the schema for our user model
 var imageSchema = mongoose.Schema({
   fleet_id: String,
@@ -42,7 +44,33 @@ module.exports.deleteImage = function(id, callback) {
       }
       return callback(msg)
     } else {
-      unlinkImage(image, false, callback)
+      Fleet.findById(image.fleet_id, (err, fleet) => {
+        if(err){
+          let msg = {
+            success: false,
+            msg: err.message
+          }
+          return callback(msg)
+        }
+        if(fleet){
+          if(fleet.profilePic == image.img.path){
+            fleet.profilePic = ''
+          }
+          if(fleet.coverPic == image.img.path){
+            fleet.coverPic = ''
+          }
+          fleet.save((err) => {
+            if(err){
+              let msg = {
+                success: false,
+                msg: err.message
+              }
+              return callback(msg)
+            }
+          })
+          unlinkImage(image, false, callback)
+        }
+      })
     }
   })
 }
