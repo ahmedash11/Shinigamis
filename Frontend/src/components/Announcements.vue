@@ -10,7 +10,9 @@
       <div class="col-lg-12 col-md-12 col-sm-12" v-for="Ann in Announcement">
         <!-- Wrapper for slides -->
         <div class="crop" style="max-width:100%; max-height:100%;">
-          <img src="/static/images/rms.jpg" alt="Image">
+          <img v-if="Ann.profileimg.path" :src="url+Ann.profileimg.path.replace('public','')">
+            <img src="/static/images/rms.jpg" v-else>
+            <h2>{{Ann.createdAt}}</h2>
         </div>
 
         <div class="slide-content">
@@ -34,18 +36,40 @@ export default {
   data() {
     return {
       Announcement: [],
-
+      url: ''
     }
   },
   created() {
     this.getAnnouncements()
+    this.url=env.URL
   },
   methods: {
     // Send a request to the login URL and save the returned JWT
     getAnnouncements: function() {
       this.$http.get(env.URL + '/admin/getAnnouncements').then(data => {
-        this.Announcement = data.data.data.announcements
+        this.announcements = data.data.data.announcements
+        this.announcements.sort(function(a, b) {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
+        for (var i = 0; i < this.announcements.length; i++) {
+          this.announcements[i].createdAt = this.formatDate(this.announcements[i].createdAt)
+        }
       })
+    },
+    formatDate: function(date) {
+      var date = new Date(date)
+      var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+      ];
+
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+
+      return day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
   }
 }

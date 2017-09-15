@@ -15,6 +15,9 @@
           <div class="crop" style="max-width:100%; max-height:100%;">
             <img v-if="announcement.profileimg.path" :src="url+announcement.profileimg.path.replace('public','')">
             <img src="/static/images/rms.jpg" v-else>
+            <h2>
+              {{announcement.createdAt}}
+            </h2>
           </div>
 
           <div class="slide-content">
@@ -22,9 +25,7 @@
             <p>
               {{announcement.content}}
             </p>
-            <p>
-              {{announcement.createdAt}}
-            </p>
+            
             <i id="bin" class="glyphicon glyphicon-trash" @click="removeAnnouncement(announcement._id)"></i>
 
             <hr>
