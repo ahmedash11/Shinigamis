@@ -4,16 +4,16 @@ var multer = require('multer');
 var crypto = require('crypto');
 var path = require('path');
 var storage = multer.diskStorage({ // Specifying storage path for images
-  destination: './public/uploads/',
-  filename(req, file, cb) {
-    crypto.pseudoRandomBytes(16, (err, raw) => {
-      if (err) return cb(err);
-      cb(null, raw.toString('hex') + path.extname(file.originalname));
-    });
-  },
+    destination: './public/uploads/',
+    filename(req, file, cb) {
+        crypto.pseudoRandomBytes(16, (err, raw) => {
+            if (err) return cb(err);
+            cb(null, raw.toString('hex') + path.extname(file.originalname));
+        });
+    },
 });
 
-var upload = multer({storage,});
+var upload = multer({ storage, });
 
 // Controllers
 
@@ -34,6 +34,7 @@ var Image = require('../models/image');
 var Client = require('../models/client.js');
 var Award = require('../models/award.js');
 var Announcement = require('../models/announcement.js');
+var Fleet = require('../models/fleet.js');
 
 
 // Routes for admin user
@@ -70,7 +71,7 @@ router.post('/addClient', upload.single('avatar'), clientController.addClient, c
 
 router.post('/deleteClient', clientController.deleteClient); // Delete an existing client
 
-router.post('/updateClient', upload.single('avatar'),clientController.updateClient, clientController.updateClientImage); // Update an existing client
+router.post('/updateClient', upload.single('avatar'), clientController.updateClient, clientController.updateClientImage); // Update an existing client
 
 router.post('/addProject', historyProjectController.addProject); // Add a new project
 
@@ -92,7 +93,7 @@ router.post('/deletePosition', positionController.deletePosition);
 
 router.post('/offerPosition', positionController.offerPosition);
 
-router.post('/addAnnouncement', upload.single('avatar'),announcementController.addAnnouncement, announcementController.uploadAnnouncementImage);
+router.post('/addAnnouncement', upload.single('avatar'), announcementController.addAnnouncement, announcementController.uploadAnnouncementImage);
 
 router.get('/getAnnouncements', announcementController.findAllAnnouncements);
 
@@ -101,54 +102,77 @@ router.post('/deleteAnnouncement', announcementController.deleteAnnouncement);
 router.post('/updateContactUs', aboutUsController.updateContactUs); // Update contact us
 
 router.post('/upload', upload.array('avatar'), (req, res) => {
-  for (var i = 0; i < req.files.length; i++) {
-    var image = new Image({
-      fleet_id: req.body.fleet_id.substring(0),
-    });
 
-    image.img.name = req.files[i].filename;
-    image.img.path = req.files[i].path;
-    image.img.size = req.files[i].size;
+    Fleet.findOneAndUpdate({
+        _id: req.body.fleet_id.substring(0)
+    }, {
+        $set: {
+            coverPic: req.files[0].path,
+            profilePic: req.files[0].path
+        }
+    }, {
+        new: true,
+        upsert: false
+    }, (err) => {
+        if (err) {
+            res.status(500).json({
+                msg: err.message
+            })
+        } else {
+            for (var i = 0; i < req.files.length; i++) {
+                var image = new Image({
+                    fleet_id: req.body.fleet_id.substring(0),
+                });
 
-    image.save((err) => {
-      if (err) {
-        return res.status(500).json({
-          msg: err.message
-        })
-      }
-    });
-  }
+                image.img.name = req.files[i].filename;
+                image.img.path = req.files[i].path;
+                image.img.size = req.files[i].size;
 
-  res.status(200).json({
-    msg: 'Pictue(s) added successfully'
-  })
+                image.save((err) => {
+                    if (err) {
+                        return res.status(500).json({
+                            msg: err.message
+                        })
+                    }
+                });
+            }
+            res.status(200).json({
+                msg: "Pictures Posted successfully"
+            })
+        }
+    })
+
+
+    // res.status(200).json({
+    //   msg: 'Pictue(s) added successfully'
+    // })
 
 });
 
-router.post('/AwardImage', upload.single('avatar'),awardController.uploadAwardImage);
+router.post('/AwardImage', upload.single('avatar'), awardController.uploadAwardImage);
 
 
 router.post('/AnnouncementImage', upload.single('avatar'), (req, res) => {
-  Announcement.findById(req.body.user_id, function(error, announcement) {
-    if (error)
-      console.log(error)
-    else {
-      announcement.profileimg.name = req.file.filename;
-      announcement.profileimg.path = req.file.path;
-      announcement.profileimg.size = req.file.size;
-      announcement.save((err) => {
-        if (err) {
-          res.status(500).json({
-            msg: err.message
-          })
-        } else {
-          res.status(200).json({
-            msg: 'Pictue(s) added successfully'
-          })
-         }
-      });
-    }
-  });
+    Announcement.findById(req.body.user_id, function(error, announcement) {
+        if (error)
+            console.log(error)
+        else {
+            announcement.profileimg.name = req.file.filename;
+            announcement.profileimg.path = req.file.path;
+            announcement.profileimg.size = req.file.size;
+            announcement.save((err) => {
+                if (err) {
+                    res.status(500).json({
+                        msg: err.message
+                    })
+                } else {
+                    res.status(200).json({
+                        msg: 'Pictue(s) added successfully'
+                    })
+                }
+            });
+        }
+    });
 });
 
 module.exports = router;

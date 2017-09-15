@@ -4,7 +4,7 @@
   <section id="one" class="spotlight spot style1 left" style="background-size: 100%;" v-if="this.home">
     <header id="header">
       <h1 id="logo">
-      <img src="/static/images/logo1.png" class="rounded" align="left">
+      <img src="/static/images/1Edit.png" class="rounded" align="left">
     </h1>
 
       <nav id="nav">
@@ -18,7 +18,12 @@
             </ul>
           </li>
           <li>
-            <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
+          <a><i class="fa fa-info fa-2x" aria-hidden="true"></i></a>
+          <ul>
+              <li>
+            <router-link to="/aboutUs">About Us</router-link>
+          </li>
+          </ul>
           </li>
           <li>
             <a><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
@@ -43,13 +48,25 @@
             </ul>
           </li>
 
-          <li>
-            <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
+          
+             <li>
+            <a><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/awards">Awards</router-link>
+              </li>
+            </ul>
           </li>
           <li>
-            <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
+           <a><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a>
+           <ul>
+          <li>
+            <router-link to="/apply">Positions</router-link>
+          </li>
+          </ul>
           </li>
           <li>
+
             <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
           </li>
           <li>
@@ -76,10 +93,6 @@
 
       <br>
       <br>
-      <br>
-      <br>
-      <br>
-      <br>
 
       <center>
         <h2 id="Welcome">Welcome to Rashied Maritime!</h2>
@@ -93,11 +106,16 @@
   <section id="one" class="spotlight style1 left" v-if="!this.home">
     <header id="header">
 
-      <img src="/static/images/logo1.png" class="rounded" align="center">
+      <img src="/static/images/1Edit.png" class="rounded" align="center">
       <nav id="nav">
         <ul>
           <li>
-            <router-link to="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/">Home</router-link>
+              </li>
+            </ul>
           </li>
           <li>
             <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
@@ -129,7 +147,7 @@
             <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
           </li>
           <li>
-            <router-link to="/positions"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
+            <router-link to="/apply"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
           </li>
           <li>
             <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
@@ -246,9 +264,7 @@ export default {
     // To log out, we just need to remove the token
     logout: function() {
       auth.logout();
-      this.$router.push({
-        path: this.$route.fullPath.replace('/admin', '')
-      })
+
     },
   },
   created() {
@@ -275,7 +291,7 @@ export default {
 #Welcome {
   font-family: 'Raleway', sans-serif;
   font-size: 45px;
-  color: #fff;
+  color: #000;
   font-weight: 600;
 }
 

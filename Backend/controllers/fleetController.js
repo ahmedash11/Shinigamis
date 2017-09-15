@@ -40,7 +40,8 @@ var fleetController = {
             fireFighting: req.body.fireFighting,
             mooringSystem: req.body.mooringSystem,
             helideck: req.body.helideck,
-            images: req.body.images
+            profilePic:"/../public/static/images/OceanDrum.jpg",
+            coverPic:"/../public/static/images/OceanDrum.jpg",
           });
 
           newFleet.save((err, fleet) => {

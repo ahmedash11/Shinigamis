@@ -83,7 +83,7 @@ export default new Router({
       name: 'Positions',
       component: Positions
     }, {
-      path: '/apply/:position',
+      path: '/apply',
       name: 'Application',
       component: Application
     }, {

@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
               <label>Position</label>
-              <input readonly type="text" class="form-control" v-model="position" required>
+              <input type="text" class="form-control" v-model="position" required>
             </div>
             <div class="form-group">
               <label>Email</label>
@@ -75,9 +75,6 @@ export default {
       formData: [],
       loading: false
     }
-  },
-  created() {
-    this.position = this.$route.params.position
   },
   methods: {
     upload: function(fieldName, fileList) {

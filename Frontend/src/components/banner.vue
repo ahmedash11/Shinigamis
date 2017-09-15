@@ -18,9 +18,6 @@
 
     <div class="content">
       <header>
-        <div class="crop">
-          <img src="/static/images/OceanDrum.jpg" class="rounded" />
-        </div>
         <h2>Fleets</h2>
         <router-link to="/fleetsPage"><button class="button special">Check Our Fleets
         </button></router-link>
@@ -45,6 +42,7 @@ export default {
 <style scoped>
 .three1:before {
   background-position: center;
+  background-attachment: fixed;
   background-image: url(../../static/images/RazzoGee.jpg);
   background-size: cover;
   position: relative
@@ -52,6 +50,7 @@ export default {
 
 .three2:before {
   background-position: center;
+  background-attachment: fixed;
   background-image: url(../../static/images/Maha.jpg);
   background-size: cover;
   position: relative

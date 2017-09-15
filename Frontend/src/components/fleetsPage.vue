@@ -11,7 +11,7 @@
 
       <carousel-3d :inverse-scaling="1500" :space="800" :controls-visible="true" :startIndex="1">
         <slide v-for="(fleet, i) in fleets" :index="i" :key="i">
-          <img src="/static/images/OceanDrum.jpg" class="imgcarousel"></img>
+           <img :src="url + fleet.profilePic.replace('public','')" class="imgcarousel"></img>
           <router-link :to="{ name : 'FleetProfilePage' , params: { fleetId : fleet._id }}">
             <h3>{{fleet.name}}</h3>
           </router-link>
@@ -35,10 +35,12 @@ export default {
   data() {
     return {
       fleets: [],
+      url:""
     }
   },
   created() {
     this.fetchFleets()
+    this.url = env.URL
   },
   updated() {
     $('.carousel-3d-container').css("height", "273px")
