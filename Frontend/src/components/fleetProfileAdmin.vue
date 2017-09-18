@@ -316,7 +316,7 @@ export default {
 
     addPic: function() {
       this.formData.append("fleet_id", this.fleet._id)
-      this.$http.post(env.URL + '/admin/upload', this.formData, {
+      this.$http.post(env.URL + '/admin/addImage', this.formData, {
         headers: auth.getAuthHeader()
       }).then(response => {
         $("#addPic").modal('hide');

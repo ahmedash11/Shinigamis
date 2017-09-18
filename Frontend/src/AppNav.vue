@@ -18,12 +18,12 @@
             </ul>
           </li>
           <li>
-          <a><i class="fa fa-info fa-2x" aria-hidden="true"></i></a>
-          <ul>
+            <a><i class="fa fa-info fa-2x" aria-hidden="true"></i></a>
+            <ul>
               <li>
-            <router-link to="/aboutUs">About Us</router-link>
-          </li>
-          </ul>
+                <router-link to="/aboutUs">About Us</router-link>
+              </li>
+            </ul>
           </li>
           <li>
             <a><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
@@ -48,8 +48,8 @@
             </ul>
           </li>
 
-          
-             <li>
+
+          <li>
             <a><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></a>
             <ul>
               <li>
@@ -58,16 +58,20 @@
             </ul>
           </li>
           <li>
-           <a><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a>
-           <ul>
-          <li>
-            <router-link to="/apply">Positions</router-link>
+            <a><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/apply">Positions</router-link>
+              </li>
+            </ul>
           </li>
-          </ul>
-          </li>
           <li>
-
-            <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/announcements">Announcements</router-link>
+              </li>
+            </ul>
           </li>
           <li>
             <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
@@ -103,10 +107,12 @@
     <a href="#two" class="goto-next scrolly"></a>
   </section>
 
-  <section id="one" class="spotlight style1 left" v-if="!this.home">
+  <section id="one" class="spotlight style1 left" style="background-size: 100%;" v-if="!this.home">
     <header id="header">
+      <h1 id="logo">
+      <img src="/static/images/1Edit.png" class="rounded" align="left">
+    </h1>
 
-      <img src="/static/images/1Edit.png" class="rounded" align="center">
       <nav id="nav">
         <ul>
           <li>
@@ -118,10 +124,15 @@
             </ul>
           </li>
           <li>
-            <router-link to="/aboutUs"><i class="fa fa-info fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-info fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/aboutUs">About Us</router-link>
+              </li>
+            </ul>
           </li>
           <li>
-            <a muted><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
+            <a><i class="fa fa-ship fa-2x" aria-hidden="true"></i></a>
             <ul>
               <li>
                 <router-link to="/services">Services</router-link>
@@ -143,14 +154,30 @@
             </ul>
           </li>
 
+
           <li>
-            <router-link to="/awards"><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-trophy fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/awards">Awards</router-link>
+              </li>
+            </ul>
           </li>
           <li>
-            <router-link to="/apply"><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/apply">Positions</router-link>
+              </li>
+            </ul>
           </li>
           <li>
-            <router-link to="/announcements"><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></router-link>
+            <a><i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i></a>
+            <ul>
+              <li>
+                <router-link to="/announcements">Announcements</router-link>
+              </li>
+            </ul>
           </li>
           <li>
             <a><i class="fa fa-phone fa-2x" aria-hidden="true"></i></a>
@@ -174,7 +201,16 @@
         </ul>
       </nav>
 
+      <br>
+      <br>
+
+      <center>
+
+      </center>
+
     </header>
+
+
 
   </section>
 
@@ -321,7 +357,7 @@ img {
 }
 
 img {
-  max-width: 100%;
+  max-width: 55%;
   border: none;
 }
 

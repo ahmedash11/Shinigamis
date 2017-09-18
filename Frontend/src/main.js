@@ -23,7 +23,7 @@ import './assets/css/slick-theme.css'
 // Scripts
 //import './assets/js/jquery.min.js'
 //import './assets/js/jquery.scrolly.min.js'
-//import './assets/js/jquery.dropotron.min.js'
+//import '../static/js/jquery.dropotron.min.js'
 //import './assets/js/jquery.scrollex.min.js'
 //import './assets/js/jquery.prettyPhoto.js'
 //import './assets/js/skel.min.js'

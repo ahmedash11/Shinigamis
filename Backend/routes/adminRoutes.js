@@ -149,6 +149,35 @@ router.post('/upload', upload.array('avatar'), (req, res) => {
 
 });
 
+router.post('/addImage', upload.array('avatar'), (req, res) => {
+
+
+            for (var i = 0; i < req.files.length; i++) {
+                var image = new Image({
+                    fleet_id: req.body.fleet_id.substring(0),
+                });
+
+                image.img.name = req.files[i].filename;
+                image.img.path = req.files[i].path;
+                image.img.size = req.files[i].size;
+
+                image.save((err) => {
+                    if (err) {
+                        return res.status(500).json({
+                            msg: err.message
+                        })
+                    }
+                });
+            }
+            res.status(200).json({
+                msg: "Pictures Posted successfully"
+            })
+    // res.status(200).json({
+    //   msg: 'Pictue(s) added successfully'
+    // })
+
+});
+
 router.post('/AwardImage', upload.single('avatar'), awardController.uploadAwardImage);
 
 
