@@ -9,8 +9,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var OfflinePlugin = require('offline-plugin');
-var PurifyCSSPlugin = require('purifycss-webpack');
-var glob = require("glob-all");
 
 var env = config.build.env
 
@@ -95,8 +93,20 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.ModuleConcatenationPlugin(),
     //Offline Plugin
     new OfflinePlugin({
+      caches: {
+        main: [
+          '/',
+          ':rest:'
+        ]
+      },
+      externals: ['/'],
       ServiceWorker: {
         navigateFallbackURL: '/'
+      },
+      AppCache: {
+        FALLBACK: {
+          '/': '/offline-page.html'
+        }
       }
     })
   ]

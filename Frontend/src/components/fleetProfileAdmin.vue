@@ -63,7 +63,7 @@
             </tr>
             <tr>
               <td>Accomodation</td>
-              <td><input type="text" v-model="fleet.accomodation"></td>
+              <td><input type="text" v-model="fleet.accomandation"></td>
             </tr>
             <tr>
               <td>Flag</td>

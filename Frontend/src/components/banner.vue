@@ -5,7 +5,17 @@
 
     <div class="content">
       <header>
-        <h2>Learn more about our Company</h2>
+        <h1 id="logo">
+      <img src="/static/images/1Edit.png" class="rounded" align="left">
+    </h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <h3>Learn more about our Company</h3>
         <router-link to="/aboutUs"><button class="button special">About Us
         </button></router-link>
       </header>
@@ -43,7 +53,7 @@ export default {
 .three1:before {
   background-position: center;
   background-attachment: fixed;
-  background-image: url(../../static/images/RazzoGee.jpg);
+  background-image: url(../../static/images/OceanoGee.jpg);
   background-size: cover;
   position: relative
 }
@@ -51,7 +61,7 @@ export default {
 .three2:before {
   background-position: center;
   background-attachment: fixed;
-  background-image: url(../../static/images/Maha.jpg);
+  background-image: url(../../static/images/RazzoGee1.jpg);
   background-size: cover;
   position: relative
 }
@@ -63,6 +73,14 @@ export default {
   transform: translate(0, 0);
   transition: transform 1s ease, opacity 1s ease;
   background: rgba(23, 24, 32, 0.5);
+}
+
+.spotlight.left .content,
+.spotlight.right .content {
+  height: 101%;
+  padding: 6em 3em;
+  top: 0;
+  width: 24em;
 }
 
 #Welcome {

@@ -1,14 +1,14 @@
 {
   "name": "shinigamis",
   "version": "1.0.0",
-  "description": "Rashied Application",
+  "description": "MEAN Stack application",
   "main": "server.js",
   "scripts": {
     "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": "*"
+    "node": "7.5.0"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",

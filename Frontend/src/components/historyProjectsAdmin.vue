@@ -35,7 +35,11 @@
               <td><select name="clientName" id="clientName" v-model="clientName">
                 <option disabled value="">Client Name</option>
                 <option :value="client.name" v-for="client in clients">{{client.name}}</option>
-              </select></td>
+                <option value="Other">Other</option>
+              </select>
+                <div id="other">
+                </div>
+              </td>
               <td><button class="button special" v-on:click="addProject()">+</button></td>
             </tr>
           </tbody>
@@ -61,6 +65,16 @@ export default {
       name: '',
       unit: '',
       clientName: ''
+    }
+  },
+  watch: {
+    clientName: function(val) {
+      if (this.val = "Other") {
+        document.getElementById('other').innerHTML = 'Other: <input type="text" name="other" />';
+      } else {
+        document.getElementById('other').innerHTML = '';
+        $('#other').css("display", "none")
+      }
     }
   },
   methods: {
@@ -206,12 +220,13 @@ export default {
   max-width: 100%;
 }
 
-article.special, section.special {
-    text-align: left; 
-    padding-left: 2.55em;
+article.special,
+section.special {
+  text-align: left;
+  padding-left: 2.55em;
 }
 
-h3{
-text-align: center;
+h3 {
+  text-align: center;
 }
 </style>

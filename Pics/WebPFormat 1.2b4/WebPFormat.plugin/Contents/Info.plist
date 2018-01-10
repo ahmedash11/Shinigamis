@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>WebPFormat</string>
+	<key>CFBundleGetInfoString</key>
+	<string>WebPFormat plugin 1.2b4
+Copyright (C) Telegraphics Pty Ltd 2010-2011.
+libvpx is Copyright (c) 2010-2011, Google Inc. All rights reserved.</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.telegraphics.WebPFormat</string>
+	<key>CFBundleName</key>
+	<string>WebPFormat</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.2b4</string>
+	<key>CFBundleVersionString</key>
+	<string>1.2b4</string>
+	<key>CFBundleSignature</key>
+	<string>8BIM</string>
+	<key>CFBundlePackageType</key>
+	<string>8BIF</string>
+</dict>
+</plist>

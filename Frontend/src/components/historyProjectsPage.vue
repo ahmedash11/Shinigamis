@@ -5,7 +5,7 @@
   <section id="four" class="wrapper style1 special fade-up">
     <div class="container">
       <header class="major">
-        <h2>History Projects</h2>
+        <h2>Projects</h2>
       </header>
 
 
@@ -13,9 +13,9 @@
         <table>
           <thead>
             <tr>
-              <th>Contracts Name & No.</th>
+              <th>Contracts Name</th>
               <th>Marine Units</th>
-              <th>Title of the Client</th>
+              <th>Client Name</th>
             </tr>
           </thead>
           <tbody>
@@ -63,7 +63,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-article.special, section.special {
-    text-align: left; 
+article.special,
+section.special {
+  text-align: left;
 }
 </style>
