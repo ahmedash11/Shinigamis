@@ -61,7 +61,7 @@
             <a><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a>
             <ul>
               <li>
-                <router-link to="/apply">Positions</router-link>
+                <router-link to="/apply">Apply Now</router-link>
               </li>
             </ul>
           </li>
@@ -87,10 +87,10 @@
           <li v-if="this.user.authenticated">
             <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
           </li>
-          <li v-if="!this.user.authenticated">
+          <li v-if="!this.user.authenticated && this.secretlogin">
             <a @click="openNav"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
           </li>
-          <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+          <li v-else-if="this.user.authenticated"> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
           </li>
         </ul>
       </nav>
@@ -167,7 +167,7 @@
             <a><i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a>
             <ul>
               <li>
-                <router-link to="/apply">Positions</router-link>
+                <router-link to="/apply">Apply Now</router-link>
               </li>
             </ul>
           </li>
@@ -193,10 +193,10 @@
           <li v-if="this.user.authenticated">
             <router-link to="/admin"><i class="fa fa-tachometer fa-2x" aria-hidden="true"></i></router-link>
           </li>
-          <li v-if="!this.user.authenticated">
+          <li v-if="!this.user.authenticated && this.secretlogin">
             <a @click="openNav"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
           </li>
-          <li v-else> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+          <li v-else-if="this.user.authenticated"> <a @click="logout"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
           </li>
         </ul>
       </nav>
@@ -253,6 +253,7 @@ export default {
       email: "",
       password: "",
       user: auth.user,
+      secretlogin:false,
       home: true
     }
   },
@@ -279,10 +280,7 @@ export default {
         }
         auth.login(data)
         this.closeNav();
-        this.$router.push({
-          path: '/admin' + this.$route.fullPath
-        })
-      }).catch((error) => {
+           }).catch((error) => {
         if (error.body.msg instanceof String || typeof error.body.msg === "string") {
           swal(
             'Oops...',
@@ -316,6 +314,11 @@ export default {
       this.home = true
     } else {
       this.home = false
+    }
+    if (this.$route.path === '/secretLogin') {
+      this.secretlogin = true
+    } else {
+      this.secretlogin = false
     }
 
   }

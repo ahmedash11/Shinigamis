@@ -7,7 +7,7 @@
     </header>
     <!-- Begin of rows -->
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12" v-for="Ann in Announcement">
+      <div class="col-lg-12 col-md-12 col-sm-12" v-for="Ann in announcements">
         <!-- Wrapper for slides -->
         <div class="crop" style="max-width:100%; max-height:100%;">
           <img v-if="Ann.profileimg.path" :src="url+Ann.profileimg.path.replace('public','')">
@@ -35,7 +35,7 @@ export default {
   name: 'Announcements',
   data() {
     return {
-      Announcement: [],
+      announcements: [],
       url: ''
     }
   },
@@ -48,6 +48,7 @@ export default {
     getAnnouncements: function() {
       this.$http.get(env.URL + '/admin/getAnnouncements').then(data => {
         this.announcements = data.data.data.announcements
+        console.log(this.announcements)
         this.announcements.sort(function(a, b) {
           return new Date(b.createdAt) - new Date(a.createdAt);
         })

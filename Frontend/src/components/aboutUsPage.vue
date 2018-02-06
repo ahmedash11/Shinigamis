@@ -6,7 +6,7 @@
 
 
       <input id="tab1" type="radio" name="tabs" checked>
-      <label for="tab1"><span>Chairman Message</span></label>
+      <label for="tab1"><span>Founder Message</span></label>
 
       <input id="tab2" type="radio" name="tabs">
       <label for="tab2"><span>Our Organization Chart</span></label>
@@ -21,7 +21,7 @@
             <div class="row">
               <div class="4u 12u$(medium)">
                 <header>
-                  <h2>Chairman Message</h2>
+                  <h2>Founder Message</h2>
 
                 </header>
                 <img src="/static/images/signature-pic.jpg">
@@ -49,7 +49,7 @@
               <header>
                 <h2>Organization Chart</h2>
               </header>
-              <img src="/static/images/teama.png">
+              <img src="/static/images/Diagram.png">
             </div>
           </div>
         </div>

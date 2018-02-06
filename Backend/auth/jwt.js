@@ -32,7 +32,7 @@ module.exports = {
         }
 
         if (isMatch) {
-          var token = jwt.sign(admin, secret)
+          var token = jwt.sign(admin.toJSON(), secret)
           let msg = {
             success: true,
             data: {

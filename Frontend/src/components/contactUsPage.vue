@@ -2,7 +2,7 @@
 <div class="contactUsPage">
 
   <!-- Four -->
-  <section id="four" class="wrapper style1 special fade-up">
+  <section  class="wrapper style1 special fade-up">
     <div class="container">
       <header class="major">
         <h2>Contact Us</h2>
@@ -107,4 +107,5 @@ padding-left: 2.55em;
 .td{
   text-align: right;
 }
+
 </style>

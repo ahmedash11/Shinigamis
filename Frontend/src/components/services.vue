@@ -31,6 +31,7 @@
               <div class="4u 12u$(medium)">
                 <h3> We Provide The Following Services: </h3>
                 <p>
+
                   <ul>
                     <li>
                       <p>Performing ocean and costal towage operations.</p>
@@ -42,13 +43,13 @@
                       <p>Fabrication and installation of offshore light steel structure.</p>
                     </li>
                     <li>
-                      <p>Pollution - Oil recovery operations.</p>
+                      <p>Anti-Pollution - Oil recovery operations.</p>
                     </li>
                     <li>
                       <p>Fire-Fighting operations.</p>
                     </li>
                     <li>
-                      <p>Salvage operations.</p>
+                      <p>Salvage operations and Safety stand-by boats.</p>
                     </li>
 
                   </ul>
@@ -59,6 +60,7 @@
                 <h3>We provide the following chartering services:</h3>
                 <p>
                   <ul>
+
                     <li>
                       <p>Anchor handling, Tug and supply boats.</p>
                     </li>
@@ -76,6 +78,9 @@
                     </li>
                     <li>
                       <p>Crew utility boats.</p>
+                    </li>
+                     <li>
+                      <p>Fast crew boats.</p>
                     </li>
 
                   </ul>

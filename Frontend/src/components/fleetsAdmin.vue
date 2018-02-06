@@ -13,7 +13,7 @@
         <div class="row uniform">
 
           <section class=" 4u 6u(medium) 12u$(xsmall) " v-for="fleet in fleets">
-            <img src="/static/images/OceanDrum.jpg"></img>
+            <img :src="url + fleet.profilePic.replace('public','')" ></img>
             <router-link :to="{ name : 'FleetProfileAdmin' , params: { fleetId : fleet._id }}">
               <h3>{{fleet.name}}</h3>
             </router-link>
@@ -45,12 +45,13 @@ export default {
   data() {
     return {
       fleets: [],
-
+      url : ""
 
     }
   },
   created() {
     this.fetchFleets()
+    this.url = env.URL
   },
   methods: {
     // Send a request to the login URL and save the returned JWT

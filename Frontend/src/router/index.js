@@ -53,7 +53,8 @@ var AddFleet = () => import('@/components/AddFleet.vue')
 var Positions = () => import('@/components/positions.vue')
 //import Announcements from '@/components/Announcements.vue'
 var Announcements = () => import('@/components/Announcements.vue')
-
+// //import login from '@/components/login.vue'
+// var Login = () => import('@/components/login.vue')
 
 
 
@@ -67,6 +68,10 @@ export default new Router({
   base: __dirname,
   routes: [{
       path: '/',
+      name: 'HomePage',
+      component: HomePage
+    },{
+      path: '/secretLogin',
       name: 'HomePage',
       component: HomePage
     }, {
